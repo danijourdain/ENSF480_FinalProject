@@ -1,0 +1,101 @@
+DROP DATABASE IF EXISTS `Theater`;
+CREATE DATABASE `Theater`;
+USE Theater;
+
+CREATE TABLE User_ 
+(
+    Email   VARCHAR(32) NOT NULL,
+    Name_   VARCHAR(30) NOT NULL,
+    Password_ VARCHAR(32) NOT NULL,
+    UserType VARCHAR(10) NOT NULL,
+    PRIMARY KEY(Email)
+);
+
+CREATE TABLE Registered 
+(
+    Email   VARCHAR(32) NOT NULL,
+    Address_ VARCHAR(250) NOT NULL,
+    CreditCard INT NOT NULL,
+    PRIMARY KEY(Email),
+    FOREIGN KEY(Email) REFERENCES User_(Email)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Guest 
+(
+    Email   VARCHAR(32) NOT NULL,
+    PRIMARY KEY(Email),
+    FOREIGN KEY(Email) REFERENCES User_(Email)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Admin 
+(
+    Email   VARCHAR(32) NOT NULL,
+    PRIMARY KEY(Email),
+    FOREIGN KEY(Email) REFERENCES User_(Email)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Credit
+(
+    ID INT AUTO_INCREMENT NOT NULL,
+    Email VARCHAR(32) NOT NULL,
+    ExpirationDate DATE NOT NULL,
+    Amount INT NOT NULL,
+    PRIMARY KEY(ID, Email),
+    FOREIGN KEY(Email) REFERENCES User_(Email)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABlE MovieTheater
+(
+    Name_ VARCHAR(32) NOT NULL,
+    Address_ VARCHAR(250) NOT NULL,
+    PRIMARY KEY(Name_)
+);
+
+CREATE TABLE TheaterRoom
+(
+    RNumber INT NOT NULL,
+    Capacity INT NOT NULL,
+    TheaterName VARCHAR(32) NOT NULL,
+    PRIMARY KEY(RNumber, TheaterName),
+    FOREIGN KEY(TheaterName) REFERENCES MovieTheater(Name_)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABlE Movie
+(
+    Title VARCHAR(32) NOT NULL,
+    Duration INT NOT NULl,
+    Rating VARCHAR(5) NOT NULL,
+    PRIMARY KEY(Title)
+);
+
+CREATE TABLE Showtime 
+(
+    MTitle VARCHAR(32) NOT NULL,
+    RNumber INT NOT NULL,
+    TName VARCHAR(32) NOT NULL,
+    DateTime_ DATETIME NOT NULL,
+    PRIMARY KEY(DateTime_, MTitle, RNumber, TName),
+    FOREIGN KEY(MTitle) REFERENCES Movie(Title)
+    ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(RNumber, TName) REFERENCES TheaterRoom(RNumber, TheaterName)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Ticket 
+(
+    No_ INT NOT NULL,
+    MTitle VARCHAR(32) NOT NULL,
+    DateTime_ DATETIME NOT NULL,
+    RNumber INT NOT NULL,
+    TName VARCHAR(32) NOT NULL,
+    Price INT NOT NULL,
+    Email VARCHAR(32) NOT NULL,
+    PRIMARY KEY(No_, MTitle, DateTime_, RNumber, TName),
+    FOREIGN KEY(MTitle, DateTime_, RNumber, TName) REFERENCES Showtime(MTitle, DateTime_, RNumber, TName)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
