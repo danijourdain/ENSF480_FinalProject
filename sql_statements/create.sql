@@ -1,32 +1,32 @@
 DROP DATABASE IF EXISTS `Theater`;
 CREATE DATABASE `Theater`;
 USE Theater;
-CREATE TABLE Base_User(
+CREATE TABLE GenericUser(
     Email   VARCHAR(320) NOT NULL,
     Fname  VARCHAR(30) NOT NULL,
     Lname  VARCHAR(30) NOT NULL,
-    Password_ VARCHAR(32) NOT NULL,
+    `Password_` VARCHAR(32) NOT NULL,
     UserType VARCHAR(10) NOT NULL,
     PRIMARY KEY(Email)
 );
-CREATE TABLE Registered_User(
+CREATE TABLE RegisteredUser(
     Email   VARCHAR(320) NOT NULL,
     StAddress VARCHAR(400) NOT NULL,
     CreditCard CHAR(16) NOT NULL,
     PRIMARY KEY(Email),
-    FOREIGN KEY(Email) REFERENCES Base_User(Email)
+    FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE TABLE Guest_User(
+CREATE TABLE GuestUser(
     Email   VARCHAR(320) NOT NULL,
     PRIMARY KEY(Email),
-    FOREIGN KEY(Email) REFERENCES Base_User(Email)
+    FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE Admin_User(
     Email   VARCHAR(320) NOT NULL,
     PRIMARY KEY(Email),
-    FOREIGN KEY(Email) REFERENCES Base_User(Email)
+    FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE Credit(
@@ -35,7 +35,7 @@ CREATE TABLE Credit(
     ExpiryDate DATE NOT NULL,
     Amount INT NOT NULL,
     PRIMARY KEY(ID, Email),
-    FOREIGN KEY(Email) REFERENCES Base_User(Email)
+    FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABlE MovieTheater(
