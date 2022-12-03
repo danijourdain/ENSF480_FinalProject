@@ -73,9 +73,9 @@ public class LoginRegisterManager extends Manager {
      * @throws SQLException If something goes wrong with SQL for no apparent reason :)
      */
     public User RegisterNewAccount(String email, String fname, String lname, String password) 
-    throws SQLException, PasswordTooLongException, UserAlreadyExistsException{
+    throws SQLException{
         if(password.length() > 32){
-            throw new PasswordTooLongException();
+            throw new SQLException();
         }
         Connection connection = Database.getConnection();
         try(PreparedStatement EMAIL_QUERY = connection.prepareStatement("SELECT Email FROM GenericUser WHERE Email= ?");){
@@ -106,7 +106,7 @@ public class LoginRegisterManager extends Manager {
                 }
             }
             else{
-                throw new UserAlreadyExistsException();
+                throw new SQLException();
             }
         }catch(SQLException e){
             System.out.println("An error occurred while trying to create this user");
