@@ -25,8 +25,9 @@ public class LoginControl{
         else{
             return new User()
         }
-        };
-    public static boolean RegisterUser(User u){
+    }
 
+    public static boolean RegisterUser(User u){
+        
     }
 }

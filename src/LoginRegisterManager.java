@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.time.*;
+
 /**
  * @author Carter Marcelo
  * control class to facilitate login/logout. Can store a single user variable at a time.
