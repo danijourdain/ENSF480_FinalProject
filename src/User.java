@@ -12,6 +12,22 @@ public class User{
         this.email = email;
         this.type = type;
     }
+    public User(String fname, String lname, String email, String type, ArrayList<Credit> credits){
+        this.credit = new ArrayList<>();
+        credit.addAll(credits);
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.type = type;
+    }
+    public User(User u){
+        this.fname = u.fname;
+        this.lname = u.lname;
+        this.email = u.email;
+        this.type = u.type;
+        this.credit = new ArrayList<>();
+        credit.addAll(u.credit);
+    }
     public String getEmail(){
         return this.email;
     }

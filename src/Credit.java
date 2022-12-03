@@ -13,6 +13,14 @@ public class Credit{
         if(expiryDate.isBefore(LocalDate.now())) hasExpired = true;
         else hasExpired = false;
     }
+    public Credit(LocalDate issueDate, int amount){
+        this.issueDate = issueDate;
+        this.expiryDate = issueDate.plusYears(1);
+        this.amount = amount;
+        this.id = 0;
+        if(expiryDate.isBefore(LocalDate.now())) hasExpired = true;
+        else hasExpired = false;
+    }
     public boolean hasExpired(){
         return this.hasExpired;
     }
