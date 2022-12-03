@@ -54,7 +54,7 @@ public class LoginRegisterManager extends Manager {
                         }
                     }
                 }else{
-                    u.addCredit(new Credit(issueDate, amount, id));
+                    u.addCredit(issueDate, amount, id);
                 }
             }
             return u; //create new user object based on the data retrieved to represent the current user.

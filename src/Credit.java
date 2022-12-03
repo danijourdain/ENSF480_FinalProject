@@ -30,10 +30,9 @@ public class Credit{
         this.issueDate = src.issueDate;
         this.expiryDate = src.expiryDate;
         this.amount = src.amount;
-        this.id = -1;
-        this.hasExpired = false;
+        this.id = src.id;
+        this.hasExpired = src.hasExpired;
     }
-
     public Credit(int amount) {
         issueDate = LocalDate.now();
         this.expiryDate = issueDate.plusYears(1);

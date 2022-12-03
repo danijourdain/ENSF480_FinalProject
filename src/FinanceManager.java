@@ -1,5 +1,8 @@
 import java.util.*;
-public class FinanceManager extends Manager {
+import java.sql.*;
+import java.util.Comparator;
+public class FinanceManager extends Manager{
+    private final Comparator<Credit> BY_ISSUE_DATE = Comparator.comparing(Credit::getIssueDate);
     private static FinanceManager instance;
     private final String CARD_REGEX ="^[0-9]{16}$";
     /**
@@ -27,4 +30,50 @@ public class FinanceManager extends Manager {
         }
         return instance;
     }
+    public boolean purchaseTicket(Ticket ticket, User user){
+        try{
+        Connection connection = Database.getConnection();
+         //abusing java's default shallow-copying of objects and containers
+        int price = ticket.getPrice();
+        ArrayList<Credit> userCredits = user.getCredits();
+        userCredits.sort(BY_ISSUE_DATE.reversed()); 
+        int i = userCredits.size()-1;
+        while(i >=0 && price > 0){
+            int amt = userCredits.get(i).getCreditAmount();
+            if(userCredits.get(i).hasExpired()){
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM Credit AS C WHERE C.ID = ?");
+                statement.setInt(1,userCredits.get(i).getID());
+                statement.executeUpdate();
+                userCredits.remove(i);
+            }
+            if(price - amt < 0){
+                userCredits.get(i).setCreditAmount(amt-price);
+                PreparedStatement statement = connection.prepareStatement("UPDATE Credit AS C SET C.Amount = ? WHERE C.ID = ?");
+                statement.setInt(2, userCredits.get(i).getID());
+                statement.setInt(1, userCredits.get(i).getCreditAmount());
+                statement.executeUpdate();
+                statement.close();
+                break;
+            }
+            if(price - amt >= 0){
+                userCredits.get(i).setCreditAmount(0);
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM Credit AS C WHERE C.ID = ?");
+                statement.setInt(1,userCredits.get(i).getID());
+                statement.executeUpdate();
+                statement.close();
+                userCredits.remove(i);
+                price -= amt;
+                }
+            i--;
+        }
+        }catch(Exception e){
+            e.printStackTrace();
+            Database.rollback();
+            return false;
+        }
+        return true;
+    }
+    public void issueRefund(Ticket ticket, User user, float adminFee){
+    }
+
 }
