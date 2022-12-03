@@ -6,7 +6,7 @@ import java.time.*;
  * control class to facilitate login/logout. Can store a single user variable at a time.
  *  
  */
-public class LoginRegisterManager{
+public class LoginRegisterManager extends Manager {
     private static LoginRegisterManager instance;
     private LoginRegisterManager(){}
     /**
