@@ -54,9 +54,7 @@ CREATE TABLE TheatreRoom(
 CREATE TABlE Movie(
     Title VARCHAR(32) NOT NULL,
     Duration INT NOT NULL,
-    Rating VARCHAR(5) NOT NULL,
     OpeningDate DATE NOT NULL,
-    ClosingDate DATE NOT NULL,
     PRIMARY KEY(Title)
 );
 CREATE TABLE Showtime(
