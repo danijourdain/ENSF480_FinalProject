@@ -6,7 +6,6 @@ public class FinanceManager extends Manager {
      * Uses Luhn's algorithm to verify the card number
      * @param number the credit card number
      * @return true if the number is valid, false otherwise
-     * 
      */
     private FinanceManager(){}
     public boolean verify(String number){

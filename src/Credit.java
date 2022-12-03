@@ -41,11 +41,9 @@ public class Credit{
         this.id = 0;
         hasExpired = false;
     }
-
     public boolean hasExpired(){
         return this.hasExpired;
     }
-
     public int getID(){
         return this.id;
     }
