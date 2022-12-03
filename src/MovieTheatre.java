@@ -14,14 +14,8 @@ public class MovieTheatre{
     public String getLocName() {
         return this.locName;
     }
-    public void setLocName(String locName) {
-        this.locName = locName;
-    }
     public String getStAddress() {
         return this.stAddress;
-    }
-    public void setStAddress(String stAddress) {
-        this.stAddress = stAddress;
     }
     public ArrayList<TheatreRoom> getListOfTheatreRooms() {
         return this.theatreRooms;

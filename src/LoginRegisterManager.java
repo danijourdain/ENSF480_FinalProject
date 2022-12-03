@@ -16,9 +16,10 @@ public class LoginRegisterManager{
      * @throws SQLException
      */
     public User LogInUser(String email, String password) throws SQLException{
-        String query = "SELECT *"+
-        "FROM GenericUser AS U" + "WHERE U.Email =" + email +" AND U.Password_ =" + password;
-        Statement statement = Database.getConnection().createStatement();
+        String query = "SELECT * FROM GenericUser AS U" + "WHERE U.Email = ? AND U.Password_ =?";
+        PreparedStatement statement = Database.getConnection().prepareStatement(query);
+        statement.setString(1, email);
+        statement.setString(2,query);
         ResultSet resultSet =  statement.executeQuery(query);
         if(resultSet.next() == false){
             return null;
@@ -27,8 +28,9 @@ public class LoginRegisterManager{
             String fname = resultSet.getString("Fname");
             String lname = resultSet.getString("Lname");
             String userType = resultSet.getString("UserType");
-            String query2 = "SELECT * FROM Credit AS C WHERE C.email=" + email; //insert try catch block here
-            Statement statement2 = Database.getConnection().createStatement();
+            String query2 = "SELECT * FROM Credit AS C WHERE C.email=?"; //insert try catch block here
+            PreparedStatement statement2 = Database.getConnection().prepareStatement(query2);
+            statement2.setString(1,query2);
             ResultSet resultSet2 = statement2.executeQuery(query2);
             User u = new User(email, fname, lname, userType);
             while(resultSet2.next()){

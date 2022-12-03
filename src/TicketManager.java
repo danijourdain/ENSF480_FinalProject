@@ -5,6 +5,5 @@ public class TicketManager{
             instance = new TicketManager();
         }
         return instance;
-
     };
 }

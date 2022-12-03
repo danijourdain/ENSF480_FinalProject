@@ -5,7 +5,6 @@ public class Credit{
     private int amount;
     private int id;
     private boolean hasExpired;
-
     public Credit(LocalDate issueDate, int amount, int id){
         this.issueDate = issueDate;
         this.expiryDate = issueDate.plusYears(1);
@@ -14,7 +13,6 @@ public class Credit{
         if(expiryDate.isBefore(LocalDate.now())) hasExpired = true;
         else hasExpired = false;
     }
-
     public Credit(LocalDate issueDate, int amount){
         this.issueDate = issueDate;
         this.expiryDate = issueDate.plusYears(1);
@@ -23,7 +21,6 @@ public class Credit{
         if(expiryDate.isBefore(LocalDate.now())) hasExpired = true;
         else hasExpired = false;
     }
-    
     /**
      * A copy constructor for the class Credit. 
      * Makes a deep copy of the object.
@@ -52,11 +49,9 @@ public class Credit{
     public int getID(){
         return this.id;
     }
-
     public int getCreditAmount(){
         return this.amount;
     }
-
     public void redeemCredit(int amount){
         if(this.amount - amount <=0){
             this.amount = 0;
@@ -64,15 +59,12 @@ public class Credit{
         }
         else this.amount -= amount;
     }
-
     public void setCreditAmount(int amount){
         this.amount = amount;
     }
-
     public LocalDate getIssueDate(){
         return this.issueDate;
     }
-
     public LocalDate getExpiryDate(){
         return this.expiryDate;
     }

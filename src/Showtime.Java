@@ -1,19 +1,31 @@
-import java.time.*;
 import java.util.*;
+import java.time.*;
 public class Showtime{
-    private LocalDate RUBookingDate;
     private LocalDateTime dateTime;
     private Movie movie;
-    private Ticket[] tickets;
     private TheatreRoom room;
-    private boolean isFull;
-    public Showtime(LocalDateTime dateTime, Movie movie){
+    public Showtime(LocalDateTime dateTime, Movie movie, TheatreRoom theatreRoom){
+       this.dateTime = dateTime;
+       this.movie = movie;
+       this.room = theatreRoom;
     }
-    public boolean getIfFull(){
-        if(){
-            return true;
-        }
-        else return false;
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
+    }
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+    public Movie getMovie() {
+        return this.movie;
+    }
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+    public TheatreRoom getRoom() {
+        return this.room;
+    }
+    public void setRoom(TheatreRoom room) {
+        this.room = room;
     }
     
 }

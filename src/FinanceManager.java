@@ -1,5 +1,5 @@
 import java.util.*;
-public class FinanceManager{
+public class FinanceManager extends Manager{
     private static FinanceManager instance;
     private final String CARD_REGEX ="^[0-9]{16}$";
     /**
