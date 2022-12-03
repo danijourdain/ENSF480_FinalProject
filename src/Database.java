@@ -5,16 +5,37 @@ import java.sql.*;
  * @since 1.0
  * A singleton class that represents the database
  */
-public class Database{
-    public static String username = "root";
-    public static String url = "jdbc:mysql://localhost:3306/TheatreDatabase";
-    public static String password = "password";
-    public static Connection dbConnect = null;
+public final class Database{
+    private static Database instance;
+    public String username = "root";
+    public String url = "jdbc:mysql://localhost:3306/TheatreDatabase";
+    public String password = "password";
+    public Connection dbConnect = null;
+    private Database(String url, String username, String password){
+        this.url = url;
+        this.username = username;
+        this.password = password;
+    }
     private Database(){}
-    public static Connection getConnection() throws SQLException{
+    public Connection getConnection() throws SQLException{
         if(dbConnect == null || dbConnect.isClosed()){
             dbConnect = DriverManager.getConnection(url,username,password);
         }
         return dbConnect;
+    }
+    public static Database getInstance(){
+        if(instance == null){
+            instance = new Database();
+        }
+        return instance;
+    };
+    public static Database changeInstance(String username, String url, String password){
+        if(instance == null){
+            instance = new Database(url, username,password); 
+        }
+        else if(username.equals(username) && url.equals(url) && password.equals(password)){
+            return instance;
+        }
+        return instance;
     }
 }
