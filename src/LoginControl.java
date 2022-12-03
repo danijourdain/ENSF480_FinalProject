@@ -5,6 +5,7 @@ import javax.lang.model.type.NullType;
 import java.time.*;
 public class LoginControl{
     private LoginControl(){}
+    
     /**
      * 
      * @param email the user's email
