@@ -1,11 +1,11 @@
-DROP DATABASE IF EXISTS `Theater`;
-CREATE DATABASE `Theater`;
-USE Theater;
+DROP DATABASE IF EXISTS `Theatre`;
+CREATE DATABASE `Theatre`;
+USE Theatre;
 CREATE TABLE GenericUser(
     Email   VARCHAR(320) NOT NULL,
     Fname  VARCHAR(30) NOT NULL,
     Lname  VARCHAR(30) NOT NULL,
-    `Password_` VARCHAR(32) NOT NULL,
+    `Password` VARCHAR(32) NOT NULL,
     UserType VARCHAR(10) NOT NULL,
     PRIMARY KEY(Email)
 );
@@ -38,17 +38,17 @@ CREATE TABLE Credit(
     FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE TABlE MovieTheater(
+CREATE TABlE MovieTheatre(
     LocName   VARCHAR(32) NOT NULL,
     StAddress VARCHAR(400) NOT NULL,
     PRIMARY KEY(LocName)
 );
-CREATE TABLE TheaterRoom(
+CREATE TABLE TheatreRoom(
     RNumber INT NOT NULL,
     Capacity INT NOT NULL,
-    TheaterName VARCHAR(32) NOT NULL,
-    PRIMARY KEY(RNumber, TheaterName),
-    FOREIGN KEY(TheaterName) REFERENCES MovieTheater(LocName)
+    TheatreName VARCHAR(32) NOT NULL,
+    PRIMARY KEY(RNumber, TheatreName),
+    FOREIGN KEY(TheatreName) REFERENCES MovieTheatre(LocName)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABlE Movie(
@@ -69,7 +69,7 @@ CREATE TABLE Showtime(
     PRIMARY KEY(ShowDateTime, MTitle, RNumber, TName),
     FOREIGN KEY(MTitle) REFERENCES Movie(Title)
     ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY(RNumber, TName) REFERENCES TheaterRoom(RNumber, TheaterName)
+    FOREIGN KEY(RNumber, TName) REFERENCES TheatreRoom(RNumber, TheatreName)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE Ticket (
@@ -77,6 +77,7 @@ CREATE TABLE Ticket (
     MTitle VARCHAR(32) NOT NULL,
     ShowDateTime DATETIME NOT NULL,
     RNumber INT NOT NULL,
+	SeatNumber INT NOT NULL,
     TName VARCHAR(32) NOT NULL,
     Price INT NOT NULL,
     Email VARCHAR(320) NOT NULL,
