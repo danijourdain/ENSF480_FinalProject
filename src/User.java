@@ -20,7 +20,11 @@ public class User{
         this.email = email;
         this.type = type;
     }
-    public User(User u){
+    /**
+     * A copy constructor for the class {@code user}
+     * @param u is the <b>reference</b> object
+     */
+    public User(User u){ //copy constructor
         this.fname = u.fname;
         this.lname = u.lname;
         this.email = u.email;

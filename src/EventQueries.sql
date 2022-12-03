@@ -1,0 +1,5 @@
+USE`project_manager`;
+SELECT *
+FROM `EVENT` INNER JOIN MEMBER AS 
+WHERE 
+

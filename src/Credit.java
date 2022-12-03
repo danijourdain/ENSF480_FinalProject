@@ -21,6 +21,18 @@ public class Credit{
         if(expiryDate.isBefore(LocalDate.now())) hasExpired = true;
         else hasExpired = false;
     }
+    /**
+     * A copy constructor for the class Credit. 
+     * Makes a deep copy of the object.
+     * @param src : the reference object
+     */
+    public Credit(Credit src){
+        this.issueDate = src.issueDate;
+        this.expiryDate = src.expiryDate;
+        this.amount = src.amount;
+        this.id = -1;
+        this.hasExpired = false;
+    }
     public boolean hasExpired(){
         return this.hasExpired;
     }

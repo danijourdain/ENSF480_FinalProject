@@ -1,6 +1,12 @@
 import java.sql.*;
 import java.time.*;
+/**
+ * @author Carter Marcelo
+ * control class to facilitate login/logout. Can store a single user variable at a time.
+ *  
+ */
 public class LoginRegisterManager{
+    private static LoginRegisterManager instance;
     private LoginRegisterManager(){}
     /**
      * @param email the user's email
@@ -8,7 +14,7 @@ public class LoginRegisterManager{
      * @return a new {@code User object if the }
      * @throws SQLException
      */
-    public static User LogInUser(String email, String password) throws SQLException{
+    public User LogInUser(String email, String password) throws SQLException{
         String query = "SELECT *"+
         "FROM GenericUser AS U" + "WHERE U.Email =" + email +" AND U.Password_ =" + password;
         Statement statement = Database.getConnection().createStatement();
@@ -50,6 +56,7 @@ public class LoginRegisterManager{
             }
             return u; //create new user object based on the data retrieved to represent the current user.
             //based on the user (and any other "key classes"), make new entities to represent them
+            // I'm 
         }
     };
     /**
@@ -62,7 +69,7 @@ public class LoginRegisterManager{
      * @throws PasswordTooLongException if the password exceeds 32 characters
      * @throws SQLException If something goes wrong with SQL for no apparent reason :)
      */
-    public static User RegisterNewAccount(String email, String fname, String lname, String password) 
+    public User RegisterNewAccount(String email, String fname, String lname, String password) 
     throws SQLException, PasswordTooLongException, UserAlreadyExistsException{
         if(password.length() > 32){
             throw new PasswordTooLongException();
@@ -86,7 +93,7 @@ public class LoginRegisterManager{
                     return null;
                 }
                 String temp2 = "INSERT INTO GuestUser VALUES(?)";
-                try(PreparedStatement CREATE_USER = connection.prepareStatement(temp);){
+                try(PreparedStatement CREATE_USER = connection.prepareStatement(temp2);){
                     CREATE_USER.setString(1, email);
                     CREATE_USER.executeUpdate();
                 }
@@ -104,7 +111,13 @@ public class LoginRegisterManager{
         }
         return new User(fname, lname, email, "Guest");
     }
-    public static void upgradeUser(User u, String cardNo){
+    public void upgradeUser(User u, String cardNo){
         //unimplemented
+    }
+    public static LoginRegisterManager getInstance(){
+        if(instance == null){
+            instance = new LoginRegisterManager();
+        }
+        return instance;
     }
 }
