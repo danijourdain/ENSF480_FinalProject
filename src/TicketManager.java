@@ -48,7 +48,7 @@ public class TicketManager extends Manager {
             TheatreRoom r = new TheatreRoom(theaterRestult.getInt("Capacity"), roomNo);
             //get the theater room associated with the ticket
 
-            Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r);
+            Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r, null);
             FinanceManager f = FinanceManager.getInstance();
             if(f.applyCredit(t, u) == true) {
                 //if the ticketEmail does not exist, the ticket can be purchased 
@@ -122,7 +122,7 @@ public class TicketManager extends Manager {
             TheatreRoom r = new TheatreRoom(theaterRestult.getInt("Capacity"), roomNo);
             //get the theater room associated with the ticket
 
-            Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r);
+            Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r, null);
             FinanceManager f = FinanceManager.getInstance();
             f.issueRefund(t, u); 
 
@@ -143,8 +143,13 @@ public class TicketManager extends Manager {
         statement.setString(2, title);
         statement.setInt(3, roomNo);
         statement.setString(4, theaterName);
-        statement.executeQuery();
+        ResultSet resultSet = statement.executeQuery();
         //get the ticket from the database
+
+        String email = new String();
+        if(resultSet.next() != false) {
+            email = resultSet.getString("Email");
+        }
 
         String movieQuery = "SELECT * FROM Movie WHERE Title=?";
         PreparedStatement movieStatement = connection.prepareStatement(movieQuery);
@@ -163,7 +168,7 @@ public class TicketManager extends Manager {
         TheatreRoom r = new TheatreRoom(theaterRestult.getInt("Capacity"), roomNo);
         //get the theater room associated with the ticket
 
-        Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r);
+        Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r, email);
         return t;
     }
 }
