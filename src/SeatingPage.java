@@ -7,7 +7,8 @@ import javax.swing.table.DefaultTableModel;
 //import java.util.*;
 //import java.sql.*;
 
-public class SeatingPage implements ActionListener {
+public class SeatingPage implements ActionListener 
+{
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
@@ -34,16 +35,19 @@ public class SeatingPage implements ActionListener {
     mainFrame.validate();
   }
 
-  private void tableSet() {
+  private void tableSet() 
+  {
     int[] purchased = {1, 4, 6, 23, 52, 54};
     JToggleButton[] array = new JToggleButton[70];
     for(int i = 0; i < array.length; i++) {
-      if(!check(purchased, i)) {
+      if(!check(purchased, i)) 
+      {
         array[i] = new JToggleButton(String.valueOf(i+1), false);
         array[i].addActionListener(listener);
         seatingTable.add(array[i]);
       }
-      else {
+      else 
+      {
         seatingTable.add(new JLabel("x"));
       }
     }
@@ -56,8 +60,8 @@ public class SeatingPage implements ActionListener {
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
   }
   
-
-  private void seatingPageSetup() {
+  private void seatingPageSetup() 
+  {
     gbc.anchor = GridBagConstraints.NORTH; 
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -131,7 +135,8 @@ public class SeatingPage implements ActionListener {
           JOptionPane.showMessageDialog(mainFrame, "Selected seat: " + seatNum);
           purchased1.add(seatNum);
         }
-        else {
+        else 
+        {
           purchased1.remove(seatNum);
           JOptionPane.showMessageDialog(mainFrame, "Removed: " + seatNum);
         }
@@ -142,7 +147,8 @@ public class SeatingPage implements ActionListener {
   private static boolean check(int[] arr, int toCheckValue)
   {
     for (int element : arr) {
-      if (element == toCheckValue) {
+      if (element == toCheckValue) 
+      {
         return true;
       }
     }

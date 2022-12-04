@@ -5,7 +5,8 @@ import javax.swing.table.DefaultTableModel;
 //import java.util.*;
 //import java.sql.*;
 
-public class UserTicketPage implements ActionListener {
+public class UserTicketPage implements ActionListener 
+{
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
@@ -31,7 +32,8 @@ public class UserTicketPage implements ActionListener {
     mainFrame.validate();
   }
 
-  private void tableSet() {
+  private void tableSet() 
+  {
     String[] columnNames = {"Movie", "Date", "Time", "Seat", ""};
     Object[][] data =
     {
@@ -56,7 +58,8 @@ public class UserTicketPage implements ActionListener {
     buttonColumn.setMnemonic(KeyEvent.VK_D);
   }
 
-  private void ticketMenuSetup() {
+  private void ticketMenuSetup() 
+  {
     gbc.anchor = GridBagConstraints.NORTH; 
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -94,7 +97,7 @@ public class UserTicketPage implements ActionListener {
 
   public void actionPerformed(ActionEvent e)
   {
-    if (e.getSource() == main)
+    if(e.getSource() == main)
     {
       new MainMenu(mainFrame, user);
     }

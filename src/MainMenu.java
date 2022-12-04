@@ -4,20 +4,21 @@ import javax.swing.*;
 //import java.util.*;
 //import java.sql.*;
 
-public class MainMenu implements ActionListener {
+public class MainMenu implements ActionListener 
+{
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
   User user;
   JPanel mainPage = new JPanel(new GridBagLayout());
-  JLabel userType = new JLabel("UserType"); //Will be changed with strategy
+  JLabel userType = new JLabel("UserType"); 
   JButton tickets = new JButton("Tickets");
   JLabel creditLabel = new JLabel("Credit: ");
   JTextField credit = new JTextField(32);
   JButton addCredit = new JButton("Add Credit");
   JTable movieTable;
   JScrollPane movieScroll;
-  JButton register = new JButton("Register"); //Won't be shown based on strategy
+  JButton register = new JButton("Register");
   JButton logout = new JButton("Logout");
 
   JLabel spacer = new JLabel();
@@ -34,7 +35,8 @@ public class MainMenu implements ActionListener {
     mainFrame.validate();
   }
 
-  private void tableSet() {
+  private void tableSet() 
+  {
     String[] title = {"Playing", "Movies"};
     String[][] data = {{"movie1", "movie2"}, {"movie3", "movie4"}, {"movie5", "movie6"}, {"movie7", "movie8"}, {"movie9", "movie10"}};
 
@@ -42,7 +44,8 @@ public class MainMenu implements ActionListener {
     movieScroll = new JScrollPane(movieTable);
   }
 
-  private void mainMenuSetup() {
+  private void mainMenuSetup() 
+  {
     gbc.anchor = GridBagConstraints.NORTH; 
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -133,20 +136,20 @@ public class MainMenu implements ActionListener {
 
   public void actionPerformed(ActionEvent e)
   {
-    if (e.getSource() == tickets)
+    if(e.getSource() == tickets)
     {
       new TicketMenu(mainFrame, user);
     }
-    else if (e.getSource() == addCredit)
+    else if(e.getSource() == addCredit)
     {
       JOptionPane.showMessageDialog(mainFrame, "Show add credits");
     }
-    else if (e.getSource() == register)
+    else if(e.getSource() == register)
     {
       //Needs to be adjusted for registration
       new RegisterPage(mainFrame, user);
     }
-    else if (e.getSource() == logout)
+    else if(e.getSource() == logout)
     {
       new LoginPage(mainFrame);
       JOptionPane.showMessageDialog(mainFrame, "Logged Out");

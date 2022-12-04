@@ -4,7 +4,8 @@ import javax.swing.*;
 //import java.util.*;
 //import java.sql.*;
 
-public class RegisterPage implements ActionListener {
+public class RegisterPage implements ActionListener 
+{
   GridBagConstraints gbc = new GridBagConstraints();
   
   JFrame mainFrame;
@@ -33,7 +34,8 @@ public class RegisterPage implements ActionListener {
     mainFrame.validate();
   }
 
-  private void loginPageSetup() {
+  private void loginPageSetup() 
+  {
     gbc.anchor = GridBagConstraints.NORTH; 
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -110,7 +112,7 @@ public class RegisterPage implements ActionListener {
 
   public void actionPerformed(ActionEvent e)
   {
-    if (e.getSource() == register)
+    if(e.getSource() == register)
     {
       String userName;
       String userAddress;
@@ -129,7 +131,7 @@ public class RegisterPage implements ActionListener {
         new MainMenu(mainFrame, user);
       }
     }
-    if (e.getSource() == main)
+    if(e.getSource() == main)
     {
       new MainMenu(mainFrame, user);
     }

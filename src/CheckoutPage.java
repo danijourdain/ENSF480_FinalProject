@@ -5,7 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import java.util.*;
 //import java.sql.*;
 
-public class CheckoutPage implements ActionListener {  
+public class CheckoutPage implements ActionListener 
+{  
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
@@ -38,7 +39,8 @@ public class CheckoutPage implements ActionListener {
     mainFrame.validate();
   }
 
-  private void tableSet() {
+  private void tableSet() 
+  {
     String[] columnNames = {"Movie", "Date", "Time", "Seat", "Price"};
     Object[][] data =
     {
@@ -56,7 +58,8 @@ public class CheckoutPage implements ActionListener {
     movieScroll = new JScrollPane(movieTable);
   }
 
-  private void checkoutPageSetup() {
+  private void checkoutPageSetup() 
+  {
     gbc.anchor = GridBagConstraints.NORTH; 
     gbc.fill = GridBagConstraints.HORIZONTAL;
 

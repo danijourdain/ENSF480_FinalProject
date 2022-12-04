@@ -4,7 +4,8 @@ import javax.swing.*;
 //import java.util.*;
 //import java.sql.*;
 
-public class LoginPage implements ActionListener {
+public class LoginPage implements ActionListener 
+{
   GridBagConstraints gbc = new GridBagConstraints();
   
   JFrame mainFrame;
@@ -29,7 +30,8 @@ public class LoginPage implements ActionListener {
     mainFrame.validate();
   }
 
-  private void loginPageSetup() {
+  private void loginPageSetup() 
+  {
     gbc.anchor = GridBagConstraints.NORTH; 
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -91,7 +93,7 @@ public class LoginPage implements ActionListener {
 
   public void actionPerformed(ActionEvent e)
   {
-    if (e.getSource() == register)
+    if(e.getSource() == register)
     {
       String userEmail;
       String userPass;
@@ -108,7 +110,7 @@ public class LoginPage implements ActionListener {
         JOptionPane.showMessageDialog(mainFrame, "Invalid Username or Password");
       }
     }
-    if (e.getSource() == login)
+    if(e.getSource() == login)
     {
       String userEmail;
       String userPass;
