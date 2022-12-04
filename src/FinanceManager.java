@@ -90,15 +90,26 @@ public class FinanceManager extends Manager{
         }
         else return false;
     }
-    
     public void issueRefund(int price, User user){
+        Credit credit;
         if(user.getType().equalsIgnoreCase("registered")){
-            user.addCredit(LocalDate.now(), price ,-1);
-            System.out.println("Refunded: " + price*(1-0.15));
+            credit  = new Credit(price);
+            user.addCredit(price);
         }
         else{
-            user.addCredit(LocalDate.now(),(int)Math.round(price*(1-0.15)),-1);
-            System.out.println("Refunded: " + price*(1-0.15));
+            credit = new Credit((int)Math.round(price*(1-0.15)));
+            user.addCredit((int)Math.round(price*(1-0.15)));
+        }
+        String sql = "INSERT INTO Credit (?, ?, ?)";
+        Connection conn = Database.getConnection();
+        try(PreparedStatement PREPS = conn.prepareStatement(sql)){
+            PREPS.setObject(1,user.getEmail());
+            PREPS.setObject(2,LocalDate.now());
+            PREPS.setInt(3, credit.getCreditAmount());
+            PREPS.executeUpdate();
+        }
+        catch(SQLException e){
+            Database.rollback();
         }
     }
 }

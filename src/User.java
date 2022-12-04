@@ -100,7 +100,6 @@ public class User{
     public void addCredit(int amount){
         this.credit.add(new Credit(LocalDate.now(), amount));
     }
-
     public void addCredit(LocalDate issueDate, int amount, int id) {
         this.credit.add(new Credit(issueDate, amount, id));
     }
