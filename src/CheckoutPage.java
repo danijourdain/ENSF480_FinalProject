@@ -11,7 +11,6 @@ public class CheckoutPage implements ActionListener
 
   JFrame mainFrame;
   ArrayList<String> seats;
-  User user;
   JPanel checkoutPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JLabel ticketsLabel = new JLabel("Tickets");
@@ -22,15 +21,16 @@ public class CheckoutPage implements ActionListener
   JTextField credit = new JTextField(32);
   JLabel priceLabel = new JLabel("Price: ");
   JTextField price = new JTextField(32);
+  JLabel creditCardLabel = new JLabel("Credit Card: ");
+  JTextField creditCard = new JTextField(32);
   JButton purchase = new JButton("Purchase");
 
   JLabel spacer = new JLabel();
   
-  CheckoutPage(JFrame mainFrame, ArrayList<String> seats, User user)
+  CheckoutPage(JFrame mainFrame, ArrayList<String> seats)
   {
     this.mainFrame = mainFrame;
     this.seats = seats;
-    this.user = user;
 
     checkoutPageSetup();
 
@@ -126,6 +126,20 @@ public class CheckoutPage implements ActionListener
 
     gbc.insets = new Insets(30, 5, 15, 5);
     gbc.gridwidth = 1;
+    gbc.gridx = 0;
+    gbc.gridy = 4;
+    creditCardLabel.setPreferredSize(new Dimension(50, 30));
+    checkoutPage.add(creditCardLabel, gbc);
+
+    gbc.insets = new Insets(30, 5, 15, 5);
+    gbc.gridwidth = 1;
+    gbc.gridx = 1;
+    gbc.gridy = 4;
+    credit.setPreferredSize(new Dimension(50, 30));
+    checkoutPage.add(creditCard, gbc);
+
+    gbc.insets = new Insets(30, 5, 15, 5);
+    gbc.gridwidth = 1;
     gbc.gridx = 3;
     gbc.gridy = 4;
     purchase.addActionListener(this);
@@ -137,11 +151,12 @@ public class CheckoutPage implements ActionListener
   {
     if(e.getSource() == main)
     {
-      new MainMenu(mainFrame, user);
+      new MainMenu(mainFrame);
     }
-    else if(e.getSource() == purchase)
+    if(e.getSource() == purchase)
     {
-      JOptionPane.showMessageDialog(mainFrame, "Purchase Tickets");
+      String creditcard = creditCard.getText();
+      JOptionPane.showMessageDialog(mainFrame, "Purchase Tickets " + creditcard);
     }
   }
 }
