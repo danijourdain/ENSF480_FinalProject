@@ -130,7 +130,7 @@ public class TicketMenu implements ActionListener {
     }
     else if (e.getSource() == userTickets)
     {
-      JOptionPane.showMessageDialog(mainFrame, "Show user tickets");
+      new UserTicketPage(mainFrame);
     }
   }
 
