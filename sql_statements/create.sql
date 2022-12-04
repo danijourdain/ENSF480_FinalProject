@@ -5,7 +5,7 @@ CREATE TABLE GenericUser(
     Email   VARCHAR(320) NOT NULL,
     Fname  VARCHAR(30) NOT NULL,
     Lname  VARCHAR(30) NOT NULL,
-    `Password` VARCHAR(32) NOT NULL,
+    Password_ VARCHAR(32) NOT NULL,
     UserType VARCHAR(10) NOT NULL,
     PRIMARY KEY(Email)
 );
@@ -79,7 +79,7 @@ CREATE TABLE Ticket (
     TName VARCHAR(32) NOT NULL,
     Price INT NOT NULL,
     Email VARCHAR(320) NOT NULL,
-    PRIMARY KEY(TNo, MTitle, DateTime_, RNumber, TName),
+    PRIMARY KEY(TNo, MTitle, ShowDateTime, RNumber, TName),
     FOREIGN KEY(MTitle, ShowDateTime, RNumber, TName) REFERENCES Showtime(MTitle, ShowDateTime, RNumber, TName)
     ON UPDATE CASCADE ON DELETE CASCADE
 );

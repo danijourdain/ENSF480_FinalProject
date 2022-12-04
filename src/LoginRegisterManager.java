@@ -15,11 +15,11 @@ public class LoginRegisterManager extends Manager {
      * @return a new {@code User object if the }
      * @throws SQLException
      */
-    public User Login(String email, String password) throws SQLException{
+    public User login(String email, String password) throws SQLException{
 
         Connection connection = Database.getConnection();
 
-        String query = "SELECT * FROM GenericUser AS U" + "WHERE U.Email = ? AND U.Password_ =?";
+        String query = "SELECT * FROM GenericUser AS U WHERE U.Email = ? AND U.Password_ =?";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, email);
         statement.setString(2,password);
@@ -27,7 +27,6 @@ public class LoginRegisterManager extends Manager {
         if(resultSet.next() == false){
             throw new SQLException("User does not exist");
         }
-
         String fname = resultSet.getString("Fname");
         String lname = resultSet.getString("Lname");
         String userType = resultSet.getString("UserType");
@@ -70,7 +69,7 @@ public class LoginRegisterManager extends Manager {
      * @return a new {@code User} object if the user was created successfully {@code false} if an error occurred
      * @throws SQLException If something goes wrong with SQL for no apparent reason :)
      */
-    public User CreateNewUser(String email, String fname, String lname, String password) throws SQLException{
+    public User createNewUser(String email, String fname, String lname, String password) throws SQLException{
         
         Connection connection = Database.getConnection();
 
