@@ -6,14 +6,10 @@ import javax.swing.table.DefaultTableModel;
 //import java.sql.*;
 
 public class SeatingPage implements ActionListener {
-  public static void main(String args[]) 
-  {
-    new SeatingPage();
-  }
 
   GridBagConstraints gbc = new GridBagConstraints();
 
-  JFrame mainFrame = new JFrame("Depressed SENG Student Theatres"); //This class will return a panel for GUI to display not a new Jframe
+  JFrame mainFrame;
   JPanel seatingPage = new JPanel(new GridBagLayout());
   JPanel seatingTable = new JPanel(new GridLayout(7, 10));
   JButton main = new JButton("Main Page");
@@ -23,17 +19,15 @@ public class SeatingPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  SeatingPage()
+  SeatingPage(JFrame mainFrame)
   {
-    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.mainFrame = mainFrame;
 
     seatingPageSetup();
 
+    mainFrame.getContentPane().removeAll(); 
     mainFrame.add(seatingPage);
-
-    mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-    mainFrame.setResizable(false);
-    mainFrame.setVisible(true);
+    mainFrame.validate();
   }
 
   private void tableSet() {
@@ -108,7 +102,7 @@ public class SeatingPage implements ActionListener {
   {
     if (e.getSource() == main)
     {
-      JOptionPane.showMessageDialog(mainFrame, "Return to main page");
+      new MainMenu(mainFrame);
     }
     else if (e.getSource() == checkout)
     {

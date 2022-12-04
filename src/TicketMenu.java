@@ -6,14 +6,9 @@ import javax.swing.table.DefaultTableModel;
 //import java.sql.*;
 
 public class TicketMenu implements ActionListener {
-  public static void main(String args[]) 
-  {
-    new TicketMenu();
-  }
-
   GridBagConstraints gbc = new GridBagConstraints();
 
-  JFrame mainFrame = new JFrame("Depressed SENG Student Theatres"); //This class will return a panel for GUI to display not a new Jframe
+  JFrame mainFrame;
   JPanel ticketPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JButton userTickets = new JButton("My Tickets");
@@ -23,18 +18,16 @@ public class TicketMenu implements ActionListener {
   JScrollPane movieScroll;
 
   JLabel spacer = new JLabel();
-
-  TicketMenu()
+  
+  TicketMenu(JFrame mainFrame)
   {
-    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.mainFrame = mainFrame;
 
-    mainMenuSetup();
+    ticketMenuSetup();
 
+    mainFrame.getContentPane().removeAll(); 
     mainFrame.add(ticketPage);
-
-    mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-    mainFrame.setResizable(false);
-    mainFrame.setVisible(true);
+    mainFrame.validate();
   }
 
   private void tableSet() {
@@ -85,7 +78,7 @@ public class TicketMenu implements ActionListener {
     buttonColumn.setMnemonic(KeyEvent.VK_D);
   }
 
-  private void mainMenuSetup() {
+  private void ticketMenuSetup() {
     gbc.anchor = GridBagConstraints.NORTH; 
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -133,7 +126,7 @@ public class TicketMenu implements ActionListener {
   {
     if (e.getSource() == main)
     {
-      JOptionPane.showMessageDialog(mainFrame, "Return to main page");
+      new MainMenu(mainFrame);
     }
     else if (e.getSource() == userTickets)
     {
