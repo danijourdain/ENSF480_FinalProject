@@ -140,6 +140,7 @@ public class TicketMenu implements ActionListener {
     {
       int modelRow = Integer.valueOf( e.getActionCommand() );
       JOptionPane.showMessageDialog(mainFrame, "Selected :" + modelRow);
+      new SeatingPage(mainFrame);
     }
   };
 }
