@@ -132,4 +132,38 @@ public class TicketManager extends Manager {
             throw new SQLException("Ticket hasn't been purchased");
         }
     }
+
+    public Ticket RetrieveTicket(int ticketNo, LocalDateTime date, String title, int roomNo, String theaterName) throws SQLException{
+        Connection connection = Database.getConnection();
+        
+        String query = "SELECT * FROM Ticket WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(0, ticketNo);
+        statement.setObject(1, date);
+        statement.setString(2, title);
+        statement.setInt(3, roomNo);
+        statement.setString(4, theaterName);
+        statement.executeQuery();
+        //get the ticket from the database
+
+        String movieQuery = "SELECT * FROM Movie WHERE Title=?";
+        PreparedStatement movieStatement = connection.prepareStatement(movieQuery);
+        movieStatement.setString(0, title);
+        ResultSet movieResult = movieStatement.executeQuery();
+        if(movieResult.next() == false) throw new SQLException("Movie doesn't exist!");
+        Movie m = new Movie(title, movieResult.getInt("Duration"));
+        //get the movie associated from the ticket
+
+        String theaterQuery = "SELECT * FROM TheaterRoom WHERE RNumber=? AND TheatreName=?";
+        PreparedStatement theaterStatement = connection.prepareStatement(theaterQuery);
+        theaterStatement.setInt(0, roomNo);
+        theaterStatement.setString(1, theaterName);
+        ResultSet theaterRestult = theaterStatement.executeQuery();
+        if(theaterRestult.next() == false) throw new SQLException("TheaterRoom doesn't exist!");
+        TheatreRoom r = new TheatreRoom(theaterRestult.getInt("Capacity"), roomNo);
+        //get the theater room associated with the ticket
+
+        Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r);
+        return t;
+    }
 }
