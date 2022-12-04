@@ -1,5 +1,4 @@
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TicketManager extends Manager {
@@ -12,7 +11,7 @@ public class TicketManager extends Manager {
         return instance;
     }
 
-    public Ticket PurchaseTicket(int ticketNo, String email, LocalDateTime date, String title, int roomNo, String theaterName) throws SQLException{
+    public Ticket PurchaseTicket(int ticketNo, String email, LocalDateTime date, String title, int roomNo, String theaterName, User u) throws SQLException{
         Connection connection = Database.getConnection();
         
         String query = "SELECT * FROM Ticket WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
@@ -63,7 +62,7 @@ public class TicketManager extends Manager {
 
             Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r);
             FinanceManager f = FinanceManager.getInstance();
-            f.purchaseTicket(t, null); //do i need to create the user here??
+            f.applyCredit(t, u);
 
             return t;
         }
@@ -72,7 +71,7 @@ public class TicketManager extends Manager {
         }
     }
 
-    public Ticket RefundTicket(int ticketNo, String email, LocalDateTime date, String title, int roomNo, String theaterName) throws SQLException{
+    public Ticket RefundTicket(int ticketNo, String email, LocalDateTime date, String title, int roomNo, String theaterName, User u) throws SQLException{
         Connection connection = Database.getConnection();
         
         String query = "SELECT * FROM Ticket WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
@@ -122,8 +121,7 @@ public class TicketManager extends Manager {
 
             Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r);
             FinanceManager f = FinanceManager.getInstance();
-            f.issueRefund(t, null, 0); //do i need to create the user here??
-            //also how do i find the admin fee??
+            f.issueRefund(t, u); 
 
             return t;
         }
