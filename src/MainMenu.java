@@ -142,7 +142,7 @@ public class MainMenu implements ActionListener {
     else if (e.getSource() == register)
     {
       //Needs to be adjusted for registration
-      new LoginPage(mainFrame);
+      new RegisterPage(mainFrame);
     }
     else if (e.getSource() == logout)
     {
