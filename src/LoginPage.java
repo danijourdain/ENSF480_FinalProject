@@ -97,29 +97,26 @@ public class LoginPage implements ActionListener
     {
       String userEmail = email.getText();
       String userPass = String.valueOf(password.getPassword());
-      if(userEmail != "test" && userPass != "test") //Needs function to test if user already exists in system
-      {
-        JOptionPane.showMessageDialog(null, "Sign Up Successful");
-        User user = new User("", "", "", "");
+      try {
+        LoginRegisterManager login = LoginRegisterManager.getInstance();
+        User user = login.login(userEmail, userPass);
         new MainMenu(mainFrame, user);
-      } 
-      else 
-      {
-        JOptionPane.showMessageDialog(mainFrame, "User already exists");
+      }
+      catch(Exception f) {
+        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
     }
     if(e.getSource() == login)
     {
       String userEmail = email.getText();
       String userPass = String.valueOf(password.getPassword());
-      if(userEmail.equalsIgnoreCase("test") && userPass.equalsIgnoreCase("test")) //Needs function to test if user already exists in system
-      {
-        User user = new User("", "", "", ""); //Function returns a user, return that
+      try {
+        LoginRegisterManager login = LoginRegisterManager.getInstance();
+        User user = login.login(userEmail, userPass);
         new MainMenu(mainFrame, user);
-      } 
-      else 
-      {
-        JOptionPane.showMessageDialog(mainFrame, "Invalid Username or Password");
+      }
+      catch(Exception f) {
+        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
     }
   }

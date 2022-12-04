@@ -29,6 +29,7 @@ public class TicketManager extends Manager {
             String movie_query = "SELECT * FROM Movie";
             String theatreRoom_query = "SELECT * FROM ";
             PreparedStatement statement = connection.prepareStatement(query);
+            return null;
         } catch (SQLException e) {
             return null;
         }
@@ -65,11 +66,11 @@ public class TicketManager extends Manager {
 
         String query = "SELECT * FROM Ticket WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(0, ticketNo);
-        statement.setObject(1, date);
-        statement.setString(2, title);
-        statement.setInt(3, roomNo);
-        statement.setString(4, theaterName);
+        statement.setInt(1, ticketNo);
+        statement.setObject(2, date);
+        statement.setString(3, title);
+        statement.setInt(4, roomNo);
+        statement.setString(5, theaterName);
         ResultSet resultSet = statement.executeQuery();
         // get the ticket from the database
 
@@ -82,7 +83,7 @@ public class TicketManager extends Manager {
         if (ticketEmail == null) {
             String movieQuery = "SELECT * FROM Movie WHERE Title=?";
             PreparedStatement movieStatement = connection.prepareStatement(movieQuery);
-            movieStatement.setString(0, title);
+            movieStatement.setString(1, title);
             ResultSet movieResult = movieStatement.executeQuery();
             if (movieResult.next() == false)
                 throw new SQLException("Movie doesn't exist!");
@@ -91,8 +92,8 @@ public class TicketManager extends Manager {
 
             String theaterQuery = "SELECT * FROM TheaterRoom WHERE RNumber=? AND TheatreName=?";
             PreparedStatement theaterStatement = connection.prepareStatement(theaterQuery);
-            theaterStatement.setInt(0, roomNo);
-            theaterStatement.setString(1, theaterName);
+            theaterStatement.setInt(1, roomNo);
+            theaterStatement.setString(2, theaterName);
             ResultSet theaterRestult = theaterStatement.executeQuery();
             if (theaterRestult.next() == false)
                 throw new SQLException("TheaterRoom doesn't exist!");
@@ -105,12 +106,12 @@ public class TicketManager extends Manager {
                 // if the ticketEmail does not exist, the ticket can be purchased
                 String updateQuery = "UPDATE Ticket SET Email=? WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
                 PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
-                updateStatement.setString(0, u.getEmail());
-                updateStatement.setInt(1, ticketNo);
-                updateStatement.setObject(2, date);
-                updateStatement.setString(3, title);
-                updateStatement.setInt(4, roomNo);
-                updateStatement.setString(5, theaterName);
+                updateStatement.setString(1, u.getEmail());
+                updateStatement.setInt(2, ticketNo);
+                updateStatement.setObject(3, date);
+                updateStatement.setString(4, title);
+                updateStatement.setInt(5, roomNo);
+                updateStatement.setString(6, theaterName);
                 updateStatement.executeUpdate();
                 // update the email of the ticket to indicate the ticket has been purchased
             } else {
@@ -129,11 +130,11 @@ public class TicketManager extends Manager {
 
         String query = "SELECT * FROM Ticket WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(0, ticketNo);
-        statement.setObject(1, date);
-        statement.setString(2, title);
-        statement.setInt(3, roomNo);
-        statement.setString(4, theaterName);
+        statement.setInt(1, ticketNo);
+        statement.setObject(2, date);
+        statement.setString(3, title);
+        statement.setInt(4, roomNo);
+        statement.setString(5, theaterName);
         ResultSet resultSet = statement.executeQuery();
         // get the ticket from the database
 
@@ -147,17 +148,17 @@ public class TicketManager extends Manager {
             // if the ticketEmail exists, the ticket can be refunded
             String updateQuery = "UPDATE Ticket SET Email=NULL WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
             PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
-            updateStatement.setInt(0, ticketNo);
-            updateStatement.setObject(1, date);
-            updateStatement.setString(2, title);
-            updateStatement.setInt(3, roomNo);
-            updateStatement.setString(4, theaterName);
+            updateStatement.setInt(1, ticketNo);
+            updateStatement.setObject(2, date);
+            updateStatement.setString(3, title);
+            updateStatement.setInt(4, roomNo);
+            updateStatement.setString(5, theaterName);
             updateStatement.executeUpdate();
             // update the email of the ticket to indicate the ticket has been refunded
 
             String movieQuery = "SELECT * FROM Movie WHERE Title=?";
             PreparedStatement movieStatement = connection.prepareStatement(movieQuery);
-            movieStatement.setString(0, title);
+            movieStatement.setString(1, title);
             ResultSet movieResult = movieStatement.executeQuery();
             if (movieResult.next() == false)
                 throw new SQLException("Movie doesn't exist!");
@@ -166,8 +167,8 @@ public class TicketManager extends Manager {
 
             String theaterQuery = "SELECT * FROM TheaterRoom WHERE RNumber=? AND TheatreName=?";
             PreparedStatement theaterStatement = connection.prepareStatement(theaterQuery);
-            theaterStatement.setInt(0, roomNo);
-            theaterStatement.setString(1, theaterName);
+            theaterStatement.setInt(1, roomNo);
+            theaterStatement.setString(2, theaterName);
             ResultSet theaterRestult = theaterStatement.executeQuery();
             if (theaterRestult.next() == false)
                 throw new SQLException("TheaterRoom doesn't exist!");
@@ -190,11 +191,11 @@ public class TicketManager extends Manager {
 
         String query = "SELECT * FROM Ticket WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(0, ticketNo);
-        statement.setObject(1, date);
-        statement.setString(2, title);
-        statement.setInt(3, roomNo);
-        statement.setString(4, theaterName);
+        statement.setInt(1, ticketNo);
+        statement.setObject(2, date);
+        statement.setString(3, title);
+        statement.setInt(4, roomNo);
+        statement.setString(5, theaterName);
         ResultSet resultSet = statement.executeQuery();
         // get the ticket from the database
 
@@ -205,7 +206,7 @@ public class TicketManager extends Manager {
 
         String movieQuery = "SELECT * FROM Movie WHERE Title=?";
         PreparedStatement movieStatement = connection.prepareStatement(movieQuery);
-        movieStatement.setString(0, title);
+        movieStatement.setString(1, title);
         ResultSet movieResult = movieStatement.executeQuery();
         if (movieResult.next() == false)
             throw new SQLException("Movie doesn't exist!");
@@ -214,8 +215,8 @@ public class TicketManager extends Manager {
 
         String theaterQuery = "SELECT * FROM TheaterRoom WHERE RNumber=? AND TheatreName=?";
         PreparedStatement theaterStatement = connection.prepareStatement(theaterQuery);
-        theaterStatement.setInt(0, roomNo);
-        theaterStatement.setString(1, theaterName);
+        theaterStatement.setInt(1, roomNo);
+        theaterStatement.setString(2, theaterName);
         ResultSet theaterRestult = theaterStatement.executeQuery();
         if (theaterRestult.next() == false)
             throw new SQLException("TheaterRoom doesn't exist!");
