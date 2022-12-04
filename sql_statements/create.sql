@@ -5,7 +5,7 @@ CREATE TABLE GenericUser(
     Email   VARCHAR(320) NOT NULL,
     Fname  VARCHAR(30) NOT NULL,
     Lname  VARCHAR(30) NOT NULL,
-    `Password` VARCHAR(32) NOT NULL,
+    Password_ VARCHAR(32) NOT NULL,
     UserType VARCHAR(10) NOT NULL,
     PRIMARY KEY(Email)
 );
@@ -32,7 +32,7 @@ CREATE TABLE Admin_User(
 CREATE TABLE Credit(
     ID INT AUTO_INCREMENT NOT NULL,
     Email VARCHAR(320) NOT NULL,
-    ExpiryDate DATE NOT NULL,
+    IssueDate DATE NOT NULL,
     Amount INT NOT NULL,
     PRIMARY KEY(ID, Email),
     FOREIGN KEY(Email) REFERENCES GenericUser(Email)
@@ -78,8 +78,9 @@ CREATE TABLE Ticket (
 	SeatNumber INT NOT NULL,
     TName VARCHAR(32) NOT NULL,
     Price INT NOT NULL,
-    Email VARCHAR(320) NOT NULL,
-    PRIMARY KEY(TNo, MTitle, DateTime_, RNumber, TName),
+    Email VARCHAR(320),
+    PRIMARY KEY(TNo, MTitle, ShowDateTime, RNumber, TName),
     FOREIGN KEY(MTitle, ShowDateTime, RNumber, TName) REFERENCES Showtime(MTitle, ShowDateTime, RNumber, TName)
-    ON UPDATE CASCADE ON DELETE CASCADE
+    ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(Email) references GenericUser(Email) ON DELETE Set NULL ON UPDATE CASCADE
 );

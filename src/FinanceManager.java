@@ -1,6 +1,8 @@
 import java.util.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.Comparator;
+import java.math.*;
 public class FinanceManager extends Manager{
     private final Comparator<Credit> BY_ISSUE_DATE = Comparator.comparing(Credit::getIssueDate);
     private static FinanceManager instance;
@@ -30,7 +32,7 @@ public class FinanceManager extends Manager{
         }
         return instance;
     }
-    public boolean purchaseTicket(Ticket ticket, User user){
+    public boolean applyCredit(Ticket ticket, User user){
         try{
         Connection connection = Database.getConnection();
          //abusing java's default shallow-copying of objects and containers
@@ -66,6 +68,9 @@ public class FinanceManager extends Manager{
                 }
             i--;
         }
+        if(price > 0){
+            return false;
+        }
         }catch(Exception e){
             e.printStackTrace();
             Database.rollback();
@@ -73,7 +78,15 @@ public class FinanceManager extends Manager{
         }
         return true;
     }
-    public void issueRefund(Ticket ticket, User user, float adminFee){
+    public void issueRefund(Ticket ticket, User user){
+        if(user.getType().equalsIgnoreCase("registered")){
+            user.addCredit(LocalDate.now(), ticket.getPrice(),-1);
+            System.out.println("Refunded: " + ticket.getPrice()*(1-0.15));
+        }
+        else{
+            user.addCredit(LocalDate.now(),(int)Math.round(ticket.getPrice()*(1-0.15)),-1);
+            System.out.println("Refunded: " + ticket.getPrice()*(1-0.15));
+        }
     }
 
 }

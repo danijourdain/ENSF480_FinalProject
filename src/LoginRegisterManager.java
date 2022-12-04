@@ -15,11 +15,12 @@ public class LoginRegisterManager extends Manager {
      * @return a new {@code User object if the }
      * @throws SQLException
      */
-    public User Login(String email, String password) throws SQLException{
+    
+    private User checkCredentials(String email, String password) throws SQLException{
 
         Connection connection = Database.getConnection();
 
-        String query = "SELECT * FROM GenericUser AS U" + "WHERE U.Email = ? AND U.Password_ =?";
+        String query = "SELECT * FROM GenericUser AS U WHERE U.Email = ? AND U.Password_ =?";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, email);
         statement.setString(2,password);
@@ -27,22 +28,25 @@ public class LoginRegisterManager extends Manager {
         if(resultSet.next() == false){
             throw new SQLException("User does not exist");
         }
-
         String fname = resultSet.getString("Fname");
         String lname = resultSet.getString("Lname");
         String userType = resultSet.getString("UserType");
         try{
-            String query2 = "SELECT * FROM Credit AS C WHERE C.email=?";
+            String query2 = "SELECT C.ID, C.Email, C.IssueDate, C.Amount FROM Credit AS C WHERE C.email = ?";
             PreparedStatement statement2 = connection.prepareStatement(query2);
             statement2.setString(1,email);
             ResultSet resultSet2 = statement2.executeQuery();
             User u = new User(email, fname, lname, userType);
             while(resultSet2.next()){
+                int id = resultSet2.getInt(1);
+                System.out.println("Reached point 1\n");
                 LocalDate issueDate = resultSet2.getDate(3).toLocalDate();
-                int id = resultSet.getInt(1);
-                int amount = resultSet.getInt(4);
+                System.out.println("Reached point 2\n");
+                int amount = resultSet2.getInt(4);
+                System.out.println("Reached point 4\n");
                 if(issueDate.compareTo(LocalDate.now().minusDays(365))<0){
                     String stmt = "DELETE FROM Credit AS C WHERE C.ID = ?";
+                    System.out.println(stmt);
                     PreparedStatement prepstmt3 = connection.prepareStatement(stmt);
                     prepstmt3.setInt(1, id);
                     prepstmt3.executeUpdate();
@@ -61,7 +65,15 @@ public class LoginRegisterManager extends Manager {
             throw new SQLException("Something went wrong");
         }
     }
-
+    public User login(String email, String password){
+        try{
+           return checkCredentials(email, password);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return new User("!","!","none","none");
+        }
+    }
     /**
      * @param email The user's email
      * @param fname The user's first name
@@ -70,7 +82,7 @@ public class LoginRegisterManager extends Manager {
      * @return a new {@code User} object if the user was created successfully {@code false} if an error occurred
      * @throws SQLException If something goes wrong with SQL for no apparent reason :)
      */
-    public User CreateNewUser(String email, String fname, String lname, String password) throws SQLException{
+    public User createNewUser(String email, String fname, String lname, String password) throws SQLException{
         
         Connection connection = Database.getConnection();
 
