@@ -100,7 +100,8 @@ public class LoginPage implements ActionListener {
       if(userEmail.equalsIgnoreCase("test") && userPass.equalsIgnoreCase("test")) 
       {
         JOptionPane.showMessageDialog(null, "Sign Up Successful");
-        new MainMenu(mainFrame);
+        User user = new User("", "", "", "");
+        new MainMenu(mainFrame, user);
       } 
       else 
       {
@@ -115,7 +116,8 @@ public class LoginPage implements ActionListener {
       userPass = String.valueOf(password.getPassword());
       if(userEmail.equalsIgnoreCase("test") && userPass.equalsIgnoreCase("test")) 
       {
-        new MainMenu(mainFrame);
+        User user = new User("", "", "", "");
+        new MainMenu(mainFrame, user);
       } 
       else 
       {
