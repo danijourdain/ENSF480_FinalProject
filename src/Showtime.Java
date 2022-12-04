@@ -27,5 +27,4 @@ public class Showtime{
     public void setRoom(TheatreRoom room) {
         this.room = room;
     }
-    
 }

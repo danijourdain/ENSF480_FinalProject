@@ -91,9 +91,6 @@ public class LoginPage implements ActionListener
     loginPage.add(login, gbc);
   }
 
-  /*
-   * This needs to be connected to the database
-   */
   public void actionPerformed(ActionEvent e)
   {
     if(e.getSource() == signUp)

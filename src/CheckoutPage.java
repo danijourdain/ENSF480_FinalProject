@@ -43,6 +43,7 @@ public class CheckoutPage implements ActionListener
 
   private void tableSet() //USING THE INDEXS PASS, GET TICKET ITEMS AND ADD TO TABLE
   {
+    
     String[] columnNames = {"Movie", "Date", "Time", "Seat", "Price"};
     Object[][] data =
     {
