@@ -12,11 +12,22 @@ public class TicketManager extends Manager {
         return instance;
     }
 
+    public Movie getMovie(String MTitle){
+        Connection connection = Database.getConnection();
+
+        String movie_query = "SELECT * FROM Movie WHERE Movie.MTitle = ?";
+        PreparedStatement statement = connection.prepareStatement(movie_query);
+        statement.setString(1,MTitle);
+        result = 
+    }
+
     public ArrayList<Showtime> getShowtimes() {
         try {
             Connection connection = Database.getConnection();
 
-            String query = "SELECT * FROM Showtime";
+            String showtime_query = "SELECT * FROM Showtime";
+            String movie_query = "SELECT * FROM Movie";
+            String theatreRoom_query = "SELECT * FROM ";
             PreparedStatement statement = connection.prepareStatement(query);
         } catch (SQLException e) {
             return null;
@@ -41,6 +52,7 @@ public class TicketManager extends Manager {
                         result.getObject(3, LocalDateTime.class), showtime.getMovie(), showtime.getRoom(),
                         result.getString(8)));
             }
+            Collections.sort(tickets, Comparator.comparing(Ticket::getSeatNo));
             return tickets;
         } catch (SQLException e) {
             return null;

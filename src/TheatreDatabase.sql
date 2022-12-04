@@ -3,14 +3,14 @@ CREATE DATABASE `Theater`;
 USE Theater;
 CREATE TABLE GenericUser(
     Email   VARCHAR(320) NOT NULL,
-    Fname  VARCHAR(30) NOT NULL,
-    Lname  VARCHAR(30) NOT NULL,
     Password_ VARCHAR(32) NOT NULL,
     UserType VARCHAR(10) NOT NULL,
     PRIMARY KEY(Email)
 );
 CREATE TABLE RegisteredUser(
     Email   VARCHAR(320) NOT NULL,
+    Fname  VARCHAR(30) NOT NULL,
+    Lname  VARCHAR(30) NOT NULL,
     RegDate	DATE NOT NULL, #hidden attribute, only server sees this.
     StAddress VARCHAR(400) NOT NULL,
     CreditCard CHAR(16) NOT NULL,
@@ -24,12 +24,7 @@ CREATE TABLE GuestUser(
     FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE TABLE AdminUser(
-    Email   VARCHAR(320) NOT NULL,
-    PRIMARY KEY(Email),
-    FOREIGN KEY(Email) REFERENCES GenericUser(Email)
-    ON UPDATE CASCADE ON DELETE CASCADE
-);
+
 CREATE TABLE Credit(
     ID INT AUTO_INCREMENT NOT NULL,
     Email VARCHAR(320) NOT NULL,
