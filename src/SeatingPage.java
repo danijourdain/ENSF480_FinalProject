@@ -132,7 +132,6 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
         String seatNum = ((JToggleButton) e.getSource()).getText();
         if(((JToggleButton) e.getSource()).isSelected())
         {
-          JOptionPane.showMessageDialog(mainFrame, "Selected seat: " + seatNum);
           purchased1.add(seatNum);
         }
         else 
