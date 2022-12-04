@@ -11,6 +11,7 @@ public class CheckoutPage implements ActionListener
 
   JFrame mainFrame;
   ArrayList<String> seats;
+  User user;
   JPanel checkoutPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JLabel ticketsLabel = new JLabel("Tickets");
@@ -27,10 +28,11 @@ public class CheckoutPage implements ActionListener
 
   JLabel spacer = new JLabel();
   
-  CheckoutPage(JFrame mainFrame, ArrayList<String> seats)
+  CheckoutPage(JFrame mainFrame, ArrayList<String> seats, User user)
   {
     this.mainFrame = mainFrame;
     this.seats = seats;
+    this.user = user;
 
     checkoutPageSetup();
 
@@ -135,7 +137,10 @@ public class CheckoutPage implements ActionListener
     gbc.gridwidth = 1;
     gbc.gridx = 1;
     gbc.gridy = 4;
-    credit.setPreferredSize(new Dimension(50, 30));
+    creditCard.setPreferredSize(new Dimension(50, 30));
+    if(user.getType() == "R") {
+      //creditCard.setText(user.getCreditCard());
+    }
     checkoutPage.add(creditCard, gbc);
 
     gbc.insets = new Insets(30, 5, 15, 5);
@@ -151,7 +156,7 @@ public class CheckoutPage implements ActionListener
   {
     if(e.getSource() == main)
     {
-      new MainMenu(mainFrame);
+      new MainMenu(mainFrame, user);
     }
     if(e.getSource() == purchase)
     {
