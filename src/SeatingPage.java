@@ -17,7 +17,7 @@ public class SeatingPage implements ActionListener {
   DefaultTableModel tableModel;
   JTable movieTable;
   JButton checkout = new JButton("Checkout");
-  ArrayList<String> purchased1;
+  ArrayList<String> purchased1 = new ArrayList<>();
 
   JLabel spacer = new JLabel();
 
