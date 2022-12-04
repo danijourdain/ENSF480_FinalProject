@@ -4,7 +4,8 @@ public class Ticket {
     private int price;
     private int seatNo;
     private Showtime showtime;
-    public Ticket(int ticketNo, int price, int seatNo, LocalDateTime time, Movie movie, TheatreRoom room){
+    private String Email;
+    public Ticket(int ticketNo, int price, int seatNo, LocalDateTime time, Movie movie, TheatreRoom room, String Email){
         this.ticketNo = ticketNo;
         this.price = price;
         this.seatNo = seatNo;
@@ -33,5 +34,13 @@ public class Ticket {
     }
     public void setShowtime(Showtime showtime) {
         this.showtime = showtime;
+    }
+
+    public void setEmail(String Email){
+        this.Email = Email;
+    }
+
+    public String getEmail(String Email){
+        return this.Email;
     }
 }
