@@ -5,14 +5,9 @@ import javax.swing.*;
 //import java.sql.*;
 
 public class LoginPage implements ActionListener {
-  public static void main(String args[]) 
-  {
-    new LoginPage();
-  }
-
   GridBagConstraints gbc = new GridBagConstraints();
   
-  JFrame mainFrame = new JFrame("Depressed SENG Student Theatres");
+  JFrame mainFrame;
   JPanel loginPage = new JPanel(new GridBagLayout());
   JLabel emailLabel = new JLabel("Email: ");
   JTextField email = new JTextField(32);
@@ -23,17 +18,15 @@ public class LoginPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  LoginPage()
+  LoginPage(JFrame mainFrame)
   {
-    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.mainFrame = mainFrame;
 
     loginPageSetup();
 
+    mainFrame.getContentPane().removeAll(); 
     mainFrame.add(loginPage);
-
-    mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-    mainFrame.setResizable(false);
-    mainFrame.setVisible(true);
+    mainFrame.validate();
   }
 
   private void loginPageSetup() {
@@ -106,8 +99,8 @@ public class LoginPage implements ActionListener {
       userPass = String.valueOf(password.getPassword());
       if(userEmail.equalsIgnoreCase("test") && userPass.equalsIgnoreCase("test")) 
       {
-        JOptionPane.showMessageDialog(mainFrame, "Registration Successful");
-        //Should not display message, will change panel to main menu
+        JOptionPane.showMessageDialog(null, "Registration Successful");
+        new MainMenu(mainFrame);
       } 
       else 
       {
@@ -122,8 +115,7 @@ public class LoginPage implements ActionListener {
       userPass = String.valueOf(password.getPassword());
       if(userEmail.equalsIgnoreCase("test") && userPass.equalsIgnoreCase("test")) 
       {
-        JOptionPane.showMessageDialog(mainFrame, "Login Successful");
-        //Should not display message, will change panel to main menu
+        new MainMenu(mainFrame);
       } 
       else 
       {

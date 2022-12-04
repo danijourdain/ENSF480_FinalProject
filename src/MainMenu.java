@@ -5,15 +5,10 @@ import javax.swing.*;
 //import java.sql.*;
 
 public class MainMenu implements ActionListener {
-  public static void main(String args[]) 
-  {
-    new MainMenu();
-  }
-
   GridBagConstraints gbc = new GridBagConstraints();
 
-  JFrame mainFrame = new JFrame("Depressed SENG Student Theatres"); //This class will return a panel for GUI to display not a new Jframe
-  JPanel loginPage = new JPanel(new GridBagLayout());
+  JFrame mainFrame;
+  JPanel mainPage = new JPanel(new GridBagLayout());
   JLabel userType = new JLabel("UserType"); //Will be changed with strategy
   JButton tickets = new JButton("Tickets");
   JLabel creditLabel = new JLabel("Credit: ");
@@ -26,17 +21,15 @@ public class MainMenu implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  MainMenu()
+  MainMenu(JFrame mainFrame)
   {
-    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.mainFrame = mainFrame;
 
     mainMenuSetup();
 
-    mainFrame.add(loginPage);
-
-    mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-    mainFrame.setResizable(false);
-    mainFrame.setVisible(true);
+    mainFrame.getContentPane().removeAll(); 
+    mainFrame.add(mainPage);
+    mainFrame.validate();
   }
 
   private void tableSet() {
@@ -58,14 +51,14 @@ public class MainMenu implements ActionListener {
     gbc.gridx = 0;
     gbc.gridy = 0;
     userType.setPreferredSize(new Dimension(150, 30));
-    loginPage.add(userType, gbc);
+    mainPage.add(userType, gbc);
 
     gbc.insets = new Insets(0, 5, 15, 5);
     gbc.gridwidth = 2;
     gbc.gridx = 1;
     gbc.gridy = 0;
     spacer.setPreferredSize(new Dimension(225, 30));
-    loginPage.add(spacer, gbc);
+    mainPage.add(spacer, gbc);
 
     gbc.insets = new Insets(0, 5, 15, 5);
     gbc.gridwidth = 1;
@@ -73,14 +66,14 @@ public class MainMenu implements ActionListener {
     gbc.gridy = 0;
     tickets.addActionListener(this);
     tickets.setPreferredSize(new Dimension(150, 30));
-    loginPage.add(tickets, gbc);
+    mainPage.add(tickets, gbc);
 
     gbc.insets = new Insets(15, 5, 15, 5);
     gbc.gridwidth = 1;
     gbc.gridx = 0;
     gbc.gridy = 1;
     creditLabel.setPreferredSize(new Dimension(50, 30));
-    loginPage.add(creditLabel, gbc);
+    mainPage.add(creditLabel, gbc);
 
     gbc.insets = new Insets(15, 5, 15, 5);
     gbc.gridwidth = 1;
@@ -88,14 +81,14 @@ public class MainMenu implements ActionListener {
     gbc.gridy = 1;
     credit.setPreferredSize(new Dimension(50, 30));
     credit.setEditable(false);
-    loginPage.add(credit, gbc);
+    mainPage.add(credit, gbc);
 
     gbc.insets = new Insets(15, 5, 15, 5);
     gbc.gridwidth = 1;
     gbc.gridx = 2;
     gbc.gridy = 1;
     spacer.setPreferredSize(new Dimension(225, 30));
-    loginPage.add(spacer, gbc);
+    mainPage.add(spacer, gbc);
 
     gbc.insets = new Insets(15, 5, 15, 5);
     gbc.gridwidth = 1;
@@ -103,14 +96,14 @@ public class MainMenu implements ActionListener {
     gbc.gridy = 1;
     addCredit.addActionListener(this);
     addCredit.setPreferredSize(new Dimension(150, 30));
-    loginPage.add(addCredit, gbc);
+    mainPage.add(addCredit, gbc);
 
     gbc.insets = new Insets(15, 0, 0, 0);
     gbc.gridwidth = 4;
     gbc.gridx = 0;
     gbc.gridy = 2;
     movieScroll.setPreferredSize(new Dimension(225, 200));
-    loginPage.add(movieScroll, gbc);
+    mainPage.add(movieScroll, gbc);
 
     gbc.insets = new Insets(50, 5, 15, 5);
     gbc.gridwidth = 1;
@@ -118,14 +111,14 @@ public class MainMenu implements ActionListener {
     gbc.gridy = 3;
     register.addActionListener(this);
     register.setPreferredSize(new Dimension(150, 30));
-    loginPage.add(register, gbc);
+    mainPage.add(register, gbc);
 
     gbc.insets = new Insets(50, 5, 15, 5);
     gbc.gridwidth = 2;
     gbc.gridx = 1;
     gbc.gridy = 3;
     spacer.setPreferredSize(new Dimension(225, 30));
-    loginPage.add(spacer, gbc);
+    mainPage.add(spacer, gbc);
 
     gbc.insets = new Insets(50, 5, 15, 5);
     gbc.gridwidth = 1;
@@ -133,14 +126,14 @@ public class MainMenu implements ActionListener {
     gbc.gridy = 3;
     logout.addActionListener(this);
     logout.setPreferredSize(new Dimension(150, 30));
-    loginPage.add(logout, gbc);
+    mainPage.add(logout, gbc);
   }
 
   public void actionPerformed(ActionEvent e)
   {
     if (e.getSource() == tickets)
     {
-      JOptionPane.showMessageDialog(mainFrame, "Show tickets page");
+      new TicketMenu(mainFrame);
     }
     else if (e.getSource() == addCredit)
     {
@@ -148,11 +141,13 @@ public class MainMenu implements ActionListener {
     }
     else if (e.getSource() == register)
     {
-      JOptionPane.showMessageDialog(mainFrame, "Pop up confirmation");
+      //Needs to be adjusted for registration
+      new LoginPage(mainFrame);
     }
     else if (e.getSource() == logout)
     {
-      JOptionPane.showMessageDialog(mainFrame, "Confirmation then login page");
+      new LoginPage(mainFrame);
+      JOptionPane.showMessageDialog(mainFrame, "Logged Out");
     }
   }
 }
