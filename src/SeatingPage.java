@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 //import java.util.*;
 //import java.sql.*;
 
-public class SeatingPage implements ActionListener 
+public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS VARIABLE
 {
   GridBagConstraints gbc = new GridBagConstraints();
 
@@ -23,7 +23,7 @@ public class SeatingPage implements ActionListener
 
   JLabel spacer = new JLabel();
 
-  SeatingPage(JFrame mainFrame, User user)
+  SeatingPage(JFrame mainFrame, User user) //ADD SHOWTIME AS ARGUEMENT
   {
     this.mainFrame = mainFrame;
     this.user = user;
@@ -35,7 +35,7 @@ public class SeatingPage implements ActionListener
     mainFrame.validate();
   }
 
-  private void tableSet() 
+  private void tableSet() //USE SHOWTIME TO PULL SEAT INFORMATION. ADJUST PURCHASED ARRAY 
   {
     int[] purchased = {1, 4, 6, 23, 52, 54};
     JToggleButton[] array = new JToggleButton[70];
@@ -120,7 +120,7 @@ public class SeatingPage implements ActionListener
     }
     else if(e.getSource() == checkout)
     {
-      new CheckoutPage(mainFrame, purchased1, user);
+      new CheckoutPage(mainFrame, purchased1, user); //RETURNS AN ARRAY OF INDEXES FOR TICKETS
     }
   }
 

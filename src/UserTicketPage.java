@@ -32,7 +32,7 @@ public class UserTicketPage implements ActionListener
     mainFrame.validate();
   }
 
-  private void tableSet() 
+  private void tableSet() //PULL USER TICKET INFO FOR TABLE
   {
     String[] columnNames = {"Movie", "Date", "Time", "Seat", ""};
     Object[][] data =
@@ -108,7 +108,7 @@ public class UserTicketPage implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
       int modelRow = Integer.valueOf(e.getActionCommand());
-      JOptionPane.showMessageDialog(mainFrame, "Delete ticket " + modelRow);
+      JOptionPane.showMessageDialog(mainFrame, "Delete ticket " + modelRow); //REMOVE TICKET BASED ON INDEX
     }
   };
 }

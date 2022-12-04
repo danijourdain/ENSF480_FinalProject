@@ -41,7 +41,7 @@ public class CheckoutPage implements ActionListener
     mainFrame.validate();
   }
 
-  private void tableSet() 
+  private void tableSet() //USING THE INDEXS PASS, GET TICKET ITEMS AND ADD TO TABLE
   {
     String[] columnNames = {"Movie", "Date", "Time", "Seat", "Price"};
     Object[][] data =
@@ -124,7 +124,7 @@ public class CheckoutPage implements ActionListener
     gbc.gridy = 3;
     credit.setPreferredSize(new Dimension(50, 30));
     price.setEditable(false);
-    checkoutPage.add(price, gbc);
+    checkoutPage.add(price, gbc);                                          //CALCULATE PRICE
 
     gbc.insets = new Insets(30, 5, 15, 5);
     gbc.gridwidth = 1;
@@ -161,7 +161,7 @@ public class CheckoutPage implements ActionListener
     if(e.getSource() == purchase)
     {
       String creditcard = creditCard.getText();
-      JOptionPane.showMessageDialog(mainFrame, "Purchase Tickets " + creditcard);
+      JOptionPane.showMessageDialog(mainFrame, "Purchase Tickets " + creditcard); //PURCHASE FUNCTION
     }
   }
 }

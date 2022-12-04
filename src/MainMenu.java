@@ -35,7 +35,7 @@ public class MainMenu implements ActionListener
     mainFrame.validate();
   }
 
-  private void tableSet() 
+  private void tableSet() //This table is not needed, add only if we have time. It's just a list of the movies being played.  
   {
     String[] title = {"Playing", "Movies"};
     String[][] data = {{"movie1", "movie2"}, {"movie3", "movie4"}, {"movie5", "movie6"}, {"movie7", "movie8"}, {"movie9", "movie10"}};
@@ -142,7 +142,7 @@ public class MainMenu implements ActionListener
     }
     else if(e.getSource() == addCredit)
     {
-      JOptionPane.showMessageDialog(mainFrame, "Show add credits");
+      JOptionPane.showMessageDialog(mainFrame, "Show add credits"); //Need to implement
     }
     else if(e.getSource() == register)
     {

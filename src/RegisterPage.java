@@ -11,8 +11,10 @@ public class RegisterPage implements ActionListener
   JFrame mainFrame;
   User user;
   JPanel registerPage = new JPanel(new GridBagLayout());
-  JLabel nameLabel = new JLabel("Name: ");
-  JTextField name = new JTextField(32);
+  JLabel FnameLabel = new JLabel("First Name: ");
+  JTextField Fname = new JTextField(32);
+  JLabel LnameLabel = new JLabel("Last Name: ");
+  JTextField Lname = new JTextField(32);
   JLabel addressLabel = new JLabel("Address: ");
   JTextField address = new JTextField(32);
   JLabel creditCardLabel = new JLabel("Credit Card: ");
@@ -43,28 +45,43 @@ public class RegisterPage implements ActionListener
     gbc.gridwidth = 1;
     gbc.gridx = 0;
     gbc.gridy = 0;
-    nameLabel.setPreferredSize(new Dimension(150, 30));
-    registerPage.add(nameLabel, gbc);
+    FnameLabel.setPreferredSize(new Dimension(150, 30));
+    registerPage.add(FnameLabel, gbc);
 
     gbc.insets = new Insets(10, 5, 15, 15);
     gbc.gridwidth = 2;
     gbc.gridx = 1;
     gbc.gridy = 0;
-    name.addActionListener(this);
-    name.setPreferredSize(new Dimension(225, 30));
-    registerPage.add(name, gbc);
+    Fname.addActionListener(this);
+    Fname.setPreferredSize(new Dimension(225, 30));
+    registerPage.add(Fname, gbc);
 
     gbc.insets = new Insets(10, 15, 15, 5);
     gbc.gridwidth = 1;
     gbc.gridx = 0;
     gbc.gridy = 1;
+    LnameLabel.setPreferredSize(new Dimension(150, 30));
+    registerPage.add(LnameLabel, gbc);
+
+    gbc.insets = new Insets(10, 5, 15, 15);
+    gbc.gridwidth = 2;
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    Lname.addActionListener(this);
+    Lname.setPreferredSize(new Dimension(225, 30));
+    registerPage.add(Lname, gbc);
+
+    gbc.insets = new Insets(10, 15, 15, 5);
+    gbc.gridwidth = 1;
+    gbc.gridx = 0;
+    gbc.gridy = 2;
     addressLabel.setPreferredSize(new Dimension(150, 30));
     registerPage.add(addressLabel, gbc);
 
     gbc.insets = new Insets(10, 5, 15, 15);
     gbc.gridwidth = 2;
     gbc.gridx = 1;
-    gbc.gridy = 1;
+    gbc.gridy = 2;
     address.addActionListener(this);
     address.setPreferredSize(new Dimension(225, 30));
     registerPage.add(address, gbc);
@@ -72,14 +89,14 @@ public class RegisterPage implements ActionListener
     gbc.insets = new Insets(10, 15, 15, 5);
     gbc.gridwidth = 1;
     gbc.gridx = 0;
-    gbc.gridy = 2;
+    gbc.gridy = 3;
     creditCardLabel.setPreferredSize(new Dimension(150, 30));
     registerPage.add(creditCardLabel, gbc);
 
     gbc.insets = new Insets(10, 5, 15, 15);
     gbc.gridwidth = 2;
     gbc.gridx = 1;
-    gbc.gridy = 2;
+    gbc.gridy = 3;
     creditCard.addActionListener(this);
     creditCard.setPreferredSize(new Dimension(225, 30));
     registerPage.add(creditCard, gbc);
@@ -89,7 +106,7 @@ public class RegisterPage implements ActionListener
     gbc.insets = new Insets(30, 0, 0, 0);
     gbc.gridwidth = 1;
     gbc.gridx = 0;
-    gbc.gridy = 3;
+    gbc.gridy = 4;
     main.addActionListener(this);
     main.setPreferredSize(new Dimension(225, 30));
     registerPage.add(main, gbc);
@@ -97,14 +114,14 @@ public class RegisterPage implements ActionListener
     gbc.insets = new Insets(30, 0, 0, 0);
     gbc.gridwidth = 1;
     gbc.gridx = 1;
-    gbc.gridy = 3;
+    gbc.gridy = 4;
     spacer.setPreferredSize(new Dimension(225, 30));
     registerPage.add(spacer, gbc);
 
     gbc.insets = new Insets(30, 0, 0, 0);
     gbc.gridwidth = 1;
     gbc.gridx = 2;
-    gbc.gridy = 3;
+    gbc.gridy = 4;
     register.addActionListener(this);
     register.setPreferredSize(new Dimension(225, 30));
     registerPage.add(register, gbc);
@@ -114,14 +131,12 @@ public class RegisterPage implements ActionListener
   {
     if(e.getSource() == register)
     {
-      String userName;
-      String userAddress;
-      String userCreditCard;
-      userName = name.getText();
-      userAddress = address.getText();
-      userCreditCard = creditCard.getText();
+      String userFName = Fname.getText();
+      String userLName = Fname.getText();
+      String userAddress = address.getText();
+      String userCreditCard = creditCard.getText();
 
-      if(userName.equalsIgnoreCase("test") && userAddress.equalsIgnoreCase("test") && userCreditCard.equalsIgnoreCase("1234")) 
+      if(userFName.equalsIgnoreCase("test") && userAddress.equalsIgnoreCase("test") && userCreditCard.equalsIgnoreCase("1234")) //CHECK FUNCTION
       {
         JOptionPane.showMessageDialog(null, "Account Exists with Given Information");
       } 

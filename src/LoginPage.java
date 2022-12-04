@@ -14,7 +14,7 @@ public class LoginPage implements ActionListener
   JTextField email = new JTextField(32);
   JLabel passwordLabel = new JLabel("Password: ");
   JPasswordField password = new JPasswordField(32);
-  JButton register = new JButton("Sign Up");
+  JButton signUp = new JButton("Sign Up");
   JButton login = new JButton("Login");
 
   JLabel spacer = new JLabel();
@@ -71,9 +71,9 @@ public class LoginPage implements ActionListener
     gbc.gridwidth = 1;
     gbc.gridx = 0;
     gbc.gridy = 2;
-    register.addActionListener(this);
-    register.setPreferredSize(new Dimension(225, 30));
-    loginPage.add(register, gbc);
+    signUp.addActionListener(this);
+    signUp.setPreferredSize(new Dimension(225, 30));
+    loginPage.add(signUp, gbc);
 
     gbc.insets = new Insets(30, 0, 0, 0);
     gbc.gridwidth = 1;
@@ -91,15 +91,16 @@ public class LoginPage implements ActionListener
     loginPage.add(login, gbc);
   }
 
+  /*
+   * This needs to be connected to the database
+   */
   public void actionPerformed(ActionEvent e)
   {
-    if(e.getSource() == register)
+    if(e.getSource() == signUp)
     {
-      String userEmail;
-      String userPass;
-      userEmail = email.getText();
-      userPass = String.valueOf(password.getPassword());
-      if(userEmail.equalsIgnoreCase("test") && userPass.equalsIgnoreCase("test")) 
+      String userEmail = email.getText();
+      String userPass = String.valueOf(password.getPassword());
+      if(userEmail != "test" && userPass != "test") //Needs function to test if user already exists in system
       {
         JOptionPane.showMessageDialog(null, "Sign Up Successful");
         User user = new User("", "", "", "");
@@ -107,18 +108,16 @@ public class LoginPage implements ActionListener
       } 
       else 
       {
-        JOptionPane.showMessageDialog(mainFrame, "Invalid Username or Password");
+        JOptionPane.showMessageDialog(mainFrame, "User already exists");
       }
     }
     if(e.getSource() == login)
     {
-      String userEmail;
-      String userPass;
-      userEmail = email.getText();
-      userPass = String.valueOf(password.getPassword());
-      if(userEmail.equalsIgnoreCase("test") && userPass.equalsIgnoreCase("test")) 
+      String userEmail = email.getText();
+      String userPass = String.valueOf(password.getPassword());
+      if(userEmail.equalsIgnoreCase("test") && userPass.equalsIgnoreCase("test")) //Needs function to test if user already exists in system
       {
-        User user = new User("", "", "", "");
+        User user = new User("", "", "", ""); //Function returns a user, return that
         new MainMenu(mainFrame, user);
       } 
       else 

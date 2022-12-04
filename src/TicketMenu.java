@@ -33,7 +33,7 @@ public class TicketMenu implements ActionListener
     mainFrame.validate();
   }
 
-  private void tableSet() 
+  private void tableSet() //THIS NEEDS SHOWTIMES, THE BUTTONS RETURN THE INDEX NUM, USE INDEX NUM TO RETURN SHOWTIME IN BUTTONS BELOW
   {
     String[] columnNames = {"Movie", "Date", "Time", ""};
     Object[][] data =
@@ -145,7 +145,7 @@ public class TicketMenu implements ActionListener
     {
       int modelRow = Integer.valueOf(e.getActionCommand());
       JOptionPane.showMessageDialog(mainFrame, "Selected :" + modelRow);
-      new SeatingPage(mainFrame, user);
+      new SeatingPage(mainFrame, user); //RETURN SHOWTIME HERE, HAVE TO ADD ARGUEMENT
     }
   };
 }
