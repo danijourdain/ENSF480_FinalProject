@@ -18,7 +18,7 @@ public class CheckoutPage implements ActionListener {
   JScrollPane movieScroll;
   JLabel creditLabel = new JLabel("Credit: ");
   JTextField credit = new JTextField(32);
-  JLabel priceLabel = new JLabel("Credit: ");
+  JLabel priceLabel = new JLabel("Price: ");
   JTextField price = new JTextField(32);
   JButton purchase = new JButton("Purchase");
 
@@ -119,7 +119,7 @@ public class CheckoutPage implements ActionListener {
     price.setEditable(false);
     checkoutPage.add(price, gbc);
 
-    gbc.insets = new Insets(0, 5, 15, 5);
+    gbc.insets = new Insets(30, 5, 15, 5);
     gbc.gridwidth = 1;
     gbc.gridx = 3;
     gbc.gridy = 4;
