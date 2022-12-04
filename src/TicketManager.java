@@ -11,7 +11,7 @@ public class TicketManager extends Manager {
         return instance;
     }
 
-    public Ticket PurchaseTicket(int ticketNo, String email, LocalDateTime date, String title, int roomNo, String theaterName, User u) throws SQLException{
+    public Ticket PurchaseTicket(int ticketNo, LocalDateTime date, String title, int roomNo, String theaterName, User u) throws SQLException{
         Connection connection = Database.getConnection();
         
         String query = "SELECT * FROM Ticket WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
@@ -31,18 +31,6 @@ public class TicketManager extends Manager {
 
         String ticketEmail = resultSet.getString("Email");
         if(ticketEmail == null) {
-            //if the ticketEmail does not exist, the ticket can be purchased 
-            String updateQuery = "UPDATE Ticket SET Email=? WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
-            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
-            updateStatement.setString(0, email);
-            updateStatement.setInt(1, ticketNo);
-            updateStatement.setObject(2, date);
-            updateStatement.setString(3, title);
-            updateStatement.setInt(4, roomNo);
-            updateStatement.setString(5, theaterName);
-            updateStatement.executeUpdate();
-            //update the email of the ticket to indicate the ticket has been purchased
-
             String movieQuery = "SELECT * FROM Movie WHERE Title=?";
             PreparedStatement movieStatement = connection.prepareStatement(movieQuery);
             movieStatement.setString(0, title);
@@ -62,7 +50,22 @@ public class TicketManager extends Manager {
 
             Ticket t = new Ticket(ticketNo, ticketNo, roomNo, date, m, r);
             FinanceManager f = FinanceManager.getInstance();
-            f.applyCredit(t, u);
+            if(f.applyCredit(t, u) == true) {
+                //if the ticketEmail does not exist, the ticket can be purchased 
+                String updateQuery = "UPDATE Ticket SET Email=? WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
+                PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+                updateStatement.setString(0, u.getEmail());
+                updateStatement.setInt(1, ticketNo);
+                updateStatement.setObject(2, date);
+                updateStatement.setString(3, title);
+                updateStatement.setInt(4, roomNo);
+                updateStatement.setString(5, theaterName);
+                updateStatement.executeUpdate();
+                //update the email of the ticket to indicate the ticket has been purchased
+            }
+            else {
+                throw new SQLException("Purchase failed");
+            }
 
             return t;
         }
@@ -71,7 +74,7 @@ public class TicketManager extends Manager {
         }
     }
 
-    public Ticket RefundTicket(int ticketNo, String email, LocalDateTime date, String title, int roomNo, String theaterName, User u) throws SQLException{
+    public Ticket RefundTicket(int ticketNo, LocalDateTime date, String title, int roomNo, String theaterName, User u) throws SQLException{
         Connection connection = Database.getConnection();
         
         String query = "SELECT * FROM Ticket WHERE TNo=? AND ShowDateTime=? AND MTitle=? AND RNumber=? AND TName=?";
