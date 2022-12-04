@@ -8,6 +8,7 @@ public class RegisterPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
   
   JFrame mainFrame;
+  User user;
   JPanel registerPage = new JPanel(new GridBagLayout());
   JLabel nameLabel = new JLabel("Name: ");
   JTextField name = new JTextField(32);
@@ -20,9 +21,10 @@ public class RegisterPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  RegisterPage(JFrame mainFrame)
+  RegisterPage(JFrame mainFrame, User user)
   {
     this.mainFrame = mainFrame;
+    this.user = user;
 
     loginPageSetup();
 
@@ -124,12 +126,12 @@ public class RegisterPage implements ActionListener {
       else 
       {
         JOptionPane.showMessageDialog(mainFrame, "Welcome Registered User");
-        new MainMenu(mainFrame);
+        new MainMenu(mainFrame, user);
       }
     }
     if (e.getSource() == main)
     {
-      new MainMenu(mainFrame);
+      new MainMenu(mainFrame, user);
     }
   }
 }

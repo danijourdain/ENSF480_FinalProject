@@ -8,6 +8,7 @@ public class MainMenu implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
+  User user;
   JPanel mainPage = new JPanel(new GridBagLayout());
   JLabel userType = new JLabel("UserType"); //Will be changed with strategy
   JButton tickets = new JButton("Tickets");
@@ -21,9 +22,10 @@ public class MainMenu implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  MainMenu(JFrame mainFrame)
+  MainMenu(JFrame mainFrame, User user)
   {
     this.mainFrame = mainFrame;
+    this.user = user;
 
     mainMenuSetup();
 
@@ -133,7 +135,7 @@ public class MainMenu implements ActionListener {
   {
     if (e.getSource() == tickets)
     {
-      new TicketMenu(mainFrame);
+      new TicketMenu(mainFrame, user);
     }
     else if (e.getSource() == addCredit)
     {
@@ -142,7 +144,7 @@ public class MainMenu implements ActionListener {
     else if (e.getSource() == register)
     {
       //Needs to be adjusted for registration
-      new RegisterPage(mainFrame);
+      new RegisterPage(mainFrame, user);
     }
     else if (e.getSource() == logout)
     {

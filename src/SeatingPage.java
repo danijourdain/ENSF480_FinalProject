@@ -11,6 +11,7 @@ public class SeatingPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
+  User user;
   JPanel seatingPage = new JPanel(new GridBagLayout());
   JPanel seatingTable = new JPanel(new GridLayout(7, 10));
   JButton main = new JButton("Main Page");
@@ -21,9 +22,10 @@ public class SeatingPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  SeatingPage(JFrame mainFrame)
+  SeatingPage(JFrame mainFrame, User user)
   {
     this.mainFrame = mainFrame;
+    this.user = user;
 
     seatingPageSetup();
 
@@ -110,7 +112,7 @@ public class SeatingPage implements ActionListener {
   {
     if(e.getSource() == main)
     {
-      new MainMenu(mainFrame);
+      new MainMenu(mainFrame, user);
     }
     else if(e.getSource() == checkout)
     {

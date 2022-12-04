@@ -9,6 +9,7 @@ public class TicketMenu implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
+  User user;
   JPanel ticketPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JButton userTickets = new JButton("My Tickets");
@@ -19,9 +20,10 @@ public class TicketMenu implements ActionListener {
 
   JLabel spacer = new JLabel();
   
-  TicketMenu(JFrame mainFrame)
+  TicketMenu(JFrame mainFrame, User user)
   {
     this.mainFrame = mainFrame;
+    this.user = user;
 
     ticketMenuSetup();
 
@@ -126,7 +128,7 @@ public class TicketMenu implements ActionListener {
   {
     if (e.getSource() == main)
     {
-      new MainMenu(mainFrame);
+      new MainMenu(mainFrame, user);
     }
     else if (e.getSource() == userTickets)
     {
@@ -140,7 +142,7 @@ public class TicketMenu implements ActionListener {
     {
       int modelRow = Integer.valueOf(e.getActionCommand());
       JOptionPane.showMessageDialog(mainFrame, "Selected :" + modelRow);
-      new SeatingPage(mainFrame);
+      new SeatingPage(mainFrame, user);
     }
   };
 }
