@@ -8,7 +8,7 @@ import java.sql.*;
 public class Database{
     private static String username = "root";
     private static String url = "jdbc:mysql://localhost:3306/Theatre";
-    private static String password = "Mastermind@10";
+    private static String password = "password";
     private static Connection connection = null;
     private Database(){}
     /**
