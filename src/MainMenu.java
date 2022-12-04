@@ -151,8 +151,8 @@ public class MainMenu implements ActionListener
     }
     else if(e.getSource() == logout)
     {
-      new LoginPage(mainFrame);
       JOptionPane.showMessageDialog(mainFrame, "Logged Out");
+      new LoginPage(mainFrame);
     }
   }
 }
