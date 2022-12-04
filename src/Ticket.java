@@ -1,57 +1,33 @@
-import java.time.LocalDateTime;
-
 public class Ticket {
-    private int ticketNo;
-    private int price;
-    private int seatNo;
-    private Showtime showtime;
-    private String Email;
+    private final int TICKETNO;
+    private final int PRICE;
+    private final Showtime SHOWTIME;
+    private String email;
 
-    public Ticket(int ticketNo, int price, int seatNo, LocalDateTime time, Movie movie, TheatreRoom room,
-            String Email) {
-        this.ticketNo = ticketNo;
-        this.price = price;
-        this.seatNo = seatNo;
-        showtime = new Showtime(time, movie, room);
+    public Ticket(int ticketNo, int price, Showtime showtime, String email) {
+        this.TICKETNO = ticketNo;
+        this.PRICE = price;
+        this.SHOWTIME = showtime;
+        this.email = email;
     }
 
     public int getTicketNo() {
-        return ticketNo;
-    }
-
-    public void setTicketNo(int ticketNo) {
-        this.ticketNo = ticketNo;
+        return this.TICKETNO;
     }
 
     public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getSeatNo() {
-        return this.seatNo;
-    }
-
-    public void setSeatNo(int seatNo) {
-        this.seatNo = seatNo;
+        return this.PRICE;
     }
 
     public Showtime getShowtime() {
-        return showtime;
+        return SHOWTIME;
     }
 
-    public void setShowtime(Showtime showtime) {
-        this.showtime = showtime;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
-    }
-
-    public String getEmail(String Email) {
-        return this.Email;
+    public String getEmail() {
+        return this.email;
     }
 }

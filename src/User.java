@@ -1,23 +1,26 @@
 import java.util.*;
 import java.time.*;
+
 public class User{
-    private String fname;
-    private String lname;
     private String email;
     private String password;
-    private String type; //G for guest, R for Registered
-    private String creditCard;
+    private String fname;
+    private String lname;
     private String address;
+    private String creditCard;
+    private LocalDate expDate;
     private ArrayList<Credit> credit;
+    private String type; //Guest for guest, Registered for Registered
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-        type = "G";
+        type = "Guest";
         fname = null;
         lname = null;
         creditCard = null;
         address = null;
+        expDate = null;
         credit = new ArrayList<>();
         //users are only constructed when they are a guest user
     }
@@ -30,16 +33,29 @@ public class User{
         return this.email;
     }
 
+
     public String getFname(){
         return this.fname;
+    }
+
+    public void setFname(String fname){
+        this.fname = fname;
     }
 
     public String getLname(){
         return this.lname;
     }
 
+    public void setLname(String lname){
+        this.lname = lname;
+    }
+
     public String getType(){
         return this.type;
+    }
+
+    public void setType(String Type){
+        this.type = Type;
     }
 
     public String getAddress() {
@@ -48,10 +64,6 @@ public class User{
 
     public String getCreditCard() {
         return creditCard;
-    }
-
-    public void setType(String type){
-        this.type = type;
     }
 
     public void setPassword(String password) {
@@ -91,5 +103,13 @@ public class User{
 
     public void addCredit(LocalDate issueDate, int amount, int id) {
         this.credit.add(new Credit(issueDate, amount, id));
+    }
+
+    public void setExpDate(LocalDate expDate){
+        this.expDate = expDate;
+    }
+
+    public LocalDate getExpDate(){
+        return this.expDate;
     }
 }

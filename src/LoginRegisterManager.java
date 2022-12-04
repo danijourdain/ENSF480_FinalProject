@@ -32,15 +32,15 @@ public class LoginRegisterManager extends Manager {
         if (resultSet.next() == false) {
             throw new SQLException("Incorrect Password or Email");
         }
-        String fname = resultSet.getString("Fname");
-        String lname = resultSet.getString("Lname");
         String userType = resultSet.getString("UserType");
         try {
             String query2 = "SELECT C.ID, C.Email, C.IssueDate, C.Amount FROM Credit AS C WHERE C.email = ?";
             PreparedStatement statement2 = connection.prepareStatement(query2);
             statement2.setString(1, email);
             ResultSet resultSet2 = statement2.executeQuery();
-            User u = new User(email, fname, lname, userType);
+            User u = new User(email, password);
+            u.setType(userType);
+            
             while (resultSet2.next()) {
                 int id = resultSet2.getInt(1);
                 System.out.println("Reached point 1\n");
@@ -89,7 +89,7 @@ public class LoginRegisterManager extends Manager {
      * @throws SQLException If something goes wrong with SQL for no apparent reason
      *                      :)
      */
-    public User createNewUser(String email, String fname, String lname, String password) throws SQLException {
+    public User createNewUser(String email, String password) throws SQLException {
 
         Connection connection = Database.getConnection();
 
@@ -108,33 +108,39 @@ public class LoginRegisterManager extends Manager {
         }
         // Generate generic user
         try {
-            String temp = "INSERT INTO GenericUser VALUES(?, ?, ?, ?, ?)";
+            String temp = "INSERT INTO GenericUser VALUES(?, ?, ?)";
             PreparedStatement CREATE_USER = connection.prepareStatement(temp);
             CREATE_USER.setString(1, email);
-            CREATE_USER.setString(2, fname);
-            CREATE_USER.setString(3, lname);
-            CREATE_USER.setString(4, password);
-            CREATE_USER.setString(5, "Guest");
+            CREATE_USER.setString(2, password);
+            CREATE_USER.setString(3, "Guest");
             CREATE_USER.executeUpdate();
 
             String temp2 = "INSERT INTO GuestUser VALUES(?)";
             PreparedStatement CREATE_GUEST = connection.prepareStatement(temp2);
             CREATE_GUEST.setString(1, email);
             CREATE_GUEST.executeUpdate();
-            return new User(fname, lname, email, "Guest");
+            return new User(email, password);
         } catch (SQLException e) {
             throw new SQLException("An error occurred while trying to create this user");
         }
     }
 
-    public void registerUser(User u, String cardNo, String StAddress) throws SQLException {
+    public void registerUser(User u, String fname, String lname, String cardNo, String StAddress) throws SQLException {
         Connection connection = Database.getConnection();
-        String insert = "INSERT INTO RegisteredUser VALUES(?,?,?,?)";
+        String insert = "INSERT INTO RegisteredUser VALUES(?,?,?,?,?)";
         PreparedStatement register_user = connection.prepareStatement(insert);
         register_user.setString(1, u.getEmail());
-        register_user.setString(2, LocalDate.now().toString());
-        register_user.setString(3, StAddress);
-        register_user.setString(4, cardNo);
+        register_user.setString(2, fname);
+        register_user.setString(3, lname);
+        register_user.setString(4, StAddress);
+        register_user.setString(5, cardNo);
+        register_user.setString(6, LocalDate.now().toString());
+        register_user.executeUpdate();
+        u.setFname(fname);
+        u.setLname(lname);
+        u.setCreditCard(cardNo);
+        u.setAddress(StAddress);
+        u.setExpDate(LocalDate.now());
     }
 
     public static LoginRegisterManager getInstance() {

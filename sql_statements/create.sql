@@ -3,32 +3,37 @@ CREATE DATABASE `Theatre`;
 USE Theatre;
 CREATE TABLE GenericUser(
     Email   VARCHAR(320) NOT NULL,
-    Fname  VARCHAR(30) NOT NULL,
-    Lname  VARCHAR(30) NOT NULL,
     Password_ VARCHAR(32) NOT NULL,
     UserType VARCHAR(10) NOT NULL,
     PRIMARY KEY(Email)
 );
+
 CREATE TABLE RegisteredUser(
     Email   VARCHAR(320) NOT NULL,
+    Fname  VARCHAR(30) NOT NULL,
+    Lname  VARCHAR(30) NOT NULL,
     StAddress VARCHAR(400) NOT NULL,
     CreditCard CHAR(16) NOT NULL,
+    ExpDate DATE NOT NULL,
     PRIMARY KEY(Email),
     FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 CREATE TABLE GuestUser(
     Email   VARCHAR(320) NOT NULL,
     PRIMARY KEY(Email),
     FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 CREATE TABLE Admin_User(
     Email   VARCHAR(320) NOT NULL,
     PRIMARY KEY(Email),
     FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 CREATE TABLE Credit(
     ID INT AUTO_INCREMENT NOT NULL,
     Email VARCHAR(320) NOT NULL,
@@ -38,11 +43,13 @@ CREATE TABLE Credit(
     FOREIGN KEY(Email) REFERENCES GenericUser(Email)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 CREATE TABlE MovieTheatre(
     LocName   VARCHAR(32) NOT NULL,
     StAddress VARCHAR(400) NOT NULL,
     PRIMARY KEY(LocName)
 );
+
 CREATE TABLE TheatreRoom(
     RNumber INT NOT NULL,
     Capacity INT NOT NULL,
@@ -57,6 +64,7 @@ CREATE TABlE Movie(
     OpeningDate DATE NOT NULL,
     PRIMARY KEY(Title)
 );
+
 CREATE TABLE Showtime(
     ShowDateTime DATETIME NOT NULL,
     MTitle VARCHAR(32) NOT NULL,
@@ -70,12 +78,12 @@ CREATE TABLE Showtime(
     FOREIGN KEY(RNumber, TName) REFERENCES TheatreRoom(RNumber, TheatreName)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 CREATE TABLE Ticket (
     TNo INT NOT NULL,
     MTitle VARCHAR(32) NOT NULL,
     ShowDateTime DATETIME NOT NULL,
     RNumber INT NOT NULL,
-	SeatNumber INT NOT NULL,
     TName VARCHAR(32) NOT NULL,
     Price INT NOT NULL,
     Email VARCHAR(320),

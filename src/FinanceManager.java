@@ -13,6 +13,7 @@ public class FinanceManager extends Manager{
      * @return true if the number is valid, false otherwise
      */
     private FinanceManager(){}
+
     public boolean verify(String number){
         if(!number.matches(CARD_REGEX)){
             return false;
@@ -26,12 +27,14 @@ public class FinanceManager extends Manager{
         }
         return(sum % 10 == 0);
     }
+
     public static FinanceManager getInstance(){
         if(instance == null){
             instance = new FinanceManager();
         }
         return instance;
     }
+
     public boolean applyCredit(Ticket ticket, User user){
         try{
         Connection connection = Database.getConnection();
@@ -78,6 +81,7 @@ public class FinanceManager extends Manager{
         }
         return true;
     }
+    
     public void issueRefund(Ticket ticket, User user){
         if(user.getType().equalsIgnoreCase("registered")){
             user.addCredit(LocalDate.now(), ticket.getPrice(),-1);
