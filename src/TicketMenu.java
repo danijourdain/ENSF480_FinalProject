@@ -132,7 +132,7 @@ public class TicketMenu implements ActionListener {
     }
     else if (e.getSource() == userTickets)
     {
-      new UserTicketPage(mainFrame);
+      new UserTicketPage(mainFrame, user);
     }
   }
 

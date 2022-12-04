@@ -116,7 +116,7 @@ public class SeatingPage implements ActionListener {
     }
     else if(e.getSource() == checkout)
     {
-      new CheckoutPage(mainFrame, purchased1);
+      new CheckoutPage(mainFrame, purchased1, user);
     }
   }
 

@@ -9,6 +9,7 @@ public class UserTicketPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
+  User user;
   JPanel ticketPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JLabel ticketLabel = new JLabel("Tickets");
@@ -18,9 +19,10 @@ public class UserTicketPage implements ActionListener {
 
   JLabel spacer = new JLabel();
   
-  UserTicketPage(JFrame mainFrame)
+  UserTicketPage(JFrame mainFrame, User user)
   {
     this.mainFrame = mainFrame;
+    this.user = user;
 
     ticketMenuSetup();
 
@@ -94,7 +96,7 @@ public class UserTicketPage implements ActionListener {
   {
     if (e.getSource() == main)
     {
-      new MainMenu(mainFrame);
+      new MainMenu(mainFrame, user);
     }
   }
 

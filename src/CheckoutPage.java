@@ -10,6 +10,7 @@ public class CheckoutPage implements ActionListener {
 
   JFrame mainFrame;
   ArrayList<String> seats;
+  User user;
   JPanel checkoutPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JLabel ticketsLabel = new JLabel("Tickets");
@@ -24,10 +25,11 @@ public class CheckoutPage implements ActionListener {
 
   JLabel spacer = new JLabel();
   
-  CheckoutPage(JFrame mainFrame, ArrayList<String> seats)
+  CheckoutPage(JFrame mainFrame, ArrayList<String> seats, User user)
   {
     this.mainFrame = mainFrame;
     this.seats = seats;
+    this.user = user;
 
     checkoutPageSetup();
 
@@ -132,7 +134,7 @@ public class CheckoutPage implements ActionListener {
   {
     if(e.getSource() == main)
     {
-      new MainMenu(mainFrame);
+      new MainMenu(mainFrame, user);
     }
     else if(e.getSource() == purchase)
     {
