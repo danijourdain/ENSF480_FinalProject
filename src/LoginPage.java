@@ -13,7 +13,7 @@ public class LoginPage implements ActionListener {
   JTextField email = new JTextField(32);
   JLabel passwordLabel = new JLabel("Password: ");
   JPasswordField password = new JPasswordField(32);
-  JButton register = new JButton("Register");
+  JButton register = new JButton("Sign Up");
   JButton login = new JButton("Login");
 
   JLabel spacer = new JLabel();
@@ -99,7 +99,7 @@ public class LoginPage implements ActionListener {
       userPass = String.valueOf(password.getPassword());
       if(userEmail.equalsIgnoreCase("test") && userPass.equalsIgnoreCase("test")) 
       {
-        JOptionPane.showMessageDialog(null, "Registration Successful");
+        JOptionPane.showMessageDialog(null, "Sign Up Successful");
         new MainMenu(mainFrame);
       } 
       else 
