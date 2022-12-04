@@ -135,15 +135,14 @@ public class RegisterPage implements ActionListener
       String userLName = Fname.getText();
       String userAddress = address.getText();
       String userCreditCard = creditCard.getText();
-
-      if(userFName.equalsIgnoreCase("test") && userAddress.equalsIgnoreCase("test") && userCreditCard.equalsIgnoreCase("1234")) //CHECK FUNCTION
-      {
-        JOptionPane.showMessageDialog(null, "Account Exists with Given Information");
-      } 
-      else 
-      {
+      try {
+        LoginRegisterManager login = LoginRegisterManager.getInstance();
+        login.registerUser(user, userFName, userLName, userCreditCard, userAddress);
         JOptionPane.showMessageDialog(mainFrame, "Welcome Registered User");
         new MainMenu(mainFrame, user);
+      }
+      catch(Exception f) {
+        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
     }
     if(e.getSource() == main)

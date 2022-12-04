@@ -99,7 +99,7 @@ public class LoginPage implements ActionListener
       String userPass = String.valueOf(password.getPassword());
       try {
         LoginRegisterManager login = LoginRegisterManager.getInstance();
-        User user = login.login(userEmail, userPass);
+        User user = login.createNewUser(userEmail, userPass);
         new MainMenu(mainFrame, user);
       }
       catch(Exception f) {
