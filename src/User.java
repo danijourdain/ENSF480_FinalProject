@@ -1,7 +1,7 @@
 import java.util.*;
 import java.time.*;
 
-public class User{
+public class User {
     private String email;
     private String password;
     private String fname;
@@ -10,7 +10,7 @@ public class User{
     private String creditCard;
     private LocalDate expDate;
     private ArrayList<Credit> credit;
-    private String type; //Guest for guest, Registered for Registered
+    private String type; // Guest for guest, Registered for Registered
 
     public User(String email, String password) {
         this.email = email;
@@ -22,39 +22,39 @@ public class User{
         address = null;
         expDate = null;
         credit = new ArrayList<>();
-        //users are only constructed when they are a guest user
+        // users are only constructed when they are a guest user
     }
 
     /**
      * A copy constructor for the class {@code user}
+     * 
      * @param u is the <b>reference</b> object
      */
-    public String getEmail(){
+    public String getEmail() {
         return this.email;
     }
 
-
-    public String getFname(){
+    public String getFname() {
         return this.fname;
     }
 
-    public void setFname(String fname){
+    public void setFname(String fname) {
         this.fname = fname;
     }
 
-    public String getLname(){
+    public String getLname() {
         return this.lname;
     }
 
-    public void setLname(String lname){
+    public void setLname(String lname) {
         this.lname = lname;
     }
 
-    public String getType(){
+    public String getType() {
         return this.type;
     }
 
-    public void setType(String Type){
+    public void setType(String Type) {
         this.type = Type;
     }
 
@@ -74,8 +74,8 @@ public class User{
         return this.credit;
     }
 
-    public Credit getCredit(int index){
-        if(index >= credit.size()){
+    public Credit getCredit(int index) {
+        if (index >= credit.size()) {
             index = index % credit.size();
         }
         return this.credit.get(index);
@@ -97,18 +97,19 @@ public class User{
         return password;
     }
 
-    public void addCredit(int amount){
+    public void addCredit(int amount) {
         this.credit.add(new Credit(LocalDate.now(), amount));
     }
+
     public void addCredit(LocalDate issueDate, int amount, int id) {
         this.credit.add(new Credit(issueDate, amount, id));
     }
 
-    public void setExpDate(LocalDate expDate){
+    public void setExpDate(LocalDate expDate) {
         this.expDate = expDate;
     }
 
-    public LocalDate getExpDate(){
+    public LocalDate getExpDate() {
         return this.expDate;
     }
 }

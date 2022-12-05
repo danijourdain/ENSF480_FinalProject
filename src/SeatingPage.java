@@ -49,7 +49,7 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
         array[i].addActionListener(listener);
         seatingTable.add(array[i]);
       } else {
-        seatingTable.add(new JLabel("x"));
+        seatingTable.add(new JLabel("    X"));
       }
     }
 

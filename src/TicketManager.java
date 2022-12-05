@@ -102,7 +102,7 @@ public class TicketManager extends Manager {
         }
     }
 
-    public boolean purchaseTickets(ArrayList<Ticket> tickets, User u, String cardNo) throws SQLException {
+    public int purchaseTickets(ArrayList<Ticket> tickets, User u, String cardNo) throws SQLException {
         int total_price = 0;
 
         for (Ticket t : tickets) {
@@ -111,16 +111,16 @@ public class TicketManager extends Manager {
         }
 
         FinanceManager f = FinanceManager.getInstance();
-        boolean purchase_success = false;
+        int chargeAmount = -1;
 
         if (u.getType().equals("Registered")) {
-            purchase_success = f.doTransaction(total_price, u, u.getCreditCard());
+            chargeAmount = f.doTransaction(total_price, u, u.getCreditCard());
         } else {
-            purchase_success = f.doTransaction(total_price, u, cardNo);
+            chargeAmount = f.doTransaction(total_price, u, cardNo);
         }
         // charge the user for the tickets
 
-        if (purchase_success) {
+        if (chargeAmount >= 0) {
             Connection connection = Database.getConnection();
 
             for (Ticket t : tickets) {
@@ -140,7 +140,7 @@ public class TicketManager extends Manager {
             }
         }
 
-        return purchase_success;
+        return chargeAmount;
     }
 
     public void RefundTicket(Ticket t, User u) throws SQLException {

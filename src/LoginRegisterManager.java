@@ -48,7 +48,7 @@ public class LoginRegisterManager extends Manager {
                 System.out.println("Reached point 2\n");
                 int amount = resultSet2.getInt(4);
                 System.out.println("Reached point 4\n");
-                if (issueDate.compareTo(LocalDate.now().minusDays(365)) < 0) {
+                if (issueDate.compareTo(LocalDate.now().minusDays(365)) < 0 || amount <= 0) {
                     String stmt = "DELETE FROM Credit AS C WHERE C.ID = ?";
                     System.out.println(stmt);
                     PreparedStatement prepstmt3 = connection.prepareStatement(stmt);
@@ -141,6 +141,12 @@ public class LoginRegisterManager extends Manager {
         PreparedStatement delete_guest = connection.prepareStatement(remove);
         delete_guest.setString(1, u.getEmail());
         delete_guest.executeUpdate();
+
+        String update = "UPDATE GenericUser SET UserType = ? WHERE Email = ?";
+        PreparedStatement update_statement = connection.prepareStatement(update);
+        update_statement.setString(1, "Registered");
+        update_statement.setString(2, u.getEmail());
+        update_statement.executeUpdate();
 
         u.setFname(fname);
         u.setLname(lname);

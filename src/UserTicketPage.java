@@ -12,12 +12,17 @@ public class UserTicketPage implements ActionListener {
   JFrame mainFrame;
   User user;
   ArrayList<Ticket> userTickets;
+  ArrayList<Credit> userCredits;
   JPanel ticketPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JLabel ticketLabel = new JLabel("Tickets");
-  DefaultTableModel tableModel;
-  JTable movieTable;
-  JScrollPane movieScroll = new JScrollPane();
+  DefaultTableModel ticketTableModel;
+  JLabel creditLabel = new JLabel("Credits");
+  DefaultTableModel credittableModel;
+  JTable ticketTable;
+  JTable creditTable;
+  JScrollPane ticketScroll = new JScrollPane();
+  JScrollPane creditScroll = new JScrollPane();
 
   JLabel spacer = new JLabel();
 
@@ -37,24 +42,37 @@ public class UserTicketPage implements ActionListener {
     TicketManager ticketM = TicketManager.getInstance();
     userTickets = ticketM.getUserTickets(user);
 
-    String[] columnNames = { "Movie", "Date", "Time", "Seat", "" };
-    Object[][] data = new Object[userTickets.size()][5];
+    String[] columnNames1 = { "Movie", "Date", "Time", "Seat", "" };
+    Object[][] data1 = new Object[userTickets.size()][5];
     for (int i = 0; i < userTickets.size(); i++) {
-      data[i][0] = userTickets.get(i).getShowtime().getMTitle();
-      data[i][1] = userTickets.get(i).getShowtime().getShowDateTime().toLocalDate().toString();
-      data[i][2] = userTickets.get(i).getShowtime().getShowDateTime().toLocalTime().toString();
-      data[i][3] = userTickets.get(i).getTicketNo();
-      data[i][4] = "Cancel";
+      data1[i][0] = userTickets.get(i).getShowtime().getMTitle();
+      data1[i][1] = userTickets.get(i).getShowtime().getShowDateTime().toLocalDate().toString();
+      data1[i][2] = userTickets.get(i).getShowtime().getShowDateTime().toLocalTime().toString();
+      data1[i][3] = userTickets.get(i).getTicketNo();
+      data1[i][4] = "Cancel";
     }
 
-    tableModel = new DefaultTableModel(data, columnNames);
-    movieTable = new JTable(tableModel);
-    movieTable.getColumnModel().getColumn(4).setMaxWidth(50);
-    movieTable.getColumnModel().getColumn(0).setMinWidth(200);
-    movieScroll = new JScrollPane(movieTable);
+    ticketTableModel = new DefaultTableModel(data1, columnNames1);
+    ticketTable = new JTable(ticketTableModel);
+    ticketTable.getColumnModel().getColumn(4).setMaxWidth(50);
+    ticketTable.getColumnModel().getColumn(0).setMinWidth(200);
+    ticketScroll = new JScrollPane(ticketTable);
 
-    ButtonColumn buttonColumn = new ButtonColumn(movieTable, select, 4);
+    ButtonColumn buttonColumn = new ButtonColumn(ticketTable, select, 4);
     buttonColumn.setMnemonic(KeyEvent.VK_D);
+
+    userCredits = user.getCredits();
+    String[] columnNames2 = { "Issued", "Expired", "Amount" };
+    Object[][] data2 = new Object[userCredits.size()][3];
+    for (int i = 0; i < userCredits.size(); i++) {
+      data2[i][0] = userCredits.get(i).getIssueDate().toString();
+      data2[i][1] = userCredits.get(i).getExpiryDate().toString();
+      data2[i][2] = String.valueOf(userCredits.get(i).getCreditAmount());
+    }
+
+    credittableModel = new DefaultTableModel(data2, columnNames2);
+    creditTable = new JTable(credittableModel);
+    creditScroll = new JScrollPane(creditTable);
   }
 
   private void ticketMenuSetup() {
@@ -89,8 +107,22 @@ public class UserTicketPage implements ActionListener {
     gbc.gridwidth = 4;
     gbc.gridx = 0;
     gbc.gridy = 2;
-    movieScroll.setPreferredSize(new Dimension(600, 400));
-    ticketPage.add(movieScroll, gbc);
+    ticketScroll.setPreferredSize(new Dimension(600, 300));
+    ticketPage.add(ticketScroll, gbc);
+
+    gbc.insets = new Insets(15, 5, 15, 5);
+    gbc.gridwidth = 4;
+    gbc.gridx = 0;
+    gbc.gridy = 3;
+    creditLabel.setPreferredSize(new Dimension(600, 30));
+    ticketPage.add(creditLabel, gbc);
+
+    gbc.insets = new Insets(15, 5, 15, 5);
+    gbc.gridwidth = 4;
+    gbc.gridx = 0;
+    gbc.gridy = 4;
+    creditScroll.setPreferredSize(new Dimension(600, 300));
+    ticketPage.add(creditScroll, gbc);
   }
 
   public void actionPerformed(ActionEvent e) {

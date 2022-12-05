@@ -42,8 +42,6 @@ public class CheckoutPage implements ActionListener {
 
   private void tableSet() // USING THE INDEXS PASS, GET TICKET ITEMS AND ADD TO TABLE
   {
-    TicketManager ticketM = TicketManager.getInstance();
-
     String[] columnNames = { "Movie", "Date", "Time", "Seat", "Price" };
     Object[][] data = new Object[purchased.size()][5];
     for (int i = 0; i < purchased.size(); i++) {
@@ -108,6 +106,12 @@ public class CheckoutPage implements ActionListener {
     gbc.gridx = 1;
     gbc.gridy = 3;
     credit.setPreferredSize(new Dimension(50, 30));
+    try {
+      FinanceManager finance = FinanceManager.getInstance();
+      credit.setText(String.valueOf(finance.getTotalUserCredit(user)));
+    } catch (Exception f) {
+      JOptionPane.showMessageDialog(mainFrame, f.getMessage());
+    }
     credit.setEditable(false);
     checkoutPage.add(credit, gbc);
 
@@ -161,9 +165,9 @@ public class CheckoutPage implements ActionListener {
       String creditcard = creditCard.getText();
       TicketManager ticketM = TicketManager.getInstance();
       try {
-        boolean res = ticketM.purchaseTickets(purchased, user, creditcard);
-        if (res) {
-          JOptionPane.showMessageDialog(mainFrame, "Tickets Purchased");
+        int res = ticketM.purchaseTickets(purchased, user, creditcard);
+        if (res >= 0) {
+          JOptionPane.showMessageDialog(mainFrame, "Tickets Purchased\nCard Charged: " + res);
           new MainMenu(mainFrame, user);
         } else {
           throw new Exception("Purchase Failed");

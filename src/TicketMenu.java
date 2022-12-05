@@ -12,7 +12,7 @@ public class TicketMenu implements ActionListener {
   ArrayList<Showtime> showtimes;
   JPanel ticketPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
-  JButton userTickets = new JButton("My Tickets");
+  JButton userTickets = new JButton("Account");
   JLabel showtimeLabel = new JLabel("Showtimes");
   DefaultTableModel tableModel;
   JTable movieTable;
