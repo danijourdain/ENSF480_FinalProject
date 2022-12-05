@@ -26,14 +26,12 @@ public class FinanceManager extends Manager{
         }
         return(sum % 10 == 0);
     }
-
     public static FinanceManager getInstance(){
         if(instance == null){
             instance = new FinanceManager();
         }
         return instance;
     }
-
     private int applyCredit(int price, User user){
         try{
             Connection connection = Database.getConnection();
@@ -79,6 +77,13 @@ public class FinanceManager extends Manager{
             return price;
         }
         return price;
+    }
+    public int getTotalUserCredit(User u){
+        int amount = 0;
+        for(var c : u.getCredits()){
+            amount += c.getCreditAmount();
+        }
+        return amount;
     }
     public boolean doTransaction(int price, User u, String cardNo){
         int remAmt = applyCredit(price, u);
