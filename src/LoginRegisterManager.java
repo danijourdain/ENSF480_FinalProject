@@ -127,31 +127,27 @@ public class LoginRegisterManager extends Manager {
 
     public void registerUser(User u, String fname, String lname, String cardNo, String StAddress) throws SQLException {
         Connection connection = Database.getConnection();
-        String insert = "INSERT INTO RegisteredUser VALUES(?,?,?,?,?,?)";
+        String insert = "INSERT INTO RegisteredUser(Email, Fname, Lname, StAddress, CreditCard, ExpDate) VALUES(?,?,?,?,?,?)";
         PreparedStatement register_user = connection.prepareStatement(insert);
         register_user.setString(1, u.getEmail());
         register_user.setString(2, fname);
         register_user.setString(3, lname);
         register_user.setString(4, StAddress);
         register_user.setString(5, cardNo);
-        register_user.setString(6, LocalDate.now().toString());
+        register_user.setDate(6, java.sql.Date.valueOf(LocalDate.now()));
         register_user.executeUpdate();
+
+        String remove = "DELETE FROM GuestUser WHERE Email=?";
+        PreparedStatement delete_guest = connection.prepareStatement(remove);
+        delete_guest.setString(1, u.getEmail());
+        delete_guest.executeUpdate();
+
         u.setFname(fname);
         u.setLname(lname);
         u.setCreditCard(cardNo);
         u.setAddress(StAddress);
         u.setExpDate(LocalDate.now());
-
-        String remove = "DELETE FROM GuestUser VALUES(?)";
-        PreparedStatement delete_guest = connection.prepareStatement(remove);
-        delete_guest.setString(1, u.getEmail());
-        delete_guest.executeUpdate();
-
         u.setType("Registered");
-        u.setFname(fname);
-        u.setLname(lname);
-        u.setCreditCard(cardNo);
-        u.setAddress(StAddress);
     }
 
     public static LoginRegisterManager getInstance() {

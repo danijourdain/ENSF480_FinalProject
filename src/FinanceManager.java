@@ -112,25 +112,25 @@ public class FinanceManager extends Manager {
             return false;
     }
 
-    public void issueRefund(int price, User user) {
-        Credit credit;
-        if (user.getType().equalsIgnoreCase("registered")) {
-            credit = new Credit(price);
-            user.addCredit(price);
-        } else {
-            credit = new Credit((int) Math.round(price * (1 - 0.15)));
-            user.addCredit((int) Math.round(price * (1 - 0.15)));
-        }
-        String sql = "INSERT INTO Credit (?, ?, ?)";
+    public void issueRefund(int price, User user) throws SQLException {
+        String sql = "INSERT INTO Credit(Email, IssueDate, Amount) VALUES (?, ?, ?)";
         Connection conn = Database.getConnection();
-        try (PreparedStatement PREPS = conn.prepareStatement(sql)) {
-            PREPS.setObject(1, user.getEmail());
-            PREPS.setObject(2, LocalDate.now());
-            PREPS.setInt(3, credit.getCreditAmount());
-            PREPS.executeUpdate();
-            PREPS.close();
-        } catch (SQLException e) {
-            Database.rollback();
+        PreparedStatement PREPS = conn.prepareStatement(sql);
+        int refund = price;
+
+        if (user.getType().equalsIgnoreCase("Guest")) {
+            refund = (int) (0.85 * price);
         }
+
+        System.out.println(1);
+        PREPS.setString(1, user.getEmail());
+        System.out.println(2);
+        PREPS.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+        System.out.println(3);
+        PREPS.setInt(3, refund);
+        System.out.println(4);
+        PREPS.executeUpdate();
+
+        user.addCredit(refund);
     }
 }
