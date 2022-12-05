@@ -5,12 +5,11 @@ import javax.swing.table.DefaultTableModel;
 import java.util.*;
 //import java.sql.*;
 
-public class CheckoutPage implements ActionListener 
-{  
+public class CheckoutPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
-  ArrayList<String> seats;
+  ArrayList<Ticket> purchased;
   User user;
   JPanel checkoutPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
@@ -27,43 +26,45 @@ public class CheckoutPage implements ActionListener
   JButton purchase = new JButton("Purchase");
 
   JLabel spacer = new JLabel();
-  
-  CheckoutPage(JFrame mainFrame, ArrayList<String> seats, User user)
-  {
+
+  CheckoutPage(JFrame mainFrame, ArrayList<Ticket> purchased, User user) {
     this.mainFrame = mainFrame;
-    this.seats = seats;
+    this.purchased = purchased;
     this.user = user;
 
     checkoutPageSetup();
 
-    mainFrame.getContentPane().removeAll(); 
+    mainFrame.getContentPane().removeAll();
     mainFrame.add(checkoutPage);
     mainFrame.validate();
   }
 
-  private void tableSet() //USING THE INDEXS PASS, GET TICKET ITEMS AND ADD TO TABLE
+  private void tableSet() // USING THE INDEXS PASS, GET TICKET ITEMS AND ADD TO TABLE
   {
-    
-    String[] columnNames = {"Movie", "Date", "Time", "Seat", "Price"};
-    Object[][] data =
-    {
-      {"Movie1", "Feb 14", "7:00 pm", seats.get(0), ""},
-      {"Movie2", "Feb 14", "7:00 pm", seats.get(1), ""},
-      {"Movie3", "Feb 14", "7:00 pm", "", ""},
-      {"Movie4", "Feb 14", "7:00 pm", "", ""},
-      {"Movie5", "Feb 14", "7:00 pm", "", ""},
-      {"Movie6", "Feb 14", "7:00 pm", "", ""},
-    };
- 
+    TicketManager ticketM = TicketManager.getInstance();
+
+    String[] columnNames = { "Movie", "Date", "Time", "Seat", "Price" };
+    Object[][] data = new Object[purchased.size()][5];
+    for (int i = 0; i < purchased.size(); i++) {
+      data[i][0] = purchased.get(i).getShowtime().getMTitle();
+      data[i][1] = purchased.get(i).getShowtime().getShowDateTime().toLocalDate().toString();
+      data[i][2] = purchased.get(i).getShowtime().getShowDateTime().toLocalTime().toString();
+      data[i][4] = purchased.get(i).getPrice();
+      try {
+        data[i][3] = Integer.toString((ticketM.getMovie(purchased.get(i).getShowtime().getMTitle())).getDuration());
+      } catch (Exception f) {
+        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
+      }
+    }
+
     tableModel = new DefaultTableModel(data, columnNames);
     movieTable = new JTable(tableModel);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
     movieScroll = new JScrollPane(movieTable);
   }
 
-  private void checkoutPageSetup() 
-  {
-    gbc.anchor = GridBagConstraints.NORTH; 
+  private void checkoutPageSetup() {
+    gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
     tableSet();
@@ -125,7 +126,7 @@ public class CheckoutPage implements ActionListener
     gbc.gridy = 3;
     credit.setPreferredSize(new Dimension(50, 30));
     price.setEditable(false);
-    checkoutPage.add(price, gbc);                                          //CALCULATE PRICE
+    checkoutPage.add(price, gbc);
 
     gbc.insets = new Insets(30, 5, 15, 5);
     gbc.gridwidth = 1;
@@ -139,8 +140,8 @@ public class CheckoutPage implements ActionListener
     gbc.gridx = 1;
     gbc.gridy = 4;
     creditCard.setPreferredSize(new Dimension(50, 30));
-    if(user.getType() == "R") {
-      //creditCard.setText(user.getCreditCard());
+    if (user.getType() == "R") {
+      creditCard.setText(user.getCreditCard());
     }
     checkoutPage.add(creditCard, gbc);
 
@@ -153,16 +154,19 @@ public class CheckoutPage implements ActionListener
     checkoutPage.add(purchase, gbc);
   }
 
-  public void actionPerformed(ActionEvent e)
-  {
-    if(e.getSource() == main)
-    {
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == main) {
       new MainMenu(mainFrame, user);
     }
-    if(e.getSource() == purchase)
-    {
+    if (e.getSource() == purchase) {
       String creditcard = creditCard.getText();
-      JOptionPane.showMessageDialog(mainFrame, "Purchase Tickets " + creditcard); //PURCHASE FUNCTION
+      JOptionPane.showMessageDialog(mainFrame, "Tickets Purchased"); // PURCHASE FUNCTION
+      TicketManager ticketM = TicketManager.getInstance();
+      try {
+        ticketM.purchaseTickets(purchased, user, creditcard);
+      } catch (Exception f) {
+        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 //import java.util.*;
@@ -11,6 +12,7 @@ public class UserTicketPage implements ActionListener
 
   JFrame mainFrame;
   User user;
+  ArrayList<Ticket> userTickets;
   JPanel ticketPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JLabel ticketLabel = new JLabel("Tickets");
@@ -34,19 +36,23 @@ public class UserTicketPage implements ActionListener
 
   private void tableSet() //PULL USER TICKET INFO FOR TABLE
   {
-    String[] columnNames = {"Movie", "Date", "Time", "Seat", ""};
-    Object[][] data =
-    {
-      {"Movie1", "Feb 14", "7:00 pm", "69", "Cancel"},
-      {"Movie2", "Feb 14", "7:00 pm", "69", "Cancel"},
-      {"Movie3", "Feb 14", "7:00 pm", "69", "Cancel"},
-      {"Movie4", "Feb 14", "7:00 pm", "69", "Cancel"},
-      {"Movie5", "Feb 14", "7:00 pm", "69", "Cancel"},
-      {"Movie6", "Feb 14", "7:00 pm", "69", "Cancel"},
-      {"Movie7", "Feb 14", "7:00 pm", "69", "Cancel"},
-      {"Movie8", "Feb 14", "7:00 pm", "69", "Cancel"}, 
-      {"Movie9", "Feb 14", "7:00 pm", "69", "Cancel"},
-    };
+    TicketManager ticketM = TicketManager.getInstance();
+    //userTickets = ticketM.getShowtimes();
+    /*
+    String[] columnNames = { "Movie", "Date", "Time", "Duration", "" };
+    Object[][] data = new Object[showtimes.size()][5];
+    for (int i = 0; i < showtimes.size(); i++) {
+      data[i][0] = showtimes.get(i).getMTitle();
+      data[i][1] = showtimes.get(i).getShowDateTime().toLocalDate().toString();
+      data[i][2] = showtimes.get(i).getShowDateTime().toLocalTime().toString();
+      data[i][4] = "Select";
+      try {
+        data[i][3] = Integer.toString((ticketM.getMovie(showtimes.get(i).getMTitle())).getDuration());
+      } catch (Exception f) {
+        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
+      }
+    }
+    */
  
     tableModel = new DefaultTableModel(data, columnNames);
     movieTable = new JTable(tableModel);
