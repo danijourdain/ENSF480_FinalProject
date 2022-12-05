@@ -18,14 +18,19 @@ public class FinanceManager extends Manager {
     }
 
     private boolean verify(String number) {
+        String CARD_REGEX = "^[0-9]{16}$";
         if (!number.matches(CARD_REGEX)) {
+            System.out.println("false");
             return false;
         }
         int sum = 0;
-        for (int i = 1; i < 16; i++) {
-            if (i % 2 == 0)
-                continue;
-            int digit = 2 * number.charAt(i) - '0';
+
+        for (int i = 15; i >= 0; i--) {
+            char c = number.charAt(i);
+            int digit = Character.getNumericValue(c);
+            if (i % 2 == 0) {
+                digit = digit * 2;
+            }
             sum += digit / 10;
             sum += digit % 10;
         }
@@ -99,6 +104,7 @@ public class FinanceManager extends Manager {
         int remAmt = applyCredit(price, u);
         if (remAmt > 0) {
             return verify(cardNo);
+            // return true;
         }
         if (remAmt <= 0) {
             return true;

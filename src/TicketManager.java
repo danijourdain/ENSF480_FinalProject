@@ -129,7 +129,7 @@ public class TicketManager extends Manager {
                 String update = "UPDATE Ticket SET Email=? WHERE TNo=? AND MTitle=? AND ShowDateTime=? AND RNumber=? AND TName=?";
                 PreparedStatement statement = connection.prepareStatement(update);
                 statement.setString(1, u.getEmail());
-                statement.setInt(2, t.getPrice());
+                statement.setInt(2, t.getTicketNo());
                 statement.setString(3, s.getMTitle());
                 statement.setTimestamp(4, Timestamp.valueOf(s.getShowDateTime()));
                 statement.setInt(5, s.getRNumber());

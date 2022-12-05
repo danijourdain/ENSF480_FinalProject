@@ -101,8 +101,15 @@ public class UserTicketPage implements ActionListener {
 
   Action select = new AbstractAction() {
     public void actionPerformed(ActionEvent e) {
-      int modelRow = Integer.valueOf(e.getActionCommand());
-      JOptionPane.showMessageDialog(mainFrame, "Delete ticket " + modelRow); // REMOVE
+      int ticketNum = Integer.valueOf(e.getActionCommand());
+      try {
+        TicketManager ticket = TicketManager.getInstance();
+        ticket.RefundTicket(userTickets.get(ticketNum), user);
+        JOptionPane.showMessageDialog(mainFrame, "Ticket Refunded");
+        new UserTicketPage(mainFrame, user);
+      } catch (Exception f) {
+        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
+      }
     }
   };
 }

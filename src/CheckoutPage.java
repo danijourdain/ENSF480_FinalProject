@@ -50,13 +50,9 @@ public class CheckoutPage implements ActionListener {
       data[i][0] = purchased.get(i).getShowtime().getMTitle();
       data[i][1] = purchased.get(i).getShowtime().getShowDateTime().toLocalDate().toString();
       data[i][2] = purchased.get(i).getShowtime().getShowDateTime().toLocalTime().toString();
+      data[i][3] = purchased.get(i).getTicketNo();
       data[i][4] = purchased.get(i).getPrice();
       totalPrice += purchased.get(i).getPrice();
-      try {
-        data[i][3] = Integer.toString((ticketM.getMovie(purchased.get(i).getShowtime().getMTitle())).getDuration());
-      } catch (Exception f) {
-        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
-      }
     }
 
     tableModel = new DefaultTableModel(data, columnNames);
@@ -163,14 +159,18 @@ public class CheckoutPage implements ActionListener {
     }
     if (e.getSource() == purchase) {
       String creditcard = creditCard.getText();
-      JOptionPane.showMessageDialog(mainFrame, "Tickets Purchased"); // PURCHASE FUNCTION
       TicketManager ticketM = TicketManager.getInstance();
       try {
-        ticketM.purchaseTickets(purchased, user, creditcard);
+        boolean res = ticketM.purchaseTickets(purchased, user, creditcard);
+        if (res) {
+          JOptionPane.showMessageDialog(mainFrame, "Tickets Purchased");
+          new MainMenu(mainFrame, user);
+        } else {
+          throw new Exception("Purchase Failed");
+        }
       } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
-      new MainMenu(mainFrame, user);
     }
   }
 }

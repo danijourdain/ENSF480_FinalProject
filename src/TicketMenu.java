@@ -31,9 +31,7 @@ public class TicketMenu implements ActionListener {
     mainFrame.validate();
   }
 
-  private void tableSet() // THIS NEEDS SHOWTIMES, THE BUTTONS RETURN THE INDEX NUM, USE INDEX NUM TO
-                          // RETURN SHOWTIME IN BUTTONS BELOW
-  {
+  private void tableSet() {
     TicketManager ticketM = TicketManager.getInstance();
     showtimes = ticketM.getShowtimes();
 
@@ -51,7 +49,15 @@ public class TicketMenu implements ActionListener {
       }
     }
 
-    tableModel = new DefaultTableModel(data, columnNames);
+    tableModel = new DefaultTableModel(data, columnNames) {
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        if (column == 4)
+          return true;
+        return false;
+      }
+    };
+
     movieTable = new JTable(tableModel);
     movieTable.getColumnModel().getColumn(4).setMaxWidth(50);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);

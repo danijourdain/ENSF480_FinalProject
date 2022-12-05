@@ -136,11 +136,11 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
     @Override
     public void actionPerformed(ActionEvent e) {
       if (e.getSource() instanceof JToggleButton) {
-        String seatNum = ((JToggleButton) e.getSource()).getText();
+        int seatNum = Integer.valueOf(((JToggleButton) e.getSource()).getText());
         if (((JToggleButton) e.getSource()).isSelected()) {
-          purchased.add(seatNum);
+          purchased.add(String.valueOf(seatNum - 1));
         } else {
-          purchased.remove(seatNum);
+          purchased.remove(String.valueOf(seatNum - 1));
         }
       }
     }
