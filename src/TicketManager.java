@@ -35,6 +35,7 @@ public class TicketManager extends Manager {
                         result.getInt(3), result.getInt(4),
                         result.getInt(5), result.getString(6)));
             }
+            Collections.sort(showtimes, (a, b) -> a.getShowDateTime().compareTo(b.getShowDateTime()));
             return showtimes;
         } catch (SQLException e) {
             return new ArrayList<>();
@@ -95,7 +96,8 @@ public class TicketManager extends Manager {
                 tickets.add(new Ticket(result.getInt(1), result.getInt(6), s, result.getString(7)));
             }
 
-            Collections.sort(tickets, Comparator.comparing(Ticket::getTicketNo));
+            Collections.sort(tickets,
+                    (a, b) -> a.getShowtime().getShowDateTime().compareTo(b.getShowtime().getShowDateTime()));
             return tickets;
         } catch (SQLException e) {
             return new ArrayList<Ticket>();

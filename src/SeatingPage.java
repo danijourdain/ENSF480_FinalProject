@@ -49,7 +49,7 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
         array[i].addActionListener(listener);
         seatingTable.add(array[i]);
       } else {
-        seatingTable.add(new JLabel("    X"));
+        seatingTable.add(new JLabel("             X"));
       }
     }
 
@@ -65,7 +65,12 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
     }
     Object[][] data = { { Mtitle, date, time, duration } };
 
-    tableModel = new DefaultTableModel(data, columnNames);
+    tableModel = new DefaultTableModel(data, columnNames) {
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        return false;
+      }
+    };
     movieTable = new JTable(tableModel);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
   }

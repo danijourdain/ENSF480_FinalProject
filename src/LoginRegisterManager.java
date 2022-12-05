@@ -43,11 +43,8 @@ public class LoginRegisterManager extends Manager {
 
             while (resultSet2.next()) {
                 int id = resultSet2.getInt(1);
-                System.out.println("Reached point 1\n");
                 LocalDate issueDate = resultSet2.getDate(3).toLocalDate();
-                System.out.println("Reached point 2\n");
                 int amount = resultSet2.getInt(4);
-                System.out.println("Reached point 4\n");
                 if (issueDate.compareTo(LocalDate.now().minusDays(365)) < 0 || amount <= 0) {
                     String stmt = "DELETE FROM Credit AS C WHERE C.ID = ?";
                     System.out.println(stmt);

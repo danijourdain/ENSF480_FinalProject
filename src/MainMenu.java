@@ -80,10 +80,11 @@ public class MainMenu implements ActionListener {
     gbc.gridy = 1;
     register.addActionListener(this);
     register.setPreferredSize(new Dimension(150, 30));
-    if (!(user.getType() == "Registered")) {
-      mainPage.add(register, gbc);
-    } else {
+    System.out.println(user.getType());
+    if ((user.getType().equals("Registered"))) {
       mainPage.add(spacer, gbc);
+    } else {
+      mainPage.add(register, gbc);
     }
 
     gbc.insets = new Insets(50, 5, 15, 5);

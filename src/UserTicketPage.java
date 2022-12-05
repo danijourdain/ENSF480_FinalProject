@@ -42,7 +42,7 @@ public class UserTicketPage implements ActionListener {
     TicketManager ticketM = TicketManager.getInstance();
     userTickets = ticketM.getUserTickets(user);
 
-    String[] columnNames1 = { "Movie", "Date", "Time", "Seat", "" };
+    String[] columnNames1 = { "Movies", "Date", "Time", "Seat", "" };
     Object[][] data1 = new Object[userTickets.size()][5];
     for (int i = 0; i < userTickets.size(); i++) {
       data1[i][0] = userTickets.get(i).getShowtime().getMTitle();
@@ -52,7 +52,14 @@ public class UserTicketPage implements ActionListener {
       data1[i][4] = "Cancel";
     }
 
-    ticketTableModel = new DefaultTableModel(data1, columnNames1);
+    ticketTableModel = new DefaultTableModel(data1, columnNames1) {
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        if (column == 4)
+          return true;
+        return false;
+      }
+    };
     ticketTable = new JTable(ticketTableModel);
     ticketTable.getColumnModel().getColumn(4).setMaxWidth(50);
     ticketTable.getColumnModel().getColumn(0).setMinWidth(200);
@@ -70,7 +77,12 @@ public class UserTicketPage implements ActionListener {
       data2[i][2] = String.valueOf(userCredits.get(i).getCreditAmount());
     }
 
-    credittableModel = new DefaultTableModel(data2, columnNames2);
+    credittableModel = new DefaultTableModel(data2, columnNames2) {
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        return false;
+      }
+    };
     creditTable = new JTable(credittableModel);
     creditScroll = new JScrollPane(creditTable);
   }

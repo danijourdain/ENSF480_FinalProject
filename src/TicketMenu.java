@@ -58,7 +58,14 @@ public class TicketMenu implements ActionListener {
       }
     };
 
-    movieTable = new JTable(tableModel);
+    movieTable = new JTable(tableModel) {
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        if (column == 4)
+          return true;
+        return false;
+      }
+    };
     movieTable.getColumnModel().getColumn(4).setMaxWidth(50);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
     movieScroll = new JScrollPane(movieTable);
