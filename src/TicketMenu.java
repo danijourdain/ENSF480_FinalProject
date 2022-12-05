@@ -4,8 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.*;
 
-public class TicketMenu implements ActionListener 
-{
+public class TicketMenu implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
@@ -20,39 +19,38 @@ public class TicketMenu implements ActionListener
   JScrollPane movieScroll;
 
   JLabel spacer = new JLabel();
-  
-  TicketMenu(JFrame mainFrame, User user)
-  {
+
+  TicketMenu(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
 
     ticketMenuSetup();
 
-    mainFrame.getContentPane().removeAll(); 
+    mainFrame.getContentPane().removeAll();
     mainFrame.add(ticketPage);
     mainFrame.validate();
   }
 
-  private void tableSet() //THIS NEEDS SHOWTIMES, THE BUTTONS RETURN THE INDEX NUM, USE INDEX NUM TO RETURN SHOWTIME IN BUTTONS BELOW
+  private void tableSet() // THIS NEEDS SHOWTIMES, THE BUTTONS RETURN THE INDEX NUM, USE INDEX NUM TO
+                          // RETURN SHOWTIME IN BUTTONS BELOW
   {
     TicketManager ticketM = TicketManager.getInstance();
     showtimes = ticketM.getShowtimes();
 
-    String[] columnNames = {"Movie", "Date", "Time", "Duration", ""};
-    Object[][] data = new Object[showtimes.size()][4];
-    for(int i = 0; i < showtimes.size(); i++) 
-    {
+    String[] columnNames = { "Movie", "Date", "Time", "Duration", "" };
+    Object[][] data = new Object[showtimes.size()][5];
+    for (int i = 0; i < showtimes.size(); i++) {
       data[i][0] = showtimes.get(i).getMTitle();
       data[i][1] = showtimes.get(i).getShowDateTime().toLocalDate().toString();
       data[i][2] = showtimes.get(i).getShowDateTime().toLocalTime().toString();
+      data[i][4] = "Select";
       try {
         data[i][3] = Integer.toString((ticketM.getMovie(showtimes.get(i).getMTitle())).getDuration());
-      }
-      catch(Exception f) {
+      } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
     }
- 
+
     tableModel = new DefaultTableModel(data, columnNames);
     movieTable = new JTable(tableModel);
     movieTable.getColumnModel().getColumn(4).setMaxWidth(50);
@@ -63,9 +61,8 @@ public class TicketMenu implements ActionListener
     buttonColumn.setMnemonic(KeyEvent.VK_D);
   }
 
-  private void ticketMenuSetup() 
-  {
-    gbc.anchor = GridBagConstraints.NORTH; 
+  private void ticketMenuSetup() {
+    gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
     tableSet();
@@ -108,24 +105,18 @@ public class TicketMenu implements ActionListener
     ticketPage.add(movieScroll, gbc);
   }
 
-  public void actionPerformed(ActionEvent e)
-  {
-    if(e.getSource() == main)
-    {
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == main) {
       new MainMenu(mainFrame, user);
-    }
-    else if(e.getSource() == userTickets)
-    {
+    } else if (e.getSource() == userTickets) {
       new UserTicketPage(mainFrame, user);
     }
   }
 
-  Action select = new AbstractAction()
-  {
-    public void actionPerformed(ActionEvent e)
-    {
+  Action select = new AbstractAction() {
+    public void actionPerformed(ActionEvent e) {
       int modelRow = Integer.valueOf(e.getActionCommand());
-      new SeatingPage(mainFrame, user, showtimes.get(modelRow)); 
+      new SeatingPage(mainFrame, user, showtimes.get(modelRow));
     }
   };
 }

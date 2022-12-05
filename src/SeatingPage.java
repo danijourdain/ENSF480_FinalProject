@@ -14,13 +14,15 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
   JFrame mainFrame;
   User user;
   Showtime showtime;
+  ArrayList<Ticket> tickets;
+  ArrayList<Ticket> purchasedT;
   JPanel seatingPage = new JPanel(new GridBagLayout());
   JPanel seatingTable = new JPanel(new GridLayout(7, 10));
   JButton main = new JButton("Main Page");
   DefaultTableModel tableModel;
   JTable movieTable;
   JButton checkout = new JButton("Checkout");
-  ArrayList<String> purchased1 = new ArrayList<>();
+  ArrayList<String> purchased = new ArrayList<>();
 
   JLabel spacer = new JLabel();
 
@@ -39,10 +41,11 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
 
   private void tableSet() //USE SHOWTIME TO PULL SEAT INFORMATION. ADJUST PURCHASED ARRAY 
   {
-    int[] purchased = {1, 4, 6, 23, 52, 54};
+    TicketManager ticketM = TicketManager.getInstance();
+    tickets = ticketM.getShowtimeTickets(showtime);
     JToggleButton[] array = new JToggleButton[70];
     for(int i = 0; i < array.length; i++) {
-      if(!check(purchased, i)) 
+      if(tickets.get(i).getEmail() != null) 
       {
         array[i] = new JToggleButton(String.valueOf(i+1), false);
         array[i].addActionListener(listener);
@@ -54,8 +57,18 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
       }
     }
 
-    String[] columnNames = {"Movie", "Date", "Time"};
-    Object[][] data = {{"Selected Movie", "Date", "Time"}};
+    String[] columnNames = {"Movie", "Date", "Time", "Duration"};
+    String Mtitle = showtime.getMTitle();
+    String date = showtime.getShowDateTime().toLocalDate().toString();
+    String time = showtime.getShowDateTime().toLocalTime().toString();
+    String duration = null;
+    try {
+      duration = Integer.toString(ticketM.getMovie(showtime.getMTitle()).getDuration());
+    }
+    catch(Exception f) {
+      JOptionPane.showMessageDialog(mainFrame, f.getMessage());
+    }
+    Object[][] data = {{Mtitle , date, time, duration}};
 
     tableModel = new DefaultTableModel(data, columnNames);
     movieTable = new JTable(tableModel);
@@ -122,7 +135,10 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
     }
     else if(e.getSource() == checkout)
     {
-      new CheckoutPage(mainFrame, purchased1, user); //RETURNS AN ARRAY OF INDEXES FOR TICKETS
+      for(String j : purchased) {
+        purchasedT.add(tickets.get(Integer.valueOf(j)));
+      }
+      new CheckoutPage(mainFrame, purchasedT, user); //RETURNS AN ARRAY OF INDEXES FOR TICKETS
     }
   }
 
@@ -134,25 +150,13 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
         String seatNum = ((JToggleButton) e.getSource()).getText();
         if(((JToggleButton) e.getSource()).isSelected())
         {
-          purchased1.add(seatNum);
+          purchased.add(seatNum);
         }
         else 
         {
-          purchased1.remove(seatNum);
-          JOptionPane.showMessageDialog(mainFrame, "Removed: " + seatNum);
+          purchased.remove(seatNum);
         }
       }
     }
   };
-
-  private static boolean check(int[] arr, int toCheckValue)
-  {
-    for (int element : arr) {
-      if (element == toCheckValue) 
-      {
-        return true;
-      }
-    }
-    return false;
-  }
 }

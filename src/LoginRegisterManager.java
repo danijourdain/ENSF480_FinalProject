@@ -127,7 +127,7 @@ public class LoginRegisterManager extends Manager {
 
     public void registerUser(User u, String fname, String lname, String cardNo, String StAddress) throws SQLException {
         Connection connection = Database.getConnection();
-        String insert = "INSERT INTO RegisteredUser VALUES(?,?,?,?,?)";
+        String insert = "INSERT INTO RegisteredUser VALUES(?,?,?,?,?,?)";
         PreparedStatement register_user = connection.prepareStatement(insert);
         register_user.setString(1, u.getEmail());
         register_user.setString(2, fname);

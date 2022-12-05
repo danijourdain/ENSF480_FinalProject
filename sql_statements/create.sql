@@ -64,7 +64,7 @@ CREATE TABlE Movie(
 );
 
 CREATE TABLE Showtime(
-    ShowDateTime DATETIME NOT NULL,
+    ShowDateTime TIMESTAMP NOT NULL,
     MTitle VARCHAR(32) NOT NULL,
     RNumber INT NOT NULL,
     PremiumSeats INT NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE Showtime(
 CREATE TABLE Ticket (
     TNo INT NOT NULL,
     MTitle VARCHAR(32) NOT NULL,
-    ShowDateTime DATETIME NOT NULL,
+    ShowDateTime TIMESTAMP NOT NULL,
     RNumber INT NOT NULL,
     TName VARCHAR(32) NOT NULL,
     Price INT NOT NULL,

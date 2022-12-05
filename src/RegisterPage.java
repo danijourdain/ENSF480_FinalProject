@@ -4,10 +4,9 @@ import javax.swing.*;
 //import java.util.*;
 //import java.sql.*;
 
-public class RegisterPage implements ActionListener 
-{
+public class RegisterPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
-  
+
   JFrame mainFrame;
   User user;
   JPanel registerPage = new JPanel(new GridBagLayout());
@@ -24,21 +23,19 @@ public class RegisterPage implements ActionListener
 
   JLabel spacer = new JLabel();
 
-  RegisterPage(JFrame mainFrame, User user)
-  {
+  RegisterPage(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
 
     loginPageSetup();
 
-    mainFrame.getContentPane().removeAll(); 
+    mainFrame.getContentPane().removeAll();
     mainFrame.add(registerPage);
     mainFrame.validate();
   }
 
-  private void loginPageSetup() 
-  {
-    gbc.anchor = GridBagConstraints.NORTH; 
+  private void loginPageSetup() {
+    gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
     gbc.insets = new Insets(10, 15, 15, 5);
@@ -101,7 +98,7 @@ public class RegisterPage implements ActionListener
     creditCard.setPreferredSize(new Dimension(225, 30));
     registerPage.add(creditCard, gbc);
 
-    gbc.anchor = GridBagConstraints.SOUTH; 
+    gbc.anchor = GridBagConstraints.SOUTH;
 
     gbc.insets = new Insets(30, 0, 0, 0);
     gbc.gridwidth = 1;
@@ -127,12 +124,10 @@ public class RegisterPage implements ActionListener
     registerPage.add(register, gbc);
   }
 
-  public void actionPerformed(ActionEvent e)
-  {
-    if(e.getSource() == register)
-    {
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == register) {
       String userFName = Fname.getText();
-      String userLName = Fname.getText();
+      String userLName = Lname.getText();
       String userAddress = address.getText();
       String userCreditCard = creditCard.getText();
       try {
@@ -140,13 +135,11 @@ public class RegisterPage implements ActionListener
         login.registerUser(user, userFName, userLName, userCreditCard, userAddress);
         JOptionPane.showMessageDialog(mainFrame, "Welcome Registered User");
         new MainMenu(mainFrame, user);
-      }
-      catch(Exception f) {
+      } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
     }
-    if(e.getSource() == main)
-    {
+    if (e.getSource() == main) {
       new MainMenu(mainFrame, user);
     }
   }

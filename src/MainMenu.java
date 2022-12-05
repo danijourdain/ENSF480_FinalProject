@@ -4,14 +4,13 @@ import javax.swing.*;
 //import java.util.*;
 //import java.sql.*;
 
-public class MainMenu implements ActionListener 
-{
+public class MainMenu implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
   User user;
   JPanel mainPage = new JPanel(new GridBagLayout());
-  JLabel userType = new JLabel("UserType"); 
+  JLabel userType = new JLabel("UserType");
   JButton tickets = new JButton("Tickets");
   JLabel creditLabel = new JLabel("Credit: ");
   JTextField credit = new JTextField(32);
@@ -23,30 +22,30 @@ public class MainMenu implements ActionListener
 
   JLabel spacer = new JLabel();
 
-  MainMenu(JFrame mainFrame, User user)
-  {
+  MainMenu(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
 
     mainMenuSetup();
 
-    mainFrame.getContentPane().removeAll(); 
+    mainFrame.getContentPane().removeAll();
     mainFrame.add(mainPage);
     mainFrame.validate();
   }
 
-  private void tableSet() //This table is not needed, add only if we have time. It's just a list of the movies being played.  
+  private void tableSet() // This table is not needed, add only if we have time. It's just a list of the
+                          // movies being played.
   {
-    String[] title = {"Playing", "Movies"};
-    String[][] data = {{"movie1", "movie2"}, {"movie3", "movie4"}, {"movie5", "movie6"}, {"movie7", "movie8"}, {"movie9", "movie10"}};
+    String[] title = { "Playing", "Movies" };
+    String[][] data = { { "movie1", "movie2" }, { "movie3", "movie4" }, { "movie5", "movie6" }, { "movie7", "movie8" },
+        { "movie9", "movie10" } };
 
     movieTable = new JTable(data, title);
     movieScroll = new JScrollPane(movieTable);
   }
 
-  private void mainMenuSetup() 
-  {
-    gbc.anchor = GridBagConstraints.NORTH; 
+  private void mainMenuSetup() {
+    gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
     tableSet();
@@ -56,7 +55,13 @@ public class MainMenu implements ActionListener
     gbc.gridx = 0;
     gbc.gridy = 0;
     userType.setPreferredSize(new Dimension(150, 30));
-    mainPage.add(userType, gbc);
+    if (!(user.getType() == "R")) {
+      userType = new JLabel("Registered User");
+      mainPage.add(userType, gbc);
+    } else {
+      userType = new JLabel("Guest User");
+      mainPage.add(userType, gbc);
+    }
 
     gbc.insets = new Insets(0, 5, 15, 5);
     gbc.gridwidth = 2;
@@ -79,7 +84,11 @@ public class MainMenu implements ActionListener
     gbc.gridy = 1;
     register.addActionListener(this);
     register.setPreferredSize(new Dimension(150, 30));
-    mainPage.add(register, gbc);
+    if (!(user.getType() == "R")) {
+      mainPage.add(register, gbc);
+    } else {
+      mainPage.add(spacer, gbc);
+    }
 
     gbc.insets = new Insets(50, 5, 15, 5);
     gbc.gridwidth = 2;
@@ -97,19 +106,13 @@ public class MainMenu implements ActionListener
     mainPage.add(logout, gbc);
   }
 
-  public void actionPerformed(ActionEvent e)
-  {
-    if(e.getSource() == tickets)
-    {
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == tickets) {
       new TicketMenu(mainFrame, user);
-    }
-    else if(e.getSource() == register)
-    {
-      //Needs to be adjusted for registration
+    } else if (e.getSource() == register) {
+      // Needs to be adjusted for registration
       new RegisterPage(mainFrame, user);
-    }
-    else if(e.getSource() == logout)
-    {
+    } else if (e.getSource() == logout) {
       JOptionPane.showMessageDialog(mainFrame, "Logged Out");
       new LoginPage(mainFrame);
     }
