@@ -73,47 +73,10 @@ public class MainMenu implements ActionListener
     tickets.setPreferredSize(new Dimension(150, 30));
     mainPage.add(tickets, gbc);
 
-    gbc.insets = new Insets(15, 5, 15, 5);
-    gbc.gridwidth = 1;
-    gbc.gridx = 0;
-    gbc.gridy = 1;
-    creditLabel.setPreferredSize(new Dimension(50, 30));
-    mainPage.add(creditLabel, gbc);
-
-    gbc.insets = new Insets(15, 5, 15, 5);
-    gbc.gridwidth = 1;
-    gbc.gridx = 1;
-    gbc.gridy = 1;
-    credit.setPreferredSize(new Dimension(50, 30));
-    credit.setEditable(false);
-    mainPage.add(credit, gbc);
-
-    gbc.insets = new Insets(15, 5, 15, 5);
-    gbc.gridwidth = 1;
-    gbc.gridx = 2;
-    gbc.gridy = 1;
-    spacer.setPreferredSize(new Dimension(225, 30));
-    mainPage.add(spacer, gbc);
-
-    gbc.insets = new Insets(15, 5, 15, 5);
-    gbc.gridwidth = 1;
-    gbc.gridx = 3;
-    gbc.gridy = 1;
-    addCredit.addActionListener(this);
-    addCredit.setPreferredSize(new Dimension(150, 30));
-    mainPage.add(addCredit, gbc);
-
-    gbc.insets = new Insets(15, 0, 0, 0);
-    gbc.gridwidth = 4;
-    gbc.gridx = 0;
-    gbc.gridy = 2;
-    movieScroll.setPreferredSize(new Dimension(225, 200));
-    mainPage.add(movieScroll, gbc);
-
     gbc.insets = new Insets(50, 5, 15, 5);
     gbc.gridwidth = 1;
     gbc.gridx = 0;
-    gbc.gridy = 3;
+    gbc.gridy = 1;
     register.addActionListener(this);
     register.setPreferredSize(new Dimension(150, 30));
     mainPage.add(register, gbc);
@@ -121,14 +84,14 @@ public class MainMenu implements ActionListener
     gbc.insets = new Insets(50, 5, 15, 5);
     gbc.gridwidth = 2;
     gbc.gridx = 1;
-    gbc.gridy = 3;
+    gbc.gridy = 1;
     spacer.setPreferredSize(new Dimension(225, 30));
     mainPage.add(spacer, gbc);
 
     gbc.insets = new Insets(50, 5, 15, 5);
     gbc.gridwidth = 1;
     gbc.gridx = 3;
-    gbc.gridy = 3;
+    gbc.gridy = 1;
     logout.addActionListener(this);
     logout.setPreferredSize(new Dimension(150, 30));
     mainPage.add(logout, gbc);
@@ -139,10 +102,6 @@ public class MainMenu implements ActionListener
     if(e.getSource() == tickets)
     {
       new TicketMenu(mainFrame, user);
-    }
-    else if(e.getSource() == addCredit)
-    {
-      JOptionPane.showMessageDialog(mainFrame, "Show add credits"); //Need to implement
     }
     else if(e.getSource() == register)
     {

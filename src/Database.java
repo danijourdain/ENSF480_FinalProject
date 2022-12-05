@@ -6,9 +6,9 @@ import java.sql.*;
  * A singleton class that represents the database
  */
 public class Database{
-    private static String username = "root";
+    private static String username = "ensf480";
     private static String url = "jdbc:mysql://localhost:3306/Theatre";
-    private static String password = "password";
+    private static String password = "ensf480";
     private static Connection connection = null;
     private Database(){}
     /**

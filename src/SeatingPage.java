@@ -13,6 +13,7 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
 
   JFrame mainFrame;
   User user;
+  Showtime showtime;
   JPanel seatingPage = new JPanel(new GridBagLayout());
   JPanel seatingTable = new JPanel(new GridLayout(7, 10));
   JButton main = new JButton("Main Page");
@@ -23,10 +24,11 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
 
   JLabel spacer = new JLabel();
 
-  SeatingPage(JFrame mainFrame, User user) //ADD SHOWTIME AS ARGUEMENT
+  SeatingPage(JFrame mainFrame, User user, Showtime showtime) 
   {
     this.mainFrame = mainFrame;
     this.user = user;
+    this.showtime = showtime;
 
     seatingPageSetup();
 

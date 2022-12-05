@@ -107,6 +107,7 @@ public class FinanceManager extends Manager{
             PREPS.setObject(2,LocalDate.now());
             PREPS.setInt(3, credit.getCreditAmount());
             PREPS.executeUpdate();
+            PREPS.close();
         }
         catch(SQLException e){
             Database.rollback();

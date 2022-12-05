@@ -2,8 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-//import java.util.*;
-//import java.sql.*;
+import java.util.*;
 
 public class TicketMenu implements ActionListener 
 {
@@ -11,6 +10,7 @@ public class TicketMenu implements ActionListener
 
   JFrame mainFrame;
   User user;
+  ArrayList<Showtime> showtimes;
   JPanel ticketPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JButton userTickets = new JButton("My Tickets");
@@ -35,50 +35,31 @@ public class TicketMenu implements ActionListener
 
   private void tableSet() //THIS NEEDS SHOWTIMES, THE BUTTONS RETURN THE INDEX NUM, USE INDEX NUM TO RETURN SHOWTIME IN BUTTONS BELOW
   {
-    String[] columnNames = {"Movie", "Date", "Time", ""};
-    Object[][] data =
+    TicketManager ticketM = TicketManager.getInstance();
+    showtimes = ticketM.getShowtimes();
+
+    String[] columnNames = {"Movie", "Date", "Time", "Duration", ""};
+    Object[][] data = new Object[showtimes.size()][4];
+    for(int i = 0; i < showtimes.size(); i++) 
     {
-      {"Movie1", "Feb 14", "7:00 pm", "<>"},
-      {"Movie2", "Feb 14", "7:00 pm", "<>"},
-      {"Movie3", "Feb 14", "7:00 pm", "<>"},
-      {"Movie4", "Feb 14", "7:00 pm", "<>"},
-      {"Movie5", "Feb 14", "7:00 pm", "<>"},
-      {"Movie6", "Feb 14", "7:00 pm", "<>"},
-      {"Movie7", "Feb 14", "7:00 pm", "<>"},
-      {"Movie8", "Feb 14", "7:00 pm", "<>"}, 
-      {"Movie9", "Feb 14", "7:00 pm", "<>"},
-      {"Movie10", "Feb 14", "7:00 pm", "<>"},
-      {"Movie11", "Feb 14", "7:00 pm", "<>"},
-      {"Movie12", "Feb 14", "7:00 pm", "<>"},
-      {"Movie13", "Feb 14", "7:00 pm", "<>"},
-      {"Movie14", "Feb 14", "7:00 pm", "<>"},
-      {"Movie15", "Feb 14", "7:00 pm", "<>"},
-      {"Movie16", "Feb 14", "7:00 pm", "<>"}, 
-      {"Movie17", "Feb 14", "7:00 pm", "<>"},
-      {"Movie18", "Feb 14", "7:00 pm", "<>"},
-      {"Movie19", "Feb 14", "7:00 pm", "<>"},
-      {"Movie20", "Feb 14", "7:00 pm", "<>"},
-      {"Movie21", "Feb 14", "7:00 pm", "<>"},
-      {"Movie22", "Feb 14", "7:00 pm", "<>"},
-      {"Movie23", "Feb 14", "7:00 pm", "<>"},
-      {"Movie24", "Feb 14", "7:00 pm", "<>"}, 
-      {"Movie25", "Feb 14", "7:00 pm", "<>"},
-      {"Movie26", "Feb 14", "7:00 pm", "<>"},
-      {"Movie27", "Feb 14", "7:00 pm", "<>"},
-      {"Movie28", "Feb 14", "7:00 pm", "<>"},
-      {"Movie29", "Feb 14", "7:00 pm", "<>"},
-      {"Movie30", "Feb 14", "7:00 pm", "<>"},
-      {"Movie31", "Feb 14", "7:00 pm", "<>"},
-      {"Movie32", "Feb 14", "7:00 pm", "<>"}
-    };
+      data[i][0] = showtimes.get(i).getMTitle();
+      data[i][1] = showtimes.get(i).getShowDateTime().toLocalDate().toString();
+      data[i][2] = showtimes.get(i).getShowDateTime().toLocalTime().toString();
+      try {
+        data[i][3] = Integer.toString((ticketM.getMovie(showtimes.get(i).getMTitle())).getDuration());
+      }
+      catch(Exception f) {
+        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
+      }
+    }
  
     tableModel = new DefaultTableModel(data, columnNames);
     movieTable = new JTable(tableModel);
-    movieTable.getColumnModel().getColumn(3).setMaxWidth(50);
+    movieTable.getColumnModel().getColumn(4).setMaxWidth(50);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
     movieScroll = new JScrollPane(movieTable);
 
-    ButtonColumn buttonColumn = new ButtonColumn(movieTable, select, 3);
+    ButtonColumn buttonColumn = new ButtonColumn(movieTable, select, 4);
     buttonColumn.setMnemonic(KeyEvent.VK_D);
   }
 
@@ -144,8 +125,7 @@ public class TicketMenu implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
       int modelRow = Integer.valueOf(e.getActionCommand());
-      JOptionPane.showMessageDialog(mainFrame, "Selected :" + modelRow);
-      new SeatingPage(mainFrame, user); //RETURN SHOWTIME HERE, HAVE TO ADD ARGUEMENT
+      new SeatingPage(mainFrame, user, showtimes.get(modelRow)); 
     }
   };
 }
