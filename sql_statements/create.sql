@@ -1,6 +1,11 @@
 DROP DATABASE IF EXISTS `Theatre`;
 CREATE DATABASE `Theatre`;
 USE Theatre;
+
+DROP USER IF EXISTS 'ensf480'@'localhost';
+CREATE USER 'ensf480'@'localhost' IDENTIFIED BY 'ensf480';
+GRANT ALL ON Theatre.* TO 'ensf480'@'localhost';
+
 CREATE TABLE GenericUser(
     Email   VARCHAR(320) NOT NULL,
     Password_ VARCHAR(32) NOT NULL,
