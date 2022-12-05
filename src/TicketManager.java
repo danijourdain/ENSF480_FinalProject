@@ -143,29 +143,31 @@ public class TicketManager extends Manager {
         return purchase_success;
     }
 
-    public boolean RefundTicket(Ticket t, User u) throws SQLException {
-        Showtime s = t.getShowtime();
-        if (s.getShowDateTime().isAfter(LocalDateTime.now().minusDays(3))) {
-            // if showtime is more than 72 hours away, refund is allowed
-            FinanceManager f = FinanceManager.getInstance();
-            f.issueRefund(t.getPrice(), u);
-            Connection connection = Database.getConnection();
+    public void RefundTicket(Ticket t, User u) throws SQLException {
+        try {
+            Showtime s = t.getShowtime();
+            if (s.getShowDateTime().isAfter(LocalDateTime.now().minusDays(3))) {
+                // if showtime is more than 72 hours away, refund is allowed
+                FinanceManager f = FinanceManager.getInstance();
+                f.issueRefund(t.getPrice(), u);
+                Connection connection = Database.getConnection();
 
-            String update = "UPDATE Ticket SET Email=NULL WHERE TNo=? AND MTitle=? AND ShowDateTime=? AND RNumber=? AND TName=?";
-            PreparedStatement statement = connection.prepareStatement(update);
-            statement.setInt(1, t.getPrice());
-            statement.setString(2, s.getMTitle());
-            statement.setTimestamp(3, Timestamp.valueOf(s.getShowDateTime()));
-            statement.setInt(4, s.getRNumber());
-            statement.setString(5, s.getTName());
+                String update = "UPDATE Ticket SET Email=NULL WHERE TNo=? AND MTitle=? AND ShowDateTime=? AND RNumber=? AND TName=?";
+                PreparedStatement statement = connection.prepareStatement(update);
+                statement.setInt(1, t.getPrice());
+                statement.setString(2, s.getMTitle());
+                statement.setTimestamp(3, Timestamp.valueOf(s.getShowDateTime()));
+                statement.setInt(4, s.getRNumber());
+                statement.setString(5, s.getTName());
 
-            statement.executeUpdate();
-            // update the email for the tickets
-
-            return true;
-        } else {
-            return false;
-            // if the showtime is less than 72 hours away, refund fails
+                statement.executeUpdate();
+                // update the email for the tickets
+            } else {
+                throw new SQLException();
+                // if the showtime is less than 72 hours away, refund fails
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Refund Is Unavailable");
         }
     }
 }

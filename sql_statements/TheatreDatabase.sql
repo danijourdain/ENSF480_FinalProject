@@ -652,50 +652,6 @@ INSERT INTO Ticket(TNo, MTitle, ShowDateTime, RNumber, TName, Price, Email) VALU
 (30, 'Movie D', '2022-12-04 15:00:00', 3, 'UCalgary Theatre', 15, null),
 
 
-
-('2022-12-31 9:00:00', 'Movie A', 1, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 11:00:00', 'Movie A', 2, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 13:00:00', 'Movie A', 3, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 15:00:00', 'Movie A', 4, 3, 27, 'UCalgary Theatre'),
-
-('2022-12-31 9:00:00', 'Movie B', 2, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 11:00:00', 'Movie B', 3, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 13:00:00', 'Movie B', 4, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 15:00:00', 'Movie B', 1, 3, 27, 'UCalgary Theatre'),
-
-('2022-12-31 9:00:00', 'Movie C', 3, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 11:00:00', 'Movie C', 4, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 13:00:00', 'Movie C', 1, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 15:00:00', 'Movie C', 2, 3, 27, 'UCalgary Theatre'),
-
-('2022-12-31 9:00:00', 'Movie D', 4, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 11:00:00', 'Movie D', 1, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 13:00:00', 'Movie D', 2, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 15:00:00', 'Movie D', 3, 3, 27, 'UCalgary Theatre'),
-
-
-('2022-12-31 9:00:00', 'Movie A', 1, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 11:00:00', 'Movie A', 2, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 13:00:00', 'Movie A', 3, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 15:00:00', 'Movie A', 4, 3, 27, 'UCalgary Theatre'),
-
-('2022-12-31 9:00:00', 'Movie B', 2, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 11:00:00', 'Movie B', 3, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 13:00:00', 'Movie B', 4, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 15:00:00', 'Movie B', 1, 3, 27, 'UCalgary Theatre'),
-
-('2022-12-31 9:00:00', 'Movie C', 3, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 11:00:00', 'Movie C', 4, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 13:00:00', 'Movie C', 1, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 15:00:00', 'Movie C', 2, 3, 27, 'UCalgary Theatre'),
-
-('2022-12-31 9:00:00', 'Movie D', 4, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 11:00:00', 'Movie D', 1, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 13:00:00', 'Movie D', 2, 3, 27, 'UCalgary Theatre'),
-('2022-12-31 15:00:00', 'Movie D', 3, 3, 27, 'UCalgary Theatre');
-
-
-INSERT INTO Ticket(TNo, MTitle, ShowDateTime, RNumber, TName, Price, Email) VALUES
 (1, 'Movie A', '2022-12-31 9:00:00', 1, 'UCalgary Theatre', 15, null),
 (2, 'Movie A', '2022-12-31 9:00:00', 1, 'UCalgary Theatre', 15, null),
 (3, 'Movie A', '2022-12-31 9:00:00', 1, 'UCalgary Theatre', 15, null),
