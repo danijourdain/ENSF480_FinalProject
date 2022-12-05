@@ -7,15 +7,15 @@ import javax.swing.table.DefaultTableModel;
 //import java.util.*;
 //import java.sql.*;
 
-public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS VARIABLE
+public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS VARIABLE
 {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
   User user;
   Showtime showtime;
-  ArrayList<Ticket> tickets;
-  ArrayList<Ticket> purchasedT;
+  ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+  ArrayList<Ticket> purchasedT = new ArrayList<Ticket>();
   JPanel seatingPage = new JPanel(new GridBagLayout());
   JPanel seatingTable = new JPanel(new GridLayout(7, 10));
   JButton main = new JButton("Main Page");
@@ -26,58 +26,52 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
 
   JLabel spacer = new JLabel();
 
-  SeatingPage(JFrame mainFrame, User user, Showtime showtime) 
-  {
+  SeatingPage(JFrame mainFrame, User user, Showtime showtime) {
     this.mainFrame = mainFrame;
     this.user = user;
     this.showtime = showtime;
 
     seatingPageSetup();
 
-    mainFrame.getContentPane().removeAll(); 
+    mainFrame.getContentPane().removeAll();
     mainFrame.add(seatingPage);
     mainFrame.validate();
   }
 
-  private void tableSet() //USE SHOWTIME TO PULL SEAT INFORMATION. ADJUST PURCHASED ARRAY 
+  private void tableSet() // USE SHOWTIME TO PULL SEAT INFORMATION. ADJUST PURCHASED ARRAY
   {
     TicketManager ticketM = TicketManager.getInstance();
     tickets = ticketM.getShowtimeTickets(showtime);
-    JToggleButton[] array = new JToggleButton[70];
-    for(int i = 0; i < array.length; i++) {
-      if(tickets.get(i).getEmail() != null) 
-      {
-        array[i] = new JToggleButton(String.valueOf(i+1), false);
+    JToggleButton[] array = new JToggleButton[30];
+    for (int i = 0; i < array.length; i++) {
+      if (tickets.get(i).getEmail() == null) {
+        array[i] = new JToggleButton(String.valueOf(i + 1), false);
         array[i].addActionListener(listener);
         seatingTable.add(array[i]);
-      }
-      else 
-      {
+      } else {
         seatingTable.add(new JLabel("x"));
       }
     }
 
-    String[] columnNames = {"Movie", "Date", "Time", "Duration"};
+    String[] columnNames = { "Movie", "Date", "Time", "Duration" };
     String Mtitle = showtime.getMTitle();
     String date = showtime.getShowDateTime().toLocalDate().toString();
     String time = showtime.getShowDateTime().toLocalTime().toString();
     String duration = null;
     try {
       duration = Integer.toString(ticketM.getMovie(showtime.getMTitle()).getDuration());
-    }
-    catch(Exception f) {
+    } catch (Exception f) {
       JOptionPane.showMessageDialog(mainFrame, f.getMessage());
     }
-    Object[][] data = {{Mtitle , date, time, duration}};
+    Object[][] data = { { Mtitle, date, time, duration } };
 
     tableModel = new DefaultTableModel(data, columnNames);
     movieTable = new JTable(tableModel);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
   }
-  
-  private void seatingPageSetup() 
-  {
-    gbc.anchor = GridBagConstraints.NORTH; 
+
+  private void seatingPageSetup() {
+    gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
     tableSet();
@@ -102,21 +96,21 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
     gbc.gridx = 0;
     gbc.gridy = 1;
     movieTable.setPreferredSize(new Dimension(600, 30));
-    seatingPage.add(movieTable, gbc);  
+    seatingPage.add(movieTable, gbc);
 
     gbc.insets = new Insets(15, 5, 15, 5);
     gbc.gridwidth = 4;
     gbc.gridx = 0;
     gbc.gridy = 2;
     seatingTable.setPreferredSize(new Dimension(600, 400));
-    seatingPage.add(seatingTable, gbc);  
-    
+    seatingPage.add(seatingTable, gbc);
+
     gbc.insets = new Insets(15, 5, 15, 5);
     gbc.gridwidth = 3;
     gbc.gridx = 0;
     gbc.gridy = 3;
     spacer.setPreferredSize(new Dimension(150, 30));
-    seatingPage.add(spacer, gbc);  
+    seatingPage.add(spacer, gbc);
 
     gbc.insets = new Insets(15, 5, 15, 5);
     gbc.gridwidth = 1;
@@ -127,33 +121,25 @@ public class SeatingPage implements ActionListener //NEED TO ADD SHOWTIME CLASS 
     seatingPage.add(checkout, gbc);
   }
 
-  public void actionPerformed(ActionEvent e)
-  {
-    if(e.getSource() == main)
-    {
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == main) {
       new MainMenu(mainFrame, user);
-    }
-    else if(e.getSource() == checkout)
-    {
-      for(String j : purchased) {
+    } else if (e.getSource() == checkout) {
+      for (String j : purchased) {
         purchasedT.add(tickets.get(Integer.valueOf(j)));
       }
-      new CheckoutPage(mainFrame, purchasedT, user); //RETURNS AN ARRAY OF INDEXES FOR TICKETS
+      new CheckoutPage(mainFrame, purchasedT, user);
     }
   }
 
-  ActionListener listener = new ActionListener() 
-  {
+  ActionListener listener = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
       if (e.getSource() instanceof JToggleButton) {
         String seatNum = ((JToggleButton) e.getSource()).getText();
-        if(((JToggleButton) e.getSource()).isSelected())
-        {
+        if (((JToggleButton) e.getSource()).isSelected()) {
           purchased.add(seatNum);
-        }
-        else 
-        {
+        } else {
           purchased.remove(seatNum);
         }
       }

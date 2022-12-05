@@ -11,6 +11,7 @@ public class CheckoutPage implements ActionListener {
   JFrame mainFrame;
   ArrayList<Ticket> purchased;
   User user;
+  int totalPrice;
   JPanel checkoutPage = new JPanel(new GridBagLayout());
   JButton main = new JButton("Main Page");
   JLabel ticketsLabel = new JLabel("Tickets");
@@ -50,6 +51,7 @@ public class CheckoutPage implements ActionListener {
       data[i][1] = purchased.get(i).getShowtime().getShowDateTime().toLocalDate().toString();
       data[i][2] = purchased.get(i).getShowtime().getShowDateTime().toLocalTime().toString();
       data[i][4] = purchased.get(i).getPrice();
+      totalPrice += purchased.get(i).getPrice();
       try {
         data[i][3] = Integer.toString((ticketM.getMovie(purchased.get(i).getShowtime().getMTitle())).getDuration());
       } catch (Exception f) {
@@ -125,6 +127,7 @@ public class CheckoutPage implements ActionListener {
     gbc.gridx = 3;
     gbc.gridy = 3;
     credit.setPreferredSize(new Dimension(50, 30));
+    price.setText(String.valueOf(totalPrice));
     price.setEditable(false);
     checkoutPage.add(price, gbc);
 
@@ -140,7 +143,7 @@ public class CheckoutPage implements ActionListener {
     gbc.gridx = 1;
     gbc.gridy = 4;
     creditCard.setPreferredSize(new Dimension(50, 30));
-    if (user.getType() == "R") {
+    if (user.getType() == "Registered") {
       creditCard.setText(user.getCreditCard());
     }
     checkoutPage.add(creditCard, gbc);
@@ -167,6 +170,7 @@ public class CheckoutPage implements ActionListener {
       } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
+      new MainMenu(mainFrame, user);
     }
   }
 }

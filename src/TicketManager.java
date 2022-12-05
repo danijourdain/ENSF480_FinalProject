@@ -14,7 +14,7 @@ public class TicketManager extends Manager {
 
     public Movie getMovie(String MTitle) throws SQLException {
         Connection connection = Database.getConnection();
-        String movie_query = "SELECT * FROM Movie WHERE Movie.MTitle = ?";
+        String movie_query = "SELECT * FROM Movie WHERE Movie.Title = ?";
         PreparedStatement statement = connection.prepareStatement(movie_query);
         statement.setString(1, MTitle);
         ResultSet result = statement.executeQuery();

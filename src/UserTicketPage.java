@@ -6,8 +6,7 @@ import javax.swing.table.DefaultTableModel;
 //import java.util.*;
 //import java.sql.*;
 
-public class UserTicketPage implements ActionListener 
-{
+public class UserTicketPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
@@ -18,42 +17,36 @@ public class UserTicketPage implements ActionListener
   JLabel ticketLabel = new JLabel("Tickets");
   DefaultTableModel tableModel;
   JTable movieTable;
-  JScrollPane movieScroll;
+  JScrollPane movieScroll = new JScrollPane();
 
   JLabel spacer = new JLabel();
-  
-  UserTicketPage(JFrame mainFrame, User user)
-  {
+
+  UserTicketPage(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
 
     ticketMenuSetup();
 
-    mainFrame.getContentPane().removeAll(); 
+    mainFrame.getContentPane().removeAll();
     mainFrame.add(ticketPage);
     mainFrame.validate();
   }
 
-  private void tableSet() //PULL USER TICKET INFO FOR TABLE
+  private void tableSet() // PULL USER TICKET INFO FOR TABLE
   {
     TicketManager ticketM = TicketManager.getInstance();
-    //userTickets = ticketM.getShowtimes();
-    /*
-    String[] columnNames = { "Movie", "Date", "Time", "Duration", "" };
-    Object[][] data = new Object[showtimes.size()][5];
-    for (int i = 0; i < showtimes.size(); i++) {
-      data[i][0] = showtimes.get(i).getMTitle();
-      data[i][1] = showtimes.get(i).getShowDateTime().toLocalDate().toString();
-      data[i][2] = showtimes.get(i).getShowDateTime().toLocalTime().toString();
-      data[i][4] = "Select";
-      try {
-        data[i][3] = Integer.toString((ticketM.getMovie(showtimes.get(i).getMTitle())).getDuration());
-      } catch (Exception f) {
-        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
-      }
+    userTickets = ticketM.getUserTickets(user);
+
+    String[] columnNames = { "Movie", "Date", "Time", "Seat", "" };
+    Object[][] data = new Object[userTickets.size()][5];
+    for (int i = 0; i < userTickets.size(); i++) {
+      data[i][0] = userTickets.get(i).getShowtime().getMTitle();
+      data[i][1] = userTickets.get(i).getShowtime().getShowDateTime().toLocalDate().toString();
+      data[i][2] = userTickets.get(i).getShowtime().getShowDateTime().toLocalTime().toString();
+      data[i][3] = userTickets.get(i).getTicketNo();
+      data[i][4] = "Cancel";
     }
-    */
- 
+
     tableModel = new DefaultTableModel(data, columnNames);
     movieTable = new JTable(tableModel);
     movieTable.getColumnModel().getColumn(4).setMaxWidth(50);
@@ -64,9 +57,8 @@ public class UserTicketPage implements ActionListener
     buttonColumn.setMnemonic(KeyEvent.VK_D);
   }
 
-  private void ticketMenuSetup() 
-  {
-    gbc.anchor = GridBagConstraints.NORTH; 
+  private void ticketMenuSetup() {
+    gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
     tableSet();
@@ -101,20 +93,16 @@ public class UserTicketPage implements ActionListener
     ticketPage.add(movieScroll, gbc);
   }
 
-  public void actionPerformed(ActionEvent e)
-  {
-    if(e.getSource() == main)
-    {
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == main) {
       new MainMenu(mainFrame, user);
     }
   }
 
-  Action select = new AbstractAction()
-  {
-    public void actionPerformed(ActionEvent e)
-    {
+  Action select = new AbstractAction() {
+    public void actionPerformed(ActionEvent e) {
       int modelRow = Integer.valueOf(e.getActionCommand());
-      JOptionPane.showMessageDialog(mainFrame, "Delete ticket " + modelRow); //REMOVE TICKET BASED ON INDEX
+      JOptionPane.showMessageDialog(mainFrame, "Delete ticket " + modelRow); // REMOVE
     }
   };
 }

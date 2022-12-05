@@ -40,7 +40,7 @@ public class LoginRegisterManager extends Manager {
             ResultSet resultSet2 = statement2.executeQuery();
             User u = new User(email, password);
             u.setType(userType);
-            
+
             while (resultSet2.next()) {
                 int id = resultSet2.getInt(1);
                 System.out.println("Reached point 1\n");
@@ -141,6 +141,17 @@ public class LoginRegisterManager extends Manager {
         u.setCreditCard(cardNo);
         u.setAddress(StAddress);
         u.setExpDate(LocalDate.now());
+
+        String remove = "DELETE FROM GuestUser VALUES(?)";
+        PreparedStatement delete_guest = connection.prepareStatement(remove);
+        delete_guest.setString(1, u.getEmail());
+        delete_guest.executeUpdate();
+
+        u.setType("Registered");
+        u.setFname(fname);
+        u.setLname(lname);
+        u.setCreditCard(cardNo);
+        u.setAddress(StAddress);
     }
 
     public static LoginRegisterManager getInstance() {

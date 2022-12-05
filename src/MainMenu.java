@@ -55,13 +55,9 @@ public class MainMenu implements ActionListener {
     gbc.gridx = 0;
     gbc.gridy = 0;
     userType.setPreferredSize(new Dimension(150, 30));
-    if (!(user.getType() == "R")) {
-      userType = new JLabel("Registered User");
-      mainPage.add(userType, gbc);
-    } else {
-      userType = new JLabel("Guest User");
-      mainPage.add(userType, gbc);
-    }
+
+    userType = new JLabel(user.getType());
+    mainPage.add(userType, gbc);
 
     gbc.insets = new Insets(0, 5, 15, 5);
     gbc.gridwidth = 2;
@@ -84,7 +80,7 @@ public class MainMenu implements ActionListener {
     gbc.gridy = 1;
     register.addActionListener(this);
     register.setPreferredSize(new Dimension(150, 30));
-    if (!(user.getType() == "R")) {
+    if (!(user.getType() == "Registered")) {
       mainPage.add(register, gbc);
     } else {
       mainPage.add(spacer, gbc);
