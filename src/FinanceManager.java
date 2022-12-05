@@ -1,7 +1,6 @@
 import java.util.*;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Comparator;
 
 public class FinanceManager extends Manager {
     private static FinanceManager instance;
@@ -42,7 +41,16 @@ public class FinanceManager extends Manager {
         return instance;
     }
 
-    private int applyCredit(int price, User user) {
+    public boolean checkCredit(int price, User user) {
+        int r = applyCredit(price, user);
+        if (r == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int applyCredit(int price, User user) {
         try {
             Connection connection = Database.getConnection();
             ArrayList<Credit> userCredit = user.getCredits();

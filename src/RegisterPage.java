@@ -24,6 +24,7 @@ public class RegisterPage implements ActionListener {
   JLabel spacer = new JLabel();
 
   RegisterPage(JFrame mainFrame, User user) {
+    JOptionPane.showMessageDialog(mainFrame, "Your card will be charged $20 yearly");
     this.mainFrame = mainFrame;
     this.user = user;
 

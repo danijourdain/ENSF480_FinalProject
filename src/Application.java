@@ -1,6 +1,6 @@
 import javax.swing.JFrame;
 
-public class GUITest {
+public class Application {
   public static void main(String args[]) 
   {
     JFrame mainFrame = new JFrame("Depressed SENG Student Theatres");

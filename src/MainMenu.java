@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//import java.util.*;
-//import java.sql.*;
 
 public class MainMenu implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
@@ -13,10 +11,6 @@ public class MainMenu implements ActionListener {
   JLabel userType = new JLabel("UserType");
   JButton tickets = new JButton("Tickets");
   JLabel creditLabel = new JLabel("Credit: ");
-  JTextField credit = new JTextField(32);
-  JButton addCredit = new JButton("Add Credit");
-  JTable movieTable;
-  JScrollPane movieScroll;
   JButton register = new JButton("Register");
   JButton logout = new JButton("Logout");
 
@@ -25,6 +19,27 @@ public class MainMenu implements ActionListener {
   MainMenu(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
+    if (user.getType().equals("Expired")) {
+      int n = JOptionPane.showConfirmDialog(mainFrame,
+          "Would you like to renew your registration?\nYou will be charged 20 dollars", "", JOptionPane.YES_NO_OPTION);
+
+      try {
+        if (n == JOptionPane.YES_OPTION) {
+          int res = LoginRegisterManager.getInstance().renewUser(user);
+          System.out.println("here" + res);
+          if (res >= 0) {
+            JOptionPane.showMessageDialog(mainFrame, "Registration Purchased\nCard Charged: " + res);
+            new MainMenu(mainFrame, user);
+          }
+        } else {
+          LoginRegisterManager deregister = LoginRegisterManager.getInstance();
+          deregister.deregisterUser(user);
+          new MainMenu(mainFrame, user);
+        }
+      } catch (Exception f) {
+        JOptionPane.showMessageDialog(mainFrame, f.getMessage());
+      }
+    }
 
     mainMenuSetup();
 
@@ -33,22 +48,9 @@ public class MainMenu implements ActionListener {
     mainFrame.validate();
   }
 
-  private void tableSet() // This table is not needed, add only if we have time. It's just a list of the
-                          // movies being played.
-  {
-    String[] title = { "Playing", "Movies" };
-    String[][] data = { { "movie1", "movie2" }, { "movie3", "movie4" }, { "movie5", "movie6" }, { "movie7", "movie8" },
-        { "movie9", "movie10" } };
-
-    movieTable = new JTable(data, title);
-    movieScroll = new JScrollPane(movieTable);
-  }
-
   private void mainMenuSetup() {
     gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
-
-    tableSet();
 
     gbc.insets = new Insets(0, 5, 15, 5);
     gbc.gridwidth = 1;
@@ -81,7 +83,7 @@ public class MainMenu implements ActionListener {
     register.addActionListener(this);
     register.setPreferredSize(new Dimension(150, 30));
     System.out.println(user.getType());
-    if ((user.getType().equals("Registered"))) {
+    if (user.getType().equals("Registered")) {
       mainPage.add(spacer, gbc);
     } else {
       mainPage.add(register, gbc);
@@ -107,7 +109,6 @@ public class MainMenu implements ActionListener {
     if (e.getSource() == tickets) {
       new TicketMenu(mainFrame, user);
     } else if (e.getSource() == register) {
-      // Needs to be adjusted for registration
       new RegisterPage(mainFrame, user);
     } else if (e.getSource() == logout) {
       JOptionPane.showMessageDialog(mainFrame, "Logged Out");

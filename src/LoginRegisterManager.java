@@ -55,27 +55,84 @@ public class LoginRegisterManager extends Manager {
                     u.addCredit(issueDate, amount, id);
                 }
             }
-            return u; // create new user object based on the data retrieved to represent the current
-                      // user.
-            // based on the user (and any other "key classes"), make new entities to
-            // represent them
-            // I'm
+
+            if (userType.equals("Registered")) {
+                String registrationDate = "SELECT * FROM RegisteredUser AS R WHERE R.Email = ?";
+                PreparedStatement registrationDateQuery = connection.prepareStatement(registrationDate);
+                registrationDateQuery.setString(1, email);
+                ResultSet regResult = registrationDateQuery.executeQuery();
+                regResult.next();
+
+                LocalDate expDate = regResult.getDate(6).toLocalDate();
+
+                if (expDate.isBefore(LocalDate.now())) {
+                    FinanceManager f = FinanceManager.getInstance();
+                    if (!f.checkCredit(20, u)) {
+                        u.setType("Expired");
+                    } else {
+                        f.applyCredit(20, u);
+                    }
+                }
+            }
+            return u;
         } catch (SQLException e) {
-            Database.getConnection().rollback();
-            Database.closeConnection();
             throw new SQLException("Something went wrong");
         }
     }
 
-    // public User login(String email, String password){
-    // try{
-    // return checkCredentials(email, password);
-    // }
-    // catch(SQLException e){
-    // e.printStackTrace();
-    // return new User("!","!","none","none");
-    // }
-    // }
+    public int renewUser(User u) throws SQLException {
+        Connection connection = Database.getConnection();
+
+        LocalDate expDate = LocalDate.now().plusYears(1);
+
+        u.setType("Registered");
+        u.setExpDate(expDate);
+
+        String query = "UPDATE RegisteredUser SET ExpDate=? WHERE Email=?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setDate(1, java.sql.Date.valueOf(expDate));
+        statement.setString(2, u.getEmail());
+        statement.executeUpdate();
+
+        FinanceManager f = FinanceManager.getInstance();
+        int res = f.doTransaction(20, u, u.getCreditCard());
+        return res;
+    }
+
+    public void deregisterUser(User u) throws SQLException {
+        u.setType("Guest");
+
+        Connection connection = Database.getConnection();
+        u.setAddress(null);
+        u.setCreditCard(null);
+        u.setFname(null);
+        u.setLname(null);
+
+        System.out.println(1);
+
+        String deRegister = "UPDATE GenericUser SET UserType=? WHERE Email=?";
+        PreparedStatement deRegStatement = connection.prepareStatement(deRegister);
+        deRegStatement.setString(1, "Guest");
+        deRegStatement.setString(2, u.getEmail());
+        deRegStatement.executeUpdate();
+
+        System.out.println(2);
+
+        String deleteReg = "DELETE FROM RegisteredUser WHERE Email=?";
+        PreparedStatement delStatement = connection.prepareStatement(deleteReg);
+        delStatement.setString(1, u.getEmail());
+        delStatement.executeUpdate();
+
+        System.out.println(3);
+
+        String insertReg = "INSERT INTO GuestUser(Email) VALUES(?)";
+        PreparedStatement iStatement = connection.prepareStatement(insertReg);
+        iStatement.setString(1, u.getEmail());
+        iStatement.executeUpdate();
+
+        System.out.println(4);
+    }
+
     /**
      * @param email The user's email
      * @param fname The user's first name
@@ -131,7 +188,7 @@ public class LoginRegisterManager extends Manager {
         register_user.setString(3, lname);
         register_user.setString(4, StAddress);
         register_user.setString(5, cardNo);
-        register_user.setDate(6, java.sql.Date.valueOf(LocalDate.now()));
+        register_user.setDate(6, java.sql.Date.valueOf(LocalDate.now().plusYears(1)));
         register_user.executeUpdate();
 
         String remove = "DELETE FROM GuestUser WHERE Email=?";
