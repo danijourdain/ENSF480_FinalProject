@@ -44,7 +44,7 @@ public class CheckoutPage implements ActionListener {
     mainFrame.validate();
   }
 
-  private void tableSet() // USING THE INDEXS PASS, GET TICKET ITEMS AND ADD TO TABLE
+  private void tableSet() // USING THE INDEXES PASS, GET TICKET ITEMS AND ADD TO TABLE
   {
     String[] columnNames = { "Movie", "Date", "Time", "Seat", "Price" };
     Object[][] data = new Object[purchased.size()][5];
@@ -151,6 +151,7 @@ public class CheckoutPage implements ActionListener {
     creditCard.setPreferredSize(new Dimension(50, 30));
     if (user.getType().equals("Registered")) {
       creditCard.setText(user.getCreditCard());
+      creditCard.setEditable(false);
     }
     checkoutPage.add(creditCard, gbc);
 
