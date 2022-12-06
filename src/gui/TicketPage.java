@@ -72,7 +72,9 @@ public class TicketPage implements ActionListener {
         return false;
       }
     };
-    movieTable.getColumnModel().getColumn(4).setMaxWidth(50);
+    movieTable.getTableHeader().setReorderingAllowed(false);
+    movieTable.getTableHeader().setResizingAllowed(false);
+    movieTable.getColumnModel().getColumn(4).setMinWidth(50);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
     movieScroll = new JScrollPane(movieTable);
 
