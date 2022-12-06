@@ -142,7 +142,7 @@ public class UserTicketPage implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == main) {
-      new MainMenu(mainFrame, user);
+      new MainPage(mainFrame, user);
     }
   }
 
@@ -153,7 +153,7 @@ public class UserTicketPage implements ActionListener {
         int ticketNum = Integer.valueOf(e.getActionCommand());
         try {
           TicketManager ticket = TicketManager.getInstance();
-          ticket.RefundTicket(userTickets.get(ticketNum), user);
+          ticket.refundTicket(userTickets.get(ticketNum), user);
           JOptionPane.showMessageDialog(mainFrame, "Ticket Refunded");
           new UserTicketPage(mainFrame, user);
         } catch (Exception f) {

@@ -10,6 +10,8 @@ import object.*;
 public class TicketManager {
     private static TicketManager instance;
 
+    private TicketManager() {}
+
     public static TicketManager getInstance() {
         if (instance == null) {
             instance = new TicketManager();
@@ -150,7 +152,7 @@ public class TicketManager {
         return chargeAmount;
     }
 
-    public void RefundTicket(Ticket t, User u) throws SQLException {
+    public void refundTicket(Ticket t, User u) throws SQLException {
         try {
             Showtime s = t.getShowtime();
             if (s.getShowDateTime().isAfter(LocalDateTime.now().minusDays(3))) {

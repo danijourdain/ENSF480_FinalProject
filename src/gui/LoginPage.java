@@ -98,7 +98,7 @@ public class LoginPage implements ActionListener {
       try {
         LoginRegisterManager login = LoginRegisterManager.getInstance();
         User user = login.createNewUser(userEmail, userPass);
-        new MainMenu(mainFrame, user);
+        new MainPage(mainFrame, user);
       } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
@@ -109,7 +109,7 @@ public class LoginPage implements ActionListener {
       try {
         LoginRegisterManager login = LoginRegisterManager.getInstance();
         User user = login.login(userEmail, userPass);
-        new MainMenu(mainFrame, user);
+        new MainPage(mainFrame, user);
       } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }

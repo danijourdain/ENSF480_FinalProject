@@ -7,7 +7,7 @@ import javax.swing.*;
 import controller.*;
 import object.*;
 
-public class MainMenu implements ActionListener {
+public class MainPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
@@ -21,7 +21,7 @@ public class MainMenu implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  public MainMenu(JFrame mainFrame, User user) {
+  public MainPage(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
     if (user.getType().equals("Expired")) {
@@ -34,12 +34,12 @@ public class MainMenu implements ActionListener {
           System.out.println("here" + res);
           if (res >= 0) {
             JOptionPane.showMessageDialog(mainFrame, "Registration Purchased\nCard Charged: " + res);
-            new MainMenu(mainFrame, user);
+            new MainPage(mainFrame, user);
           }
         } else {
           LoginRegisterManager deregister = LoginRegisterManager.getInstance();
           deregister.deregisterUser(user);
-          new MainMenu(mainFrame, user);
+          new MainPage(mainFrame, user);
         }
       } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
@@ -112,7 +112,7 @@ public class MainMenu implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == tickets) {
-      new TicketMenu(mainFrame, user);
+      new TicketPage(mainFrame, user);
     } else if (e.getSource() == register) {
       new RegisterPage(mainFrame, user);
     } else if (e.getSource() == logout) {

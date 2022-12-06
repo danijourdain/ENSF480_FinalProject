@@ -132,7 +132,7 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
 
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == main) {
-      new MainMenu(mainFrame, user);
+      new MainPage(mainFrame, user);
     } else if (e.getSource() == checkout) {
       for (String j : purchased) {
         purchasedT.add(tickets.get(Integer.valueOf(j)));

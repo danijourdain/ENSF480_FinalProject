@@ -163,7 +163,7 @@ public class CheckoutPage implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == main) {
-      new MainMenu(mainFrame, user);
+      new MainPage(mainFrame, user);
     }
     if (e.getSource() == purchase) {
       String creditcard = creditCard.getText();
@@ -172,7 +172,7 @@ public class CheckoutPage implements ActionListener {
         int res = ticketM.purchaseTickets(purchased, user, creditcard);
         if (res >= 0) {
           JOptionPane.showMessageDialog(mainFrame, "Tickets Purchased\nCard Charged: " + res);
-          new MainMenu(mainFrame, user);
+          new MainPage(mainFrame, user);
         } else {
           throw new Exception("Purchase Failed");
         }

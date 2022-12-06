@@ -10,7 +10,7 @@ import java.util.*;
 import controller.*;
 import object.*;
 
-public class TicketMenu implements ActionListener {
+public class TicketPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
 
   JFrame mainFrame;
@@ -26,7 +26,7 @@ public class TicketMenu implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  TicketMenu(JFrame mainFrame, User user) {
+  TicketPage(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
 
@@ -126,7 +126,7 @@ public class TicketMenu implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == main) {
-      new MainMenu(mainFrame, user);
+      new MainPage(mainFrame, user);
     } else if (e.getSource() == userTickets) {
       new UserTicketPage(mainFrame, user);
     }

@@ -137,13 +137,13 @@ public class RegisterPage implements ActionListener {
         LoginRegisterManager login = LoginRegisterManager.getInstance();
         login.registerUser(user, userFName, userLName, userCreditCard, userAddress);
         JOptionPane.showMessageDialog(mainFrame, "Welcome Registered User");
-        new MainMenu(mainFrame, user);
+        new MainPage(mainFrame, user);
       } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
     }
     if (e.getSource() == main) {
-      new MainMenu(mainFrame, user);
+      new MainPage(mainFrame, user);
     }
   }
 }
