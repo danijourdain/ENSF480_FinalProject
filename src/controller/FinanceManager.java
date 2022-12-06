@@ -35,7 +35,7 @@ public class FinanceManager {
      * @return boolean true or false if the card is valid or not
      */
     private boolean verify(String number) {
-        if (!number.matches(CARD_REGEX)) {
+        if (!(number.matches(CARD_REGEX))) {
             System.out.println("false");
             return false;
         }
