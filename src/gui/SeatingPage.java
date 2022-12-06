@@ -1,3 +1,4 @@
+package gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -6,6 +7,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 //import java.util.*;
 //import java.sql.*;
+
+import CheckoutPage;
+import TicketManager;
 
 public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS VARIABLE
 {

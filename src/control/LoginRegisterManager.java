@@ -7,7 +7,7 @@ import java.time.*;
  *         variable at a time.
  * 
  */
-public class LoginRegisterManager extends Manager {
+public class LoginRegisterManager {
     private static LoginRegisterManager instance;
 
     private LoginRegisterManager() {

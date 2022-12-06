@@ -2,7 +2,7 @@ import java.sql.*;
 import java.time.*;
 import java.util.*;
 
-public class TicketManager extends Manager {
+public class TicketManager {
     private static TicketManager instance;
 
     public static TicketManager getInstance() {

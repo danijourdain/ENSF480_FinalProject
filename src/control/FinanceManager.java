@@ -2,7 +2,7 @@ import java.util.*;
 import java.sql.*;
 import java.time.LocalDate;
 
-public class FinanceManager extends Manager {
+public class FinanceManager {
     private static FinanceManager instance;
     private final String CARD_REGEX = "^[0-9]{16}$";
 

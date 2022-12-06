@@ -1,13 +1,17 @@
+package gui;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 //import java.util.*;
 //import java.sql.*;
 
-public class LoginPage implements ActionListener 
-{
+import control;
+import MainMenu;
+
+public class LoginPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
-  
+
   JFrame mainFrame;
   JPanel loginPage = new JPanel(new GridBagLayout());
   JLabel emailLabel = new JLabel("Email: ");
@@ -19,20 +23,18 @@ public class LoginPage implements ActionListener
 
   JLabel spacer = new JLabel();
 
-  LoginPage(JFrame mainFrame)
-  {
+  LoginPage(JFrame mainFrame) {
     this.mainFrame = mainFrame;
 
     loginPageSetup();
 
-    mainFrame.getContentPane().removeAll(); 
+    mainFrame.getContentPane().removeAll();
     mainFrame.add(loginPage);
     mainFrame.validate();
   }
 
-  private void loginPageSetup() 
-  {
-    gbc.anchor = GridBagConstraints.NORTH; 
+  private void loginPageSetup() {
+    gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
     gbc.insets = new Insets(10, 15, 15, 5);
@@ -65,7 +67,7 @@ public class LoginPage implements ActionListener
     password.setPreferredSize(new Dimension(225, 30));
     loginPage.add(password, gbc);
 
-    gbc.anchor = GridBagConstraints.SOUTH; 
+    gbc.anchor = GridBagConstraints.SOUTH;
 
     gbc.insets = new Insets(30, 0, 0, 0);
     gbc.gridwidth = 1;
@@ -91,31 +93,26 @@ public class LoginPage implements ActionListener
     loginPage.add(login, gbc);
   }
 
-  public void actionPerformed(ActionEvent e)
-  {
-    if(e.getSource() == signUp)
-    {
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == signUp) {
       String userEmail = email.getText();
       String userPass = String.valueOf(password.getPassword());
       try {
         LoginRegisterManager login = LoginRegisterManager.getInstance();
         User user = login.createNewUser(userEmail, userPass);
         new MainMenu(mainFrame, user);
-      }
-      catch(Exception f) {
+      } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
     }
-    if(e.getSource() == login)
-    {
+    if (e.getSource() == login) {
       String userEmail = email.getText();
       String userPass = String.valueOf(password.getPassword());
       try {
         LoginRegisterManager login = LoginRegisterManager.getInstance();
         User user = login.login(userEmail, userPass);
         new MainMenu(mainFrame, user);
-      }
-      catch(Exception f) {
+      } catch (Exception f) {
         JOptionPane.showMessageDialog(mainFrame, f.getMessage());
       }
     }
