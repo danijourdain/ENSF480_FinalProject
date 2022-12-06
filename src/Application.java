@@ -1,6 +1,6 @@
 import javax.swing.JFrame;
 
-import gui.LoginPage;
+import gui.*;
 
 public class Application {
   public static void main(String args[]) 
