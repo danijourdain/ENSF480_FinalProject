@@ -149,7 +149,6 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
 			renderButton.setBorder( originalBorder );
 		}
 
-//		renderButton.setText( (value == null) ? "" : value.toString() );
 		if (value == null)
 		{
 			renderButton.setText( "" );
@@ -214,6 +213,6 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
     }
 
     public void mouseClicked(MouseEvent e) {}
-	  public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
 }
