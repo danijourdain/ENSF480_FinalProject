@@ -151,7 +151,6 @@ public class CheckoutPage implements ActionListener {
     creditCard.setPreferredSize(new Dimension(50, 30));
     if (user.getType().equals("Registered")) {
       creditCard.setText(user.getCreditCard());
-      creditCard.setEditable(false);
     }
     checkoutPage.add(creditCard, gbc);
 
