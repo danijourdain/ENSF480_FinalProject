@@ -89,22 +89,4 @@ public class Database {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Performs a rollback on the connection to the database.
-     * </br>
-     * <br>
-     * <b>NO-THROW GUARANTEE:</b> this method will never throw an exception.</br>
-     * 
-     * @since 1.5
-     */
-    public static void rollback() {
-        try {
-            if (connection != null && connection.isClosed() == false) {
-                connection.rollback();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
