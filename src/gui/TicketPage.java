@@ -143,8 +143,7 @@ public class TicketPage implements ActionListener {
    *
    * Based on the trigger, perform a function
    * main - Display main page
-   * checkout - Generate ArrayList of selected tickets 
-   * and display checkout page
+   * userTickets - Display user account
    */
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == main) {
@@ -154,6 +153,12 @@ public class TicketPage implements ActionListener {
     }
   }
 
+  /**
+   * ActionListener applied to buttons in JTable
+   * If a button is pressed within the table,
+   * the row of the button is return to the seating page.
+   * Seating page is displayed
+   */ 
   Action select = new AbstractAction() {
     public void actionPerformed(ActionEvent e) {
       int modelRow = Integer.valueOf(e.getActionCommand());
