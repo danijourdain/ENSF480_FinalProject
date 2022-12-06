@@ -59,6 +59,7 @@ public class CheckoutPage implements ActionListener {
 
     tableModel = new DefaultTableModel(data, columnNames);
     movieTable = new JTable(tableModel);
+    movieTable.getTableHeader().setReorderingAllowed(false);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
     movieScroll = new JScrollPane(movieTable);
   }

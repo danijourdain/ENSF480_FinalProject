@@ -67,7 +67,7 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
     } catch (Exception f) {
       JOptionPane.showMessageDialog(mainFrame, f.getMessage());
     }
-    Object[][] data = { { Mtitle, date, time, duration } };
+    Object[][] data = {{Mtitle, date, time, duration}};
 
     tableModel = new DefaultTableModel(data, columnNames) {
       @Override
@@ -75,7 +75,9 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
         return false;
       }
     };
+
     movieTable = new JTable(tableModel);
+    movieTable.getTableHeader().setReorderingAllowed(false);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
   }
 

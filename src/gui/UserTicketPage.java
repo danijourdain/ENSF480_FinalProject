@@ -64,6 +64,7 @@ public class UserTicketPage implements ActionListener {
       }
     };
     ticketTable = new JTable(ticketTableModel);
+    ticketTable.getTableHeader().setReorderingAllowed(false);
     ticketTable.getColumnModel().getColumn(4).setMaxWidth(50);
     ticketTable.getColumnModel().getColumn(0).setMinWidth(200);
     ticketScroll = new JScrollPane(ticketTable);
