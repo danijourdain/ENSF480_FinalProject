@@ -66,7 +66,7 @@ public class UserTicketPage implements ActionListener {
     ticketTable = new JTable(ticketTableModel);
     ticketTable.getTableHeader().setReorderingAllowed(false);
     ticketTable.getTableHeader().setResizingAllowed(false);
-    ticketTable.getColumnModel().getColumn(4).setMaxWidth(50);
+    ticketTable.getColumnModel().getColumn(4).setMinWidth(50);
     ticketTable.getColumnModel().getColumn(0).setMinWidth(200);
     ticketScroll = new JScrollPane(ticketTable);
 
@@ -89,6 +89,8 @@ public class UserTicketPage implements ActionListener {
       }
     };
     creditTable = new JTable(credittableModel);
+    creditTable.getTableHeader().setReorderingAllowed(false);
+    creditTable.getTableHeader().setResizingAllowed(false);
     creditScroll = new JScrollPane(creditTable);
   }
 
