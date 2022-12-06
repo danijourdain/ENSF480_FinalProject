@@ -8,20 +8,32 @@ import object.User;
 
 import java.sql.*;
 import java.time.LocalDate;
-
+/**
+A singleton control class repsonsible 
+for simulating financial transactions in the system
+@author Dani Jourain
+@author Nicholas Lam
+@author Carter Marcelo
+@author Oliver Molina
+@since 1.0
+ */
 public class FinanceManager {
     private static FinanceManager instance;
     private final String CARD_REGEX = "^[0-9]{16}$";
 
-    /**
-     * Uses Luhn's algorithm to verify the card number
-     * 
-     * @param number the credit card number
-     * @return true if the number is valid, false otherwise
-     */
+   /**
+    * Constructor to initialize instance
+    */
     private FinanceManager() {
     }
 
+    /**
+     * Function to verify if a credit card number is valid or not. NOTE: this function
+     * only checks if the credit card is a valid possible card. It does not check if the card actually
+     * exists and it does not charge the card
+     * @param number the credit card number to be validated in String form
+     * @return boolean true or false if the card is valid or not
+     */
     private boolean verify(String number) {
         if (!number.matches(CARD_REGEX)) {
             System.out.println("false");
@@ -41,13 +53,22 @@ public class FinanceManager {
         return (sum % 10 == 0);
     }
 
+    /** */
     public static FinanceManager getInstance() {
         if (instance == null) {
             instance = new FinanceManager();
         }
         return instance;
     }
-
+    
+    /**
+     * Determines if sufficient credit is available for a {@code User}object
+     * @param price the ticket price
+     * @param user a {@code User} object corresponding 
+     to the current user of the system
+     * @return <b>true</b> if sufficient credit was available in the user's account;<br>
+     <b>false</b> if insufficient credit was available
+     */
     public boolean checkCredit(int price, User user) {
         int r = applyCredit(price, user);
         if (r == 0) {
@@ -56,7 +77,13 @@ public class FinanceManager {
             return false;
         }
     }
-
+    
+    /**
+     * Applies a user's credit towards a transaction by order of expiry date
+     * @param price amount of credit to be deducted
+     * @param user The user who's credit will be deducted by price
+     * @return  returns the amount that could not be deducted
+     */
     public int applyCredit(int price, User user) {
         try {
             Connection connection = Database.getConnection();
@@ -99,6 +126,11 @@ public class FinanceManager {
         }
     }
 
+    /**
+     * Function to calculate the total amount of credit a User has available to them
+     * @param User u is the {@code User} object to retrieve credit
+     * @return the credit
+     */
     public int getTotalUserCredit(User u) {
         int amount = 0;
         for (var c : u.getCredits()) {
@@ -108,25 +140,34 @@ public class FinanceManager {
     }
 
     /**
-     * 
-     * @param price
-     * @param u
-     * @param cardNo
+     * Function do complete a transaction for a user. If the user has enough credit to pay
+     * for the purchsase, only the credit will be used. Otherwise any remaining credit will
+     * be used up and the credit card will be "charged" the remaining amount.
+     * @param price The dollar amount of the transaction
+     * @param u The user who is making the transaction
+     * @param cardNo    The user's credit card number
      * @return value charged to card if successful, else -1
      */
-    public int doTransaction(int price, User u, String cardNo) {
-        int remAmt = applyCredit(price, u);
-
-        if (remAmt > 0) {
-            verify(cardNo);
-            return remAmt;
+    public int doTransaction(int price, User u, String cardNo) throws SQLException {
+        // boolean hasCredit = checkCredit(price, u);
+        if (!verify(cardNo)) {
+            throw new SQLException("Invalid Credit Card Number");
+        } else {
+            int remAmt = applyCredit(price, u);
+            if (remAmt <= 0) {
+                return 0;
+            } else
+                return remAmt;
         }
-        if (remAmt <= 0) {
-            return 0;
-        } else
-            return -1;
     }
 
+    /**
+     * Function to complete a refund for a user. Adds the desired amount of credit
+     * to their account, expiring one year from the current date. 
+     * @param price The amount of credit to be added to the user's account
+     * @param user The user to add the credit to
+     * @throws SQLException If the credit cannot be inserted into the Schema, throw exception
+     */
     public void issueRefund(int price, User user) throws SQLException {
         String sql = "INSERT INTO Credit(Email, IssueDate, Amount) VALUES (?, ?, ?)";
         Connection conn = Database.getConnection();

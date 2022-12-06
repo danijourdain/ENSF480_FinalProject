@@ -32,6 +32,13 @@ public class CheckoutPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
+  /**
+   * @param mainFrame GUI main display
+   * @param puchased  Arraylist of selected tickets/seats
+   * @param user      The user currently logged it
+   *
+   * Setup and display checkout page
+   */
   CheckoutPage(JFrame mainFrame, ArrayList<Ticket> purchased, User user) {
     this.mainFrame = mainFrame;
     this.purchased = purchased;
@@ -44,7 +51,10 @@ public class CheckoutPage implements ActionListener {
     mainFrame.validate();
   }
 
-  private void tableSet() // USING THE INDEXES PASS, GET TICKET ITEMS AND ADD TO TABLE
+  /**
+   * Set up table displayed purchased tickets
+   */
+  private void tableSet() 
   {
     String[] columnNames = { "Movie", "Date", "Time", "Seat", "Price" };
     Object[][] data = new Object[purchased.size()][5];
@@ -65,6 +75,9 @@ public class CheckoutPage implements ActionListener {
     movieScroll = new JScrollPane(movieTable);
   }
 
+  /**
+   * Add all elements to the JPanel which will be displayed
+   */
   private void checkoutPageSetup() {
     gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -163,6 +176,13 @@ public class CheckoutPage implements ActionListener {
     checkoutPage.add(purchase, gbc);
   }
 
+  /**
+   * @param e Trigger of an event
+   *
+   * Based on the trigger, perform a function
+   * main - Return to main menu
+   * purchase - Perform purchase function on tickets
+   */
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == main) {
       new MainPage(mainFrame, user);

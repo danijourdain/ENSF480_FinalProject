@@ -25,6 +25,13 @@ public class RegisterPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
+  /**
+   * @param mainFrame GUI main display
+   * @param puchased  Arraylist of selected tickets/seats
+   * @param user      The user currently logged it
+   *
+   * Setup and display register page
+   */
   RegisterPage(JFrame mainFrame, User user) {
     JOptionPane.showMessageDialog(mainFrame, "Your card will be charged $20 yearly");
     this.mainFrame = mainFrame;
@@ -37,6 +44,9 @@ public class RegisterPage implements ActionListener {
     mainFrame.validate();
   }
 
+  /**
+   * Add all elements to the JPanel which will be displayed
+   */
   private void loginPageSetup() {
     gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -127,6 +137,14 @@ public class RegisterPage implements ActionListener {
     registerPage.add(register, gbc);
   }
 
+  /**
+   * @param e Trigger of an event
+   *
+   * Based on the trigger, perform a function
+   * register - Perform registration function and 
+   * display main page if successful
+   * main - Display main page
+   */
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == register) {
       String userFName = Fname.getText();

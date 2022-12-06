@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.*;
 import object.*;
 
-public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS VARIABLE
+public class SeatingPage implements ActionListener
 {
   GridBagConstraints gbc = new GridBagConstraints();
 
@@ -30,6 +30,13 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
 
   JLabel spacer = new JLabel();
 
+  /**
+   * @param mainFrame GUI main display
+   * @param user      The user currently logged it
+   * @param showtime  The selected showtime
+   *
+   * Setup and display seating page
+   */
   SeatingPage(JFrame mainFrame, User user, Showtime showtime) {
     this.mainFrame = mainFrame;
     this.user = user;
@@ -42,7 +49,10 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
     mainFrame.validate();
   }
 
-  private void tableSet() // USE SHOWTIME TO PULL SEAT INFORMATION. ADJUST PURCHASED ARRAY
+  /**
+   * Set up table displayed purchased tickets
+   */
+  private void tableSet()
   {
     TicketManager ticketM = TicketManager.getInstance();
     tickets = ticketM.getShowtimeTickets(showtime);
@@ -82,6 +92,9 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
   }
 
+  /**
+   * Add all elements to the JPanel which will be displayed
+   */
   private void seatingPageSetup() {
     gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -133,6 +146,14 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
     seatingPage.add(checkout, gbc);
   }
 
+  /**
+   * @param e Trigger of an event
+   *
+   * Based on the trigger, perform a function
+   * main - Display main page
+   * checkout - Generate ArrayList of selected tickets 
+   * and display checkout page
+   */
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == main) {
       new MainPage(mainFrame, user);
@@ -144,6 +165,11 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
     }
   }
 
+  /**
+   * ActionListener applied to buttons in JTable
+   * If a button is pressed within the table,
+   * the row of the button is returned to a array
+   */
   ActionListener listener = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {

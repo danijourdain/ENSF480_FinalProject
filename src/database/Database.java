@@ -3,6 +3,9 @@ import java.sql.*;
 
 /**
  * @author Carter Marcelo
+ * @author Danielle Jourdain
+ * @author Nicholas Lam
+ * @author Oliver Molina
  * @version 1.0
  * @since 1.0
  *        A singleton class that represents the database

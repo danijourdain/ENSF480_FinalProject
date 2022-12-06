@@ -21,6 +21,11 @@ public class LoginPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
+  /**
+   * @param mainFrame GUI main display
+   *
+   * Setup and display login page
+   */
   public LoginPage(JFrame mainFrame) {
     this.mainFrame = mainFrame;
 
@@ -31,6 +36,9 @@ public class LoginPage implements ActionListener {
     mainFrame.validate();
   }
 
+  /**
+   * Add all elements to the JPanel which will be displayed
+   */
   private void loginPageSetup() {
     gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -91,6 +99,13 @@ public class LoginPage implements ActionListener {
     loginPage.add(login, gbc);
   }
 
+  /**
+   * @param e Trigger of an event
+   *
+   * Based on the trigger, perform a function
+   * signUp - Perform sign up function
+   * login - Perform login function
+   */
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == signUp) {
       String userEmail = email.getText();

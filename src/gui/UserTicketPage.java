@@ -29,6 +29,12 @@ public class UserTicketPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
+  /**
+   * @param mainFrame GUI main display
+   * @param user      The user currently logged it
+   *
+   * Setup and display account page
+   */
   UserTicketPage(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
@@ -40,7 +46,10 @@ public class UserTicketPage implements ActionListener {
     mainFrame.validate();
   }
 
-  private void tableSet() // PULL USER TICKET INFO FOR TABLE
+  /**
+   * Set up table for user tickets
+   */
+  private void tableSet() 
   {
     TicketManager ticketM = TicketManager.getInstance();
     userTickets = ticketM.getUserTickets(user);
@@ -94,6 +103,9 @@ public class UserTicketPage implements ActionListener {
     creditScroll = new JScrollPane(creditTable);
   }
 
+  /**
+   * Add all elements to the JPanel which will be displayed
+   */
   private void ticketMenuSetup() {
     gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -144,12 +156,23 @@ public class UserTicketPage implements ActionListener {
     ticketPage.add(creditScroll, gbc);
   }
 
+  /**
+   * @param e Trigger of an event
+   *
+   * Based on the trigger, perform a function
+   * main - Display main page
+   */
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == main) {
       new MainPage(mainFrame, user);
     }
   }
 
+  /**
+   * ActionListener applied to buttons in JTable
+   * If a button is pressed within the table,
+   * the row of the button is returned to refund method.
+   */ 
   Action select = new AbstractAction() {
     public void actionPerformed(ActionEvent e) {
       int n = JOptionPane.showConfirmDialog(null, "Confirm Cancellation", "", JOptionPane.YES_NO_OPTION);

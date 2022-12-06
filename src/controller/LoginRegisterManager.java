@@ -7,7 +7,8 @@ import database.Database;
 import object.User;
 
 /**
- * @author Carter Marcelo
+    
+ * @author Carter Marcelo, Danielle Jourdain, Oliver Molina, Nicholas Lam
  *         control class to facilitate login/logout. Can store a single user
  *         variable at a time.
  * 
@@ -15,16 +16,19 @@ import object.User;
 public class LoginRegisterManager {
     private static LoginRegisterManager instance;
 
+    /**
+     * Private constructor to initialize the single instance
+     */
     private LoginRegisterManager() {
     }
 
     /**
+     * Function to check a user's credentials against those stored in the database.
      * @param email    the user's email
      * @param password the user's password;
      * @return a new {@code User object if the }
-     * @throws SQLException
+     * @throws SQLException Thrown if something goes wrong
      */
-
     public User login(String email, String password) throws SQLException {
 
         Connection connection = Database.getConnection();
@@ -84,7 +88,14 @@ public class LoginRegisterManager {
             throw new SQLException("Something went wrong");
         }
     }
-
+    
+    /**
+     * Function to renew a user's registration. If the user has enough credit, $20 will be removed.
+     * Otherwise, they will be "charged" on their credit card
+     * @param u The user whos registration status is to be renewed
+     * @return  Integer amount of dollars that was charged to the user's credit card
+     * @throws SQLException
+     */
     public int renewUser(User u) throws SQLException {
         Connection connection = Database.getConnection();
 
@@ -104,6 +115,11 @@ public class LoginRegisterManager {
         return res;
     }
 
+    /**
+     * Function to change a user from a Registered user to a Guest user.
+     * @param u  The User to be deregistered if chose not to, or cannot pay for their registration renewal
+     * @throws SQLException
+     */
     public void deregisterUser(User u) throws SQLException {
         u.setType("Guest");
 
@@ -139,6 +155,7 @@ public class LoginRegisterManager {
     }
 
     /**
+     * Function to create a new Guest User
      * @param email The user's email
      * @param fname The user's first name
      * @param lname The user's password
@@ -184,6 +201,15 @@ public class LoginRegisterManager {
         }
     }
 
+    /**
+     * Function to change a user from a Guest user to a Registered User
+     * @param u The user that is being registered
+     * @param fname The user's first name
+     * @param lname The user's last name
+     * @param cardNo    The user's credit card number
+     * @param StAddress The user's street address
+     * @throws SQLException  If anything went wrong while accessing the database
+     */
     public void registerUser(User u, String fname, String lname, String cardNo, String StAddress) throws SQLException {
         Connection connection = Database.getConnection();
         String insert = "INSERT INTO RegisteredUser(Email, Fname, Lname, StAddress, CreditCard, ExpDate) VALUES(?,?,?,?,?,?)";

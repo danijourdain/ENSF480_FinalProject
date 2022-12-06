@@ -21,6 +21,14 @@ public class MainPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
+  /**
+   * @param mainFrame GUI main display
+   * @param user      The user currently logged it
+   *
+   * Setup and display main page
+   * If a user is of type "Expired", a pop-up will be generated
+   * asking the user if they would like to renew their registration
+   */
   public MainPage(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
@@ -53,6 +61,9 @@ public class MainPage implements ActionListener {
     mainFrame.validate();
   }
 
+  /**
+   * Add all elements to the JPanel which will be displayed
+   */
   private void mainMenuSetup() {
     gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -110,6 +121,14 @@ public class MainPage implements ActionListener {
     mainPage.add(logout, gbc);
   }
 
+  /**
+   * @param e Trigger of an event
+   *
+   * Based on the trigger, perform a function
+   * tickets - Display ticket page
+   * register - Display registration page
+   * logout - Display logout page (no user object passed)
+   */
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == tickets) {
       new TicketPage(mainFrame, user);

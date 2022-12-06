@@ -14,6 +14,11 @@ public class User {
     private ArrayList<Credit> credit;
     private String type; // Guest for guest, Registered for Registered
 
+    /**
+     * Constructor for the User object
+     * @param email The email for the user
+     * @param password The password for the user
+     */
     public User(String email, String password) {
         this.email = email;
         this.password = password;
@@ -27,11 +32,6 @@ public class User {
         // users are only constructed when they are a guest user
     }
 
-    /**
-     * A copy constructor for the class {@code user}
-     * 
-     * @param u is the <b>reference</b> object
-     */
     public String getEmail() {
         return this.email;
     }
