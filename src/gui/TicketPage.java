@@ -26,6 +26,12 @@ public class TicketPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
+  /**
+   * @param mainFrame GUI main display
+   * @param user      The user currently logged it
+   *
+   * Setup and display ticket page
+   */
   TicketPage(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
@@ -37,6 +43,9 @@ public class TicketPage implements ActionListener {
     mainFrame.validate();
   }
 
+  /**
+   * Set up table for tickets
+   */
   private void tableSet() {
     TicketManager ticketM = TicketManager.getInstance();
     showtimes = ticketM.getShowtimes();
@@ -82,6 +91,9 @@ public class TicketPage implements ActionListener {
     buttonColumn.setMnemonic(KeyEvent.VK_D);
   }
 
+  /**
+   * Add all elements to the JPanel which will be displayed
+   */
   private void ticketMenuSetup() {
     gbc.anchor = GridBagConstraints.NORTH;
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -126,6 +138,14 @@ public class TicketPage implements ActionListener {
     ticketPage.add(movieScroll, gbc);
   }
 
+  /**
+   * @param e Trigger of an event
+   *
+   * Based on the trigger, perform a function
+   * main - Display main page
+   * checkout - Generate ArrayList of selected tickets 
+   * and display checkout page
+   */
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == main) {
       new MainPage(mainFrame, user);

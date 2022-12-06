@@ -10,6 +10,9 @@ import object.*;
 public class TicketManager {
     private static TicketManager instance;
 
+    /**
+     * Private constructor to inialize the instance
+     */
     private TicketManager() {}
 
     public static TicketManager getInstance() {
@@ -19,6 +22,12 @@ public class TicketManager {
         return instance;
     }
 
+    /**
+     * Getter for a movie object associated with a desired movie title
+     * @param MTitle A {@code String} corresponding to the movie title
+     * @return a {@code Movie} object containing the details of the movie with the same title
+     * @throws SQLException if something goes wrong
+     */
     public Movie getMovie(String MTitle) throws SQLException {
         Connection connection = Database.getConnection();
         String movie_query = "SELECT * FROM Movie WHERE Movie.Title = ?";
@@ -29,6 +38,10 @@ public class TicketManager {
         return new Movie(result.getString(1), result.getInt(2), result.getDate(3).toLocalDate());
     }
 
+    /**
+     * Getter for all showtimes stored in the database.
+     * @return An ArrayList of Showtimes corresponding to all possible showtimes in the database
+     */
     public ArrayList<Showtime> getShowtimes() {
         try {
             Connection connection = Database.getConnection();
@@ -50,6 +63,12 @@ public class TicketManager {
 
     }
 
+    /**
+     * Function to get the tickets associated with a specific showtime.
+     * @param showtime a {@code Showtime} object to retrieve tickets
+     * @return an {@code ArrayList} of {@code Ticket} objects for the passed {@code Showtime} object
+     * @see java.util.ArrayList
+     */
     public ArrayList<Ticket> getShowtimeTickets(Showtime showtime) {
         try {
             Connection connection = Database.getConnection();
@@ -72,6 +91,11 @@ public class TicketManager {
         }
     }
 
+    /**
+     * Gets the user's tickets
+     * @param u the {@code User} object corresponding to the current user
+    * @return an {@code ArrayList} of {@code Ticket} objects in possession of the user
+     */
     public ArrayList<Ticket> getUserTickets(User u) {
         try {
             Connection connection = Database.getConnection();
@@ -111,6 +135,14 @@ public class TicketManager {
         }
     }
 
+    /**
+     * Facilitates the purchasing of ticket(s) for a movie
+     * @param tickets The tickets that the user wishes to purchase
+     * @param u a {@code User} object corresponding to the current user of the system
+     * @param cardNo the credit card number of the user
+     * @return the amount charged to the credit card passed to this function
+     * @throws SQLException if an error occurs while accessing the database
+     */
     public int purchaseTickets(ArrayList<Ticket> tickets, User u, String cardNo) throws SQLException {
         int total_price = 0;
 
@@ -152,6 +184,13 @@ public class TicketManager {
         return chargeAmount;
     }
 
+    /**
+     * Simulates the process of refunding a user's ticket
+     * @param t is the ticket being refunded, as a {@code Ticket} object
+     * @param u is the user requesting the refund, as a {@code User} object
+     * @throws SQLException if an error occurs during the database interactions
+     executed by the method.
+     */
     public void refundTicket(Ticket t, User u) throws SQLException {
         try {
             Showtime s = t.getShowtime();

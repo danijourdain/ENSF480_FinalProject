@@ -10,6 +10,15 @@ public class Showtime {
     private int seats;
     private String TName;
     
+    /**
+     * Constructor for the Showtime object
+     * @param showDateTime  The date and time of the movie showing   
+     * @param mTitle        The title of the movie
+     * @param rNumber       The room number of the TheatreRoom the showtime is held in
+     * @param premiumSeats  The amount of seats reserved for premium user's early access
+     * @param seats         The amount of regular user seats
+     * @param tName         The name of the theatre hosting this showing
+     */
     public Showtime(LocalDateTime showDateTime, String mTitle, int rNumber, int premiumSeats, int seats, String tName) {
         this.ShowDateTime = showDateTime;
         this.MTitle = mTitle;
