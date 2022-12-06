@@ -5,7 +5,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import java.util.*;
-//import java.sql.*;
+
+import controller.*;
+import object.*;
 
 public class CheckoutPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();

@@ -1,3 +1,5 @@
+package object;
+
 public class Ticket {
     private final int TICKETNO;
     private final int PRICE;

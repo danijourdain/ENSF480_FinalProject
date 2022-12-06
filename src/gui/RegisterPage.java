@@ -2,10 +2,9 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//import java.util.*;
-//import java.sql.*;
 
-import LoginRegisterManager;
+import controller.*;
+import object.*;
 
 public class RegisterPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();

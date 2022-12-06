@@ -1,3 +1,4 @@
+package object;
 public class TheatreRoom{
     public final int CAPCACITY;
     public final int ROOM_NO;

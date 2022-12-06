@@ -1,6 +1,11 @@
+package controller;
+
 import java.sql.*;
 import java.time.*;
 import java.util.*;
+
+import database.Database;
+import object.*;
 
 public class TicketManager {
     private static TicketManager instance;

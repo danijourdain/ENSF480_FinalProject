@@ -1,9 +1,11 @@
 package gui;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import LoginRegisterManager;
+import controller.*;
+import object.*;
 
 public class MainMenu implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
@@ -19,7 +21,7 @@ public class MainMenu implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  MainMenu(JFrame mainFrame, User user) {
+  public MainMenu(JFrame mainFrame, User user) {
     this.mainFrame = mainFrame;
     this.user = user;
     if (user.getType().equals("Expired")) {

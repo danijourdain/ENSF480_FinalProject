@@ -3,11 +3,9 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//import java.util.*;
-//import java.sql.*;
 
-import control;
-import MainMenu;
+import controller.*;
+import object.*;
 
 public class LoginPage implements ActionListener {
   GridBagConstraints gbc = new GridBagConstraints();
@@ -23,7 +21,7 @@ public class LoginPage implements ActionListener {
 
   JLabel spacer = new JLabel();
 
-  LoginPage(JFrame mainFrame) {
+  public LoginPage(JFrame mainFrame) {
     this.mainFrame = mainFrame;
 
     loginPageSetup();

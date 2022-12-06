@@ -1,3 +1,4 @@
+package object;
 import java.util.*;
 public class MovieTheatre{
     private String locName;
