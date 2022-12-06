@@ -78,6 +78,7 @@ public class SeatingPage implements ActionListener // NEED TO ADD SHOWTIME CLASS
 
     movieTable = new JTable(tableModel);
     movieTable.getTableHeader().setReorderingAllowed(false);
+    movieTable.getTableHeader().setResizingAllowed(false);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
   }
 

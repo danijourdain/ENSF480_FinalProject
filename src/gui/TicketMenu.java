@@ -73,6 +73,7 @@ public class TicketMenu implements ActionListener {
       }
     };
     movieTable.getTableHeader().setReorderingAllowed(false);
+    movieTable.getTableHeader().setResizingAllowed(false);
     movieTable.getColumnModel().getColumn(4).setMinWidth(50);
     movieTable.getColumnModel().getColumn(0).setMinWidth(200);
     movieScroll = new JScrollPane(movieTable);
