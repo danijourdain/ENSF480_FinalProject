@@ -162,7 +162,7 @@ public class CheckoutPage implements ActionListener {
     gbc.gridx = 1;
     gbc.gridy = 4;
     creditCard.setPreferredSize(new Dimension(50, 30));
-    if (user.getType().equals("Registered")) {
+    if(user.getType().equals("Registered")) {
       creditCard.setText(user.getCreditCard());
     }
     checkoutPage.add(creditCard, gbc);
