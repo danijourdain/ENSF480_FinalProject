@@ -148,17 +148,17 @@ public class FinanceManager {
      * @param cardNo    The user's credit card number
      * @return value charged to card if successful, else -1
      */
-    public int doTransaction(int price, User u, String cardNo) {
-        int remAmt = applyCredit(price, u);
-
-        if (remAmt > 0) {
-            verify(cardNo);
-            return remAmt;
+    public int doTransaction(int price, User u, String cardNo) throws SQLException {
+        // boolean hasCredit = checkCredit(price, u);
+        if (!verify(cardNo)) {
+            throw new SQLException("Invalid Credit Card Number");
+        } else {
+            int remAmt = applyCredit(price, u);
+            if (remAmt <= 0) {
+                return 0;
+            } else
+                return remAmt;
         }
-        if (remAmt <= 0) {
-            return 0;
-        } else
-            return -1;
     }
 
     /**
