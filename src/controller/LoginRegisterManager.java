@@ -74,6 +74,11 @@ public class LoginRegisterManager {
 
                 LocalDate expDate = regResult.getDate(6).toLocalDate();
 
+                u.setFname(regResult.getString(2));
+                u.setLname(regResult.getString(3));
+                u.setAddress(regResult.getString(4));
+                u.setCreditCard(regResult.getString(5));
+
                 if (expDate.isBefore(LocalDate.now())) {
                     FinanceManager f = FinanceManager.getInstance();
                     if (!f.checkCredit(20, u)) {
